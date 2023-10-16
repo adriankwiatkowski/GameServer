@@ -1,5 +1,6 @@
 package com.example.gameserver;
 
+import com.example.gameserver.model.Authority;
 import com.example.gameserver.model.domain.Role;
 import com.example.gameserver.model.domain.User;
 import com.example.gameserver.repository.RoleRepository;
@@ -26,22 +27,22 @@ public class DatabaseInit implements ApplicationRunner {
     @Transactional
     @Override
     public void run(ApplicationArguments args) {
-        saveRole("USER");
-        saveRole("ADMIN");
+        saveRole(Authority.ROLE_USER);
+        saveRole(Authority.ROLE_ADMIN);
 
         {
             var user = new User();
             user.setUsername("user");
             user.setPassword(passwordEncoder.encode("user"));
-            user.addRole(roleRepository.findByName("USER").get());
+            user.addRole(roleRepository.findByName(Authority.ROLE_USER).get());
             saveUser(user);
         }
         {
             var user = new User();
             user.setUsername("admin");
             user.setPassword(passwordEncoder.encode("admin"));
-            user.addRole(roleRepository.findByName("USER").get());
-            user.addRole(roleRepository.findByName("ADMIN").get());
+            user.addRole(roleRepository.findByName(Authority.ROLE_USER).get());
+            user.addRole(roleRepository.findByName(Authority.ROLE_ADMIN).get());
             saveUser(user);
         }
     }

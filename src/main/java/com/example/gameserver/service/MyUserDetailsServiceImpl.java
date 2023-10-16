@@ -1,5 +1,6 @@
 package com.example.gameserver.service;
 
+import com.example.gameserver.model.Authority;
 import com.example.gameserver.model.MyUserDetails;
 import com.example.gameserver.model.domain.Role;
 import com.example.gameserver.model.domain.User;
@@ -56,7 +57,7 @@ public class MyUserDetailsServiceImpl implements MyUserDetailsService {
             throw new Exception(String.format("User already exists with username: %s", username));
         }
 
-        var userRole = findRoleByNameOrCreate(Role.USER);
+        var userRole = findRoleByNameOrCreate(Authority.ROLE_USER);
 
         var user = new User();
         user.setUsername(username);

@@ -14,9 +14,6 @@ import lombok.Setter;
 @Table(name = "role")
 public class Role {
 
-    public static final String USER = "USER";
-    public static final String ADMIN = "ADMIN";
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;

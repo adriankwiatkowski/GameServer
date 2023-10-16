@@ -1,5 +1,6 @@
 package com.example.gameserver.controller;
 
+import com.example.gameserver.model.Authority;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,7 +15,7 @@ public class GameController {
         return "loggedOnly";
     }
 
-    @PreAuthorize("hasAuthority('SCOPE_ADMIN')")
+    @PreAuthorize(Authority.SCOPE_ADMIN)
     @GetMapping("/admin")
     public String adminOnly() {
         return "adminOnly";
