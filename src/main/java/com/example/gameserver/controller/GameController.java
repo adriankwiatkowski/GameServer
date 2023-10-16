@@ -1,5 +1,6 @@
 package com.example.gameserver.controller;
 
+import com.example.gameserver.model.Authority;
 import com.example.gameserver.model.domain.Game;
 import com.example.gameserver.model.dto.GameDto;
 import com.example.gameserver.service.GameService;
@@ -34,19 +35,19 @@ public class GameController {
         return gameService.getGame(id);
     }
 
-    @PreAuthorize("hasAuthority('SCOPE_ADMIN')")
+    @PreAuthorize(Authority.SCOPE_ADMIN)
     @PostMapping
     public Game post(@RequestBody @Valid GameDto gameDto) {
         return gameService.upsert(gameDto);
     }
 
-    @PreAuthorize("hasAuthority('SCOPE_ADMIN')")
+    @PreAuthorize(Authority.SCOPE_ADMIN)
     @PutMapping
     public Game put(@RequestBody @Valid GameDto gameDto) {
         return gameService.upsert(gameDto);
     }
 
-    @PreAuthorize("hasAuthority('SCOPE_ADMIN')")
+    @PreAuthorize(Authority.SCOPE_ADMIN)
     @DeleteMapping("/{id}")
     public void delete(@PathVariable Integer id) {
         gameService.deleteGame(id);
