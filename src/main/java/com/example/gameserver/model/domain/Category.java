@@ -1,5 +1,6 @@
 package com.example.gameserver.model.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
@@ -28,6 +29,7 @@ public class Category {
     @Column(name = "name", nullable = false, unique = true)
     private String name;
 
+    @JsonIgnore
     @ManyToMany
     @JoinTable(name = "game_category",
             joinColumns = @JoinColumn(name = "category_id"),

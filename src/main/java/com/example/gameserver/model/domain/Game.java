@@ -64,19 +64,19 @@ public class Game {
     @Column(name = "price", nullable = false, precision = 10, scale = 2)
     private BigDecimal price;
 
-    @ManyToMany(mappedBy = "games")
+    @ManyToMany(mappedBy = "games", fetch = FetchType.EAGER)
     private Set<Category> categories = new LinkedHashSet<>();
 
-    @ManyToMany(mappedBy = "games")
+    @ManyToMany(mappedBy = "games", fetch = FetchType.EAGER)
     private Set<Developer> developers = new LinkedHashSet<>();
 
-    @ManyToMany(mappedBy = "games")
+    @ManyToMany(mappedBy = "games", fetch = FetchType.EAGER)
     private Set<Genre> genres = new LinkedHashSet<>();
 
-    @ManyToMany(mappedBy = "games")
+    @ManyToMany(mappedBy = "games", fetch = FetchType.EAGER)
     private Set<Platform> platforms = new LinkedHashSet<>();
 
-    @ManyToMany(mappedBy = "games")
+    @ManyToMany(mappedBy = "games", fetch = FetchType.EAGER)
     private Set<Publisher> publishers = new LinkedHashSet<>();
 
 }
