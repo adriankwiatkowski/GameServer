@@ -1,4 +1,4 @@
-package com.example.gameserver.model.request;
+package com.example.gameserver.model.dto;
 
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;

@@ -1,7 +1,7 @@
 package com.example.gameserver.controller;
 
 import com.example.gameserver.model.domain.Game;
-import com.example.gameserver.model.request.GameDto;
+import com.example.gameserver.model.dto.GameDto;
 import com.example.gameserver.service.GameService;
 import jakarta.validation.Valid;
 import org.springframework.security.access.prepost.PreAuthorize;
