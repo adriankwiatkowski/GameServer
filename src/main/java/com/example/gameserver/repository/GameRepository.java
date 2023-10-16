@@ -1,0 +1,13 @@
+package com.example.gameserver.repository;
+
+import com.example.gameserver.model.domain.Game;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import java.util.List;
+
+public interface GameRepository extends JpaRepository<Game, Integer> {
+
+    List<Game> findAllByOrderByNameAsc();
+
+    List<Game> findAllByNameContainingIgnoreCaseOrderByNameAsc(String name);
+}
