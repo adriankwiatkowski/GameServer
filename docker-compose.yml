@@ -1,0 +1,38 @@
+version: '3.8'
+
+services:
+  server:
+    build: ./server
+    restart: always
+    ports:
+      - "8080:8080"
+    networks:
+      - backend
+    depends_on:
+      - db
+    environment:
+      MYSQL_HOST: db
+      MYSQL_PORT: 3306
+      MYSQL_USERNAME: admin
+      MYSQL_PASSWORD: admin
+  db:
+    build: ./db
+    ports:
+      - "3306:3306"
+    command: --default-authentication-plugin=mysql_native_password
+    restart: always
+    environment:
+      MYSQL_ALLOW_EMPTY_PASSWORD: "true"
+      MYSQL_USER: admin
+      MYSQL_PASSWORD: admin
+      MYSQL_DATABASE: game
+    networks:
+      - backend
+    volumes:
+      - mysql_db:/var/lib/mysql
+
+volumes:
+  mysql_db:
+
+networks:
+  backend:
