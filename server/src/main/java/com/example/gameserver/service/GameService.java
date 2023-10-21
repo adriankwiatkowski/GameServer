@@ -36,30 +36,37 @@ public class GameService {
         this.publisherRepository = publisherRepository;
     }
 
-    public List<Game> getAllGames() {
-        return gameRepository.findAllByOrderByNameAsc();
+    public List<GameDto> getAllGames() {
+        var games = gameRepository.findAllByOrderByNameAsc();
+        return games.stream()
+                .map(GameDto::from)
+                .collect(Collectors.toList());
     }
 
-    public List<Game> getAllGamesByName(String name) {
-        return gameRepository.findAllByNameContainingIgnoreCaseOrderByNameAsc(name);
+    public List<GameDto> getAllGamesByName(String name) {
+        var games = gameRepository.findAllByNameContainingIgnoreCaseOrderByNameAsc(name);
+        return games.stream()
+                .map(GameDto::from)
+                .collect(Collectors.toList());
     }
 
-    public Game getGame(Integer id) {
-        return gameRepository.findById(id).orElseThrow(EntityNotFoundException::new);
+    public GameDto getGame(Integer id) {
+        var game = gameRepository.findById(id).orElseThrow(EntityNotFoundException::new);
+        return GameDto.from(game);
     }
 
     @Transactional(isolation = Isolation.REPEATABLE_READ)
-    public Game insert(GameDto gameDto) {
+    public GameDto insert(GameDto gameDto) {
         gameDto.id(null);
         return upsert(gameDto);
     }
 
     @Transactional(isolation = Isolation.REPEATABLE_READ)
-    public Game update(GameDto gameDto) {
+    public GameDto update(GameDto gameDto) {
         return upsert(gameDto);
     }
 
-    private Game upsert(GameDto gameDto) {
+    private GameDto upsert(GameDto gameDto) {
         var game = new Game();
 
         game.setId(gameDto.id());
@@ -80,7 +87,7 @@ public class GameService {
 
         gameRepository.save(game);
 
-        return game;
+        return GameDto.from(game);
     }
 
     @Transactional(isolation = Isolation.REPEATABLE_READ)

@@ -1,7 +1,6 @@
 package com.example.gameserver.controller;
 
 import com.example.gameserver.model.Authority;
-import com.example.gameserver.model.domain.Game;
 import com.example.gameserver.model.dto.GameDto;
 import com.example.gameserver.service.GameService;
 import jakarta.validation.Valid;
@@ -21,29 +20,29 @@ public class GameController {
     }
 
     @GetMapping
-    public List<Game> getGames() {
+    public List<GameDto> getGames() {
         return gameService.getAllGames();
     }
 
     @GetMapping("/name/{name}")
-    public List<Game> getGamesByName(@PathVariable String name) {
+    public List<GameDto> getGamesByName(@PathVariable String name) {
         return gameService.getAllGamesByName(name);
     }
 
     @GetMapping("/{id}")
-    public Game get(@PathVariable Integer id) {
+    public GameDto get(@PathVariable Integer id) {
         return gameService.getGame(id);
     }
 
     @PreAuthorize(Authority.SCOPE_ADMIN)
     @PostMapping
-    public Game post(@RequestBody @Valid GameDto gameDto) {
+    public GameDto post(@RequestBody @Valid GameDto gameDto) {
         return gameService.insert(gameDto);
     }
 
     @PreAuthorize(Authority.SCOPE_ADMIN)
     @PutMapping
-    public Game put(@RequestBody @Valid GameDto gameDto) {
+    public GameDto put(@RequestBody @Valid GameDto gameDto) {
         return gameService.update(gameDto);
     }
 
