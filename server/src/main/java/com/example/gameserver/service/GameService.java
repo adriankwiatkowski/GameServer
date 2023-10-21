@@ -1,7 +1,7 @@
 package com.example.gameserver.service;
 
 import com.example.gameserver.model.domain.*;
-import com.example.gameserver.model.dto.GameDto;
+import com.example.gameserver.model.dto.*;
 import com.example.gameserver.repository.*;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.stereotype.Service;
@@ -36,41 +36,51 @@ public class GameService {
         this.publisherRepository = publisherRepository;
     }
 
-    public List<Game> getAllGames() {
-        return gameRepository.findAllByOrderByNameAsc();
+    public List<GameDto> getAllGames() {
+        var games = gameRepository.findAllByOrderByNameAsc();
+        return games.stream()
+                .map(GameDto::from)
+                .collect(Collectors.toList());
     }
 
-    public List<Game> getAllGamesByName(String name) {
-        return gameRepository.findAllByNameContainingIgnoreCaseOrderByNameAsc(name);
+    public List<GameDto> getAllGamesByName(String name) {
+        var games = gameRepository.findAllByNameContainingIgnoreCaseOrderByNameAsc(name);
+        return games.stream()
+                .map(GameDto::from)
+                .collect(Collectors.toList());
     }
 
-    public Game getGame(Integer id) {
-        return gameRepository.findById(id).orElseThrow(EntityNotFoundException::new);
+    public GameDto getGame(Integer id) {
+        var game = gameRepository.findById(id).orElseThrow(EntityNotFoundException::new);
+        return GameDto.from(game);
     }
 
     @Transactional(isolation = Isolation.REPEATABLE_READ)
-    public Game upsert(GameDto gameDto) {
-        var game = new Game();
+    public GameDto insert(GameDto gameDto) {
+        gameDto.setId(null);
+        return upsert(gameDto);
+    }
 
-        game.setId(gameDto.id());
-        game.setName(gameDto.name());
-        game.setDescription(gameDto.description());
-        game.setReleaseDate(gameDto.releaseDate());
-        game.setPositiveRatings(gameDto.positiveRatings());
-        game.setNegativeRatings(gameDto.negativeRatings());
-        game.setAveragePlaytime(gameDto.averagePlaytime());
-        game.setMedianPlaytime(gameDto.medianPlaytime());
-        game.setOwners(gameDto.owners());
-        game.setPrice(gameDto.price());
-        game.setCategories(getCategoriesByIds(gameDto.categoryIds()));
-        game.setDevelopers(getDevelopersByIds(gameDto.developerIds()));
-        game.setGenres(getGenresByIds(gameDto.genreIds()));
-        game.setPlatforms(getPlatformsByIds(gameDto.platformIds()));
-        game.setPublishers(getPublishersByIds(gameDto.publisherIds()));
+    @Transactional(isolation = Isolation.REPEATABLE_READ)
+    public GameDto update(GameDto gameDto) {
+        if (!gameRepository.existsById(gameDto.getId())) {
+            throw new EntityNotFoundException();
+        }
+
+        return upsert(gameDto);
+    }
+
+    private GameDto upsert(GameDto gameDto) {
+        var game = GameDto.toGame(gameDto,
+                this::getCategories,
+                this::getDevelopers,
+                this::getGenres,
+                this::getPlatforms,
+                this::getPublishers);
 
         gameRepository.save(game);
 
-        return game;
+        return GameDto.from(game);
     }
 
     @Transactional(isolation = Isolation.REPEATABLE_READ)
@@ -79,38 +89,38 @@ public class GameService {
         gameRepository.deleteById(id);
     }
 
-    private Set<Category> getCategoriesByIds(Set<Integer> ids) {
-        return ids
+    private Set<Category> getCategories(Set<CategoryDto> categories) {
+        return categories
                 .stream()
-                .map(id -> categoryRepository.findById(id).orElseThrow())
+                .map(category -> categoryRepository.findById(category.getId()).orElseThrow())
                 .collect(Collectors.toSet());
     }
 
-    private Set<Developer> getDevelopersByIds(Set<Integer> ids) {
-        return ids
+    private Set<Developer> getDevelopers(Set<DeveloperDto> developers) {
+        return developers
                 .stream()
-                .map(id -> developerRepository.findById(id).orElseThrow())
+                .map(developer -> developerRepository.findById(developer.getId()).orElseThrow())
                 .collect(Collectors.toSet());
     }
 
-    private Set<Genre> getGenresByIds(Set<Integer> ids) {
-        return ids
+    private Set<Genre> getGenres(Set<GenreDto> genres) {
+        return genres
                 .stream()
-                .map(id -> genreRepository.findById(id).orElseThrow())
+                .map(genre -> genreRepository.findById(genre.getId()).orElseThrow())
                 .collect(Collectors.toSet());
     }
 
-    private Set<Platform> getPlatformsByIds(Set<Integer> ids) {
-        return ids
+    private Set<Platform> getPlatforms(Set<PlatformDto> platforms) {
+        return platforms
                 .stream()
-                .map(id -> platformRepository.findById(id).orElseThrow())
+                .map(platform -> platformRepository.findById(platform.getId()).orElseThrow())
                 .collect(Collectors.toSet());
     }
 
-    private Set<Publisher> getPublishersByIds(Set<Integer> ids) {
-        return ids
+    private Set<Publisher> getPublishers(Set<PublisherDto> publishers) {
+        return publishers
                 .stream()
-                .map(id -> publisherRepository.findById(id).orElseThrow())
+                .map(publisher -> publisherRepository.findById(publisher.getId()).orElseThrow())
                 .collect(Collectors.toSet());
     }
 }
