@@ -4,7 +4,6 @@ import com.example.gameserver.model.domain.Platform;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.experimental.Accessors;
 
 import java.io.Serializable;
 
@@ -14,7 +13,6 @@ import java.io.Serializable;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Accessors(chain = true, fluent = true)
 public class PlatformDto implements Serializable {
 
     private Integer id;
@@ -23,8 +21,8 @@ public class PlatformDto implements Serializable {
     public static PlatformDto from(Platform platform) {
         var platformDto = new PlatformDto();
 
-        platformDto.id(platform.getId())
-                .name(platform.getName());
+        platformDto.setId(platform.getId());
+        platformDto.setName(platform.getName());
 
         return platformDto;
     }

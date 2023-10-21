@@ -57,13 +57,13 @@ public class GameService {
 
     @Transactional(isolation = Isolation.REPEATABLE_READ)
     public GameDto insert(GameDto gameDto) {
-        gameDto.id(null);
+        gameDto.setId(null);
         return upsert(gameDto);
     }
 
     @Transactional(isolation = Isolation.REPEATABLE_READ)
     public GameDto update(GameDto gameDto) {
-        if (!gameRepository.existsById(gameDto.id())) {
+        if (!gameRepository.existsById(gameDto.getId())) {
             throw new EntityNotFoundException();
         }
 
@@ -92,35 +92,35 @@ public class GameService {
     private Set<Category> getCategories(Set<CategoryDto> categories) {
         return categories
                 .stream()
-                .map(category -> categoryRepository.findById(category.id()).orElseThrow())
+                .map(category -> categoryRepository.findById(category.getId()).orElseThrow())
                 .collect(Collectors.toSet());
     }
 
     private Set<Developer> getDevelopers(Set<DeveloperDto> developers) {
         return developers
                 .stream()
-                .map(developer -> developerRepository.findById(developer.id()).orElseThrow())
+                .map(developer -> developerRepository.findById(developer.getId()).orElseThrow())
                 .collect(Collectors.toSet());
     }
 
     private Set<Genre> getGenres(Set<GenreDto> genres) {
         return genres
                 .stream()
-                .map(genre -> genreRepository.findById(genre.id()).orElseThrow())
+                .map(genre -> genreRepository.findById(genre.getId()).orElseThrow())
                 .collect(Collectors.toSet());
     }
 
     private Set<Platform> getPlatforms(Set<PlatformDto> platforms) {
         return platforms
                 .stream()
-                .map(platform -> platformRepository.findById(platform.id()).orElseThrow())
+                .map(platform -> platformRepository.findById(platform.getId()).orElseThrow())
                 .collect(Collectors.toSet());
     }
 
     private Set<Publisher> getPublishers(Set<PublisherDto> publishers) {
         return publishers
                 .stream()
-                .map(publisher -> publisherRepository.findById(publisher.id()).orElseThrow())
+                .map(publisher -> publisherRepository.findById(publisher.getId()).orElseThrow())
                 .collect(Collectors.toSet());
     }
 }

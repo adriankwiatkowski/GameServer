@@ -4,7 +4,6 @@ import com.example.gameserver.model.domain.Publisher;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.experimental.Accessors;
 
 import java.io.Serializable;
 
@@ -14,7 +13,6 @@ import java.io.Serializable;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Accessors(chain = true, fluent = true)
 public class PublisherDto implements Serializable {
 
     private Integer id;
@@ -23,8 +21,8 @@ public class PublisherDto implements Serializable {
     public static PublisherDto from(Publisher publisher) {
         var publisherDto = new PublisherDto();
 
-        publisherDto.id(publisher.getId())
-                .name(publisher.getName());
+        publisherDto.setId(publisher.getId());
+        publisherDto.setName(publisher.getName());
 
         return publisherDto;
     }

@@ -8,7 +8,6 @@ import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.experimental.Accessors;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
@@ -23,7 +22,6 @@ import java.util.stream.Collectors;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Accessors(chain = true, fluent = true)
 public class GameDto implements Serializable {
 
     private Integer id;
@@ -84,68 +82,63 @@ public class GameDto implements Serializable {
     public static GameDto from(Game game) {
         var gameDto = new GameDto();
 
-        gameDto.id(game.getId())
-                .name(game.getName())
-                .description(game.getDescription())
-                .releaseDate(game.getReleaseDate())
-                .positiveRatings(game.getPositiveRatings())
-                .negativeRatings(game.getNegativeRatings())
-                .averagePlaytime(game.getAveragePlaytime())
-                .medianPlaytime(game.getMedianPlaytime())
-                .owners(game.getOwners())
-                .price(game.getPrice())
-                .categories(
-                        game.getCategories()
-                                .stream()
-                                .map(CategoryDto::from)
-                                .collect(Collectors.toSet()))
-                .developers(
-                        game.getDevelopers()
-                                .stream()
-                                .map(DeveloperDto::from)
-                                .collect(Collectors.toSet()))
-                .genres(
-                        game.getGenres()
-                                .stream()
-                                .map(GenreDto::from)
-                                .collect(Collectors.toSet()))
-                .platforms(
-                        game.getPlatforms()
-                                .stream()
-                                .map(PlatformDto::from)
-                                .collect(Collectors.toSet()))
-                .publishers(
-                        game.getPublishers()
-                                .stream()
-                                .map(PublisherDto::from)
-                                .collect(Collectors.toSet()));
+        gameDto.setId(game.getId());
+        gameDto.setName(game.getName());
+        gameDto.setDescription(game.getDescription());
+        gameDto.setReleaseDate(game.getReleaseDate());
+        gameDto.setPositiveRatings(game.getPositiveRatings());
+        gameDto.setNegativeRatings(game.getNegativeRatings());
+        gameDto.setAveragePlaytime(game.getAveragePlaytime());
+        gameDto.setMedianPlaytime(game.getMedianPlaytime());
+        gameDto.setOwners(game.getOwners());
+        gameDto.setPrice(game.getPrice());
+        gameDto.setCategories(game.getCategories()
+                .stream()
+                .map(CategoryDto::from)
+                .collect(Collectors.toSet()));
+        gameDto.setDevelopers(game.getDevelopers()
+                .stream()
+                .map(DeveloperDto::from)
+                .collect(Collectors.toSet()));
+        gameDto.setGenres(game.getGenres()
+                .stream()
+                .map(GenreDto::from)
+                .collect(Collectors.toSet()));
+        gameDto.setPlatforms(game.getPlatforms()
+                .stream()
+                .map(PlatformDto::from)
+                .collect(Collectors.toSet()));
+        gameDto.setPublishers(game.getPublishers()
+                .stream()
+                .map(PublisherDto::from)
+                .collect(Collectors.toSet()));
 
         return gameDto;
     }
 
     public static Game toGame(GameDto gameDto,
-                          Function<Set<CategoryDto>, Set<Category>> convertCategories,
-                          Function<Set<DeveloperDto>, Set<Developer>> convertDevelopers,
-                          Function<Set<GenreDto>, Set<Genre>> convertGenres,
-                          Function<Set<PlatformDto>, Set<Platform>> convertPlatforms,
-                          Function<Set<PublisherDto>, Set<Publisher>> convertPublishers) {
+                              Function<Set<CategoryDto>, Set<Category>> convertCategories,
+                              Function<Set<DeveloperDto>, Set<Developer>> convertDevelopers,
+                              Function<Set<GenreDto>, Set<Genre>> convertGenres,
+                              Function<Set<PlatformDto>, Set<Platform>> convertPlatforms,
+                              Function<Set<PublisherDto>, Set<Publisher>> convertPublishers) {
         var game = new Game();
 
-        game.setId(gameDto.id());
-        game.setName(gameDto.name());
-        game.setDescription(gameDto.description());
-        game.setReleaseDate(gameDto.releaseDate());
-        game.setPositiveRatings(gameDto.positiveRatings());
-        game.setNegativeRatings(gameDto.negativeRatings());
-        game.setAveragePlaytime(gameDto.averagePlaytime());
-        game.setMedianPlaytime(gameDto.medianPlaytime());
-        game.setOwners(gameDto.owners());
-        game.setPrice(gameDto.price());
-        game.setCategories(convertCategories.apply(gameDto.categories()));
-        game.setDevelopers(convertDevelopers.apply(gameDto.developers()));
-        game.setGenres(convertGenres.apply(gameDto.genres()));
-        game.setPlatforms(convertPlatforms.apply(gameDto.platforms()));
-        game.setPublishers(convertPublishers.apply(gameDto.publishers()));
+        game.setId(gameDto.getId());
+        game.setName(gameDto.getName());
+        game.setDescription(gameDto.getDescription());
+        game.setReleaseDate(gameDto.getReleaseDate());
+        game.setPositiveRatings(gameDto.getPositiveRatings());
+        game.setNegativeRatings(gameDto.getNegativeRatings());
+        game.setAveragePlaytime(gameDto.getAveragePlaytime());
+        game.setMedianPlaytime(gameDto.getMedianPlaytime());
+        game.setOwners(gameDto.getOwners());
+        game.setPrice(gameDto.getPrice());
+        game.setCategories(convertCategories.apply(gameDto.getCategories()));
+        game.setDevelopers(convertDevelopers.apply(gameDto.getDevelopers()));
+        game.setGenres(convertGenres.apply(gameDto.getGenres()));
+        game.setPlatforms(convertPlatforms.apply(gameDto.getPlatforms()));
+        game.setPublishers(convertPublishers.apply(gameDto.getPublishers()));
 
         return game;
     }
