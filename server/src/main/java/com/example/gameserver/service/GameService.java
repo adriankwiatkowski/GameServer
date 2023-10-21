@@ -63,6 +63,10 @@ public class GameService {
 
     @Transactional(isolation = Isolation.REPEATABLE_READ)
     public GameDto update(GameDto gameDto) {
+        if (!gameRepository.existsById(gameDto.id())) {
+            throw new EntityNotFoundException();
+        }
+
         return upsert(gameDto);
     }
 
