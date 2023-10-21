@@ -1,0 +1,190 @@
+### Register user
+POST http://localhost:8080/api/auth/register
+Content-Type: application/json
+
+{
+  "username": "abcd",
+  "password": "abcd"
+}
+
+### Login user
+POST http://localhost:8080/api/auth/login
+Content-Type: application/json
+
+{
+  "username": "user",
+  "password": "user"
+}
+
+### Lgoin admin
+POST http://localhost:8080/api/auth/login
+Content-Type: application/json
+
+{
+  "username": "admin",
+  "password": "admin"
+}
+
+### Get game logged only
+GET http://localhost:8080/api/game
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJzZWxmIiwic3ViIjoidXNlciIsImV4cCI6MTY5Nzk2ODEwMCwiaWF0IjoxNjk3ODgxNzAwLCJzY29wZSI6IlVTRVIifQ.pKwEdzOMEVzLpht9sAGpi8r8zB4j7IMpibB3-yr08fM
+
+### Get games
+GET http://localhost:8080/api/game
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJzZWxmIiwic3ViIjoidXNlciIsImV4cCI6MTY5Nzk2ODEwMCwiaWF0IjoxNjk3ODgxNzAwLCJzY29wZSI6IlVTRVIifQ.pKwEdzOMEVzLpht9sAGpi8r8zB4j7IMpibB3-yr08fM
+
+### Get games by name
+GET http://localhost:8080/api/game/name/Far cry 3
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJzZWxmIiwic3ViIjoidXNlciIsImV4cCI6MTY5Nzk2ODEwMCwiaWF0IjoxNjk3ODgxNzAwLCJzY29wZSI6IlVTRVIifQ.pKwEdzOMEVzLpht9sAGpi8r8zB4j7IMpibB3-yr08fM
+
+### Get game by id
+GET http://localhost:8080/api/game/1
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJzZWxmIiwic3ViIjoidXNlciIsImV4cCI6MTY5Nzk2ODEwMCwiaWF0IjoxNjk3ODgxNzAwLCJzY29wZSI6IlVTRVIifQ.pKwEdzOMEVzLpht9sAGpi8r8zB4j7IMpibB3-yr08fM
+
+### Insert game - admin
+POST http://localhost:8080/api/game
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJzZWxmIiwic3ViIjoiYWRtaW4iLCJleHAiOjE2OTc5NzAxOTUsImlhdCI6MTY5Nzg4Mzc5NSwic2NvcGUiOiJVU0VSIEFETUlOIn0.jihJcZQny4DEGu-J90l4jJC-jEcSkg54cyO27tXTgyo
+Content-Type: application/json
+
+{
+  "id": null,
+  "name": "New Game",
+  "description": "Game description",
+  "releaseDate": "2023-10-10",
+  "positiveRatings": 1423,
+  "negativeRatings": 79,
+  "averagePlaytime": 832,
+  "medianPlaytime": 752,
+  "owners": "10000-30000",
+  "price": 50.99,
+  "categories": [
+    {
+      "id": 18,
+      "name": "Co-op"
+    },
+    {
+      "id": 5,
+      "name": "Single-player"
+    },
+    {
+      "id": 10,
+      "name": "Partial Controller Support"
+    },
+    {
+      "id": 1,
+      "name": "Multi-player"
+    }
+  ],
+  "developers": [
+    {
+      "id": 176,
+      "name": "Ubisoft Montréal"
+    },
+    {
+      "id": 815,
+      "name": "and Ubisoft Shanghai"
+    },
+    {
+      "id": 814,
+      "name": "Massive Entertainment"
+    }
+  ],
+  "genres": [
+    {
+      "id": 4,
+      "name": "Adventure"
+    },
+    {
+      "id": 1,
+      "name": "Action"
+    }
+  ],
+  "platforms": [
+    {
+      "id": 1,
+      "name": "windows"
+    }
+  ],
+  "publishers": [
+    {
+      "id": 10,
+      "name": "Ubisoft"
+    }
+  ]
+}
+
+### Update game - admin
+POST http://localhost:8080/api/game
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJzZWxmIiwic3ViIjoiYWRtaW4iLCJleHAiOjE2OTc5NzAxOTUsImlhdCI6MTY5Nzg4Mzc5NSwic2NvcGUiOiJVU0VSIEFETUlOIn0.jihJcZQny4DEGu-J90l4jJC-jEcSkg54cyO27tXTgyo
+Content-Type: application/json
+
+{
+  "id": 1,
+  "name": "New Game",
+  "description": "Game description",
+  "releaseDate": "2023-10-10",
+  "positiveRatings": 1423,
+  "negativeRatings": 79,
+  "averagePlaytime": 832,
+  "medianPlaytime": 752,
+  "owners": "10000-30000",
+  "price": 50.99,
+  "categories": [
+    {
+      "id": 18,
+      "name": "Co-op"
+    },
+    {
+      "id": 5,
+      "name": "Single-player"
+    },
+    {
+      "id": 10,
+      "name": "Partial Controller Support"
+    },
+    {
+      "id": 1,
+      "name": "Multi-player"
+    }
+  ],
+  "developers": [
+    {
+      "id": 176,
+      "name": "Ubisoft Montréal"
+    },
+    {
+      "id": 815,
+      "name": "and Ubisoft Shanghai"
+    },
+    {
+      "id": 814,
+      "name": "Massive Entertainment"
+    }
+  ],
+  "genres": [
+    {
+      "id": 4,
+      "name": "Adventure"
+    },
+    {
+      "id": 1,
+      "name": "Action"
+    }
+  ],
+  "platforms": [
+    {
+      "id": 1,
+      "name": "windows"
+    }
+  ],
+  "publishers": [
+    {
+      "id": 10,
+      "name": "Ubisoft"
+    }
+  ]
+}
+
+### Delete game by id - admin
+DELETE http://localhost:8080/api/game/1
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJzZWxmIiwic3ViIjoiYWRtaW4iLCJleHAiOjE2OTc5NzAxOTUsImlhdCI6MTY5Nzg4Mzc5NSwic2NvcGUiOiJVU0VSIEFETUlOIn0.jihJcZQny4DEGu-J90l4jJC-jEcSkg54cyO27tXTgyo
