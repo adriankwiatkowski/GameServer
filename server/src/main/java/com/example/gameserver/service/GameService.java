@@ -49,7 +49,17 @@ public class GameService {
     }
 
     @Transactional(isolation = Isolation.REPEATABLE_READ)
-    public Game upsert(GameDto gameDto) {
+    public Game insert(GameDto gameDto) {
+        gameDto.id(null);
+        return upsert(gameDto);
+    }
+
+    @Transactional(isolation = Isolation.REPEATABLE_READ)
+    public Game update(GameDto gameDto) {
+        return upsert(gameDto);
+    }
+
+    private Game upsert(GameDto gameDto) {
         var game = new Game();
 
         game.setId(gameDto.id());

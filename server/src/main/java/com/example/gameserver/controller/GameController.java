@@ -38,13 +38,13 @@ public class GameController {
     @PreAuthorize(Authority.SCOPE_ADMIN)
     @PostMapping
     public Game post(@RequestBody @Valid GameDto gameDto) {
-        return gameService.upsert(gameDto);
+        return gameService.insert(gameDto);
     }
 
     @PreAuthorize(Authority.SCOPE_ADMIN)
     @PutMapping
     public Game put(@RequestBody @Valid GameDto gameDto) {
-        return gameService.upsert(gameDto);
+        return gameService.update(gameDto);
     }
 
     @PreAuthorize(Authority.SCOPE_ADMIN)
