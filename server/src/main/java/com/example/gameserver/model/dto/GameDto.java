@@ -1,6 +1,6 @@
 package com.example.gameserver.model.dto;
 
-import com.example.gameserver.model.domain.Game;
+import com.example.gameserver.model.domain.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.PositiveOrZero;
@@ -14,6 +14,7 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.Set;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 
 /**
@@ -120,5 +121,32 @@ public class GameDto implements Serializable {
                                 .collect(Collectors.toSet()));
 
         return gameDto;
+    }
+
+    public static Game toGame(GameDto gameDto,
+                          Function<Set<CategoryDto>, Set<Category>> convertCategories,
+                          Function<Set<DeveloperDto>, Set<Developer>> convertDevelopers,
+                          Function<Set<GenreDto>, Set<Genre>> convertGenres,
+                          Function<Set<PlatformDto>, Set<Platform>> convertPlatforms,
+                          Function<Set<PublisherDto>, Set<Publisher>> convertPublishers) {
+        var game = new Game();
+
+        game.setId(gameDto.id());
+        game.setName(gameDto.name());
+        game.setDescription(gameDto.description());
+        game.setReleaseDate(gameDto.releaseDate());
+        game.setPositiveRatings(gameDto.positiveRatings());
+        game.setNegativeRatings(gameDto.negativeRatings());
+        game.setAveragePlaytime(gameDto.averagePlaytime());
+        game.setMedianPlaytime(gameDto.medianPlaytime());
+        game.setOwners(gameDto.owners());
+        game.setPrice(gameDto.price());
+        game.setCategories(convertCategories.apply(gameDto.categories()));
+        game.setDevelopers(convertDevelopers.apply(gameDto.developers()));
+        game.setGenres(convertGenres.apply(gameDto.genres()));
+        game.setPlatforms(convertPlatforms.apply(gameDto.platforms()));
+        game.setPublishers(convertPublishers.apply(gameDto.publishers()));
+
+        return game;
     }
 }

@@ -71,23 +71,12 @@ public class GameService {
     }
 
     private GameDto upsert(GameDto gameDto) {
-        var game = new Game();
-
-        game.setId(gameDto.id());
-        game.setName(gameDto.name());
-        game.setDescription(gameDto.description());
-        game.setReleaseDate(gameDto.releaseDate());
-        game.setPositiveRatings(gameDto.positiveRatings());
-        game.setNegativeRatings(gameDto.negativeRatings());
-        game.setAveragePlaytime(gameDto.averagePlaytime());
-        game.setMedianPlaytime(gameDto.medianPlaytime());
-        game.setOwners(gameDto.owners());
-        game.setPrice(gameDto.price());
-        game.setCategories(getCategories(gameDto.categories()));
-        game.setDevelopers(getDevelopers(gameDto.developers()));
-        game.setGenres(getGenres(gameDto.genres()));
-        game.setPlatforms(getPlatforms(gameDto.platforms()));
-        game.setPublishers(getPublishers(gameDto.publishers()));
+        var game = GameDto.toGame(gameDto,
+                this::getCategories,
+                this::getDevelopers,
+                this::getGenres,
+                this::getPlatforms,
+                this::getPublishers);
 
         gameRepository.save(game);
 
