@@ -1,7 +1,7 @@
 package com.example.gameserver.service;
 
 import com.example.gameserver.model.domain.*;
-import com.example.gameserver.model.dto.GameDto;
+import com.example.gameserver.model.dto.*;
 import com.example.gameserver.repository.*;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.stereotype.Service;
@@ -62,11 +62,11 @@ public class GameService {
         game.setMedianPlaytime(gameDto.medianPlaytime());
         game.setOwners(gameDto.owners());
         game.setPrice(gameDto.price());
-        game.setCategories(getCategoriesByIds(gameDto.categoryIds()));
-        game.setDevelopers(getDevelopersByIds(gameDto.developerIds()));
-        game.setGenres(getGenresByIds(gameDto.genreIds()));
-        game.setPlatforms(getPlatformsByIds(gameDto.platformIds()));
-        game.setPublishers(getPublishersByIds(gameDto.publisherIds()));
+        game.setCategories(getCategories(gameDto.categories()));
+        game.setDevelopers(getDevelopers(gameDto.developers()));
+        game.setGenres(getGenres(gameDto.genres()));
+        game.setPlatforms(getPlatforms(gameDto.platforms()));
+        game.setPublishers(getPublishers(gameDto.publishers()));
 
         gameRepository.save(game);
 
@@ -79,38 +79,38 @@ public class GameService {
         gameRepository.deleteById(id);
     }
 
-    private Set<Category> getCategoriesByIds(Set<Integer> ids) {
-        return ids
+    private Set<Category> getCategories(Set<CategoryDto> categories) {
+        return categories
                 .stream()
-                .map(id -> categoryRepository.findById(id).orElseThrow())
+                .map(category -> categoryRepository.findById(category.id()).orElseThrow())
                 .collect(Collectors.toSet());
     }
 
-    private Set<Developer> getDevelopersByIds(Set<Integer> ids) {
-        return ids
+    private Set<Developer> getDevelopers(Set<DeveloperDto> developers) {
+        return developers
                 .stream()
-                .map(id -> developerRepository.findById(id).orElseThrow())
+                .map(developer -> developerRepository.findById(developer.id()).orElseThrow())
                 .collect(Collectors.toSet());
     }
 
-    private Set<Genre> getGenresByIds(Set<Integer> ids) {
-        return ids
+    private Set<Genre> getGenres(Set<GenreDto> genres) {
+        return genres
                 .stream()
-                .map(id -> genreRepository.findById(id).orElseThrow())
+                .map(genre -> genreRepository.findById(genre.id()).orElseThrow())
                 .collect(Collectors.toSet());
     }
 
-    private Set<Platform> getPlatformsByIds(Set<Integer> ids) {
-        return ids
+    private Set<Platform> getPlatforms(Set<PlatformDto> platforms) {
+        return platforms
                 .stream()
-                .map(id -> platformRepository.findById(id).orElseThrow())
+                .map(platform -> platformRepository.findById(platform.id()).orElseThrow())
                 .collect(Collectors.toSet());
     }
 
-    private Set<Publisher> getPublishersByIds(Set<Integer> ids) {
-        return ids
+    private Set<Publisher> getPublishers(Set<PublisherDto> publishers) {
+        return publishers
                 .stream()
-                .map(id -> publisherRepository.findById(id).orElseThrow())
+                .map(publisher -> publisherRepository.findById(publisher.id()).orElseThrow())
                 .collect(Collectors.toSet());
     }
 }
