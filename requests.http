@@ -25,21 +25,17 @@ Content-Type: application/json
   "password": "admin"
 }
 
-### Get game logged only
-GET http://localhost:8080/api/game
-Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJzZWxmIiwic3ViIjoidXNlciIsImV4cCI6MTY5Nzk2ODEwMCwiaWF0IjoxNjk3ODgxNzAwLCJzY29wZSI6IlVTRVIifQ.pKwEdzOMEVzLpht9sAGpi8r8zB4j7IMpibB3-yr08fM
-
 ### Get games
 GET http://localhost:8080/api/game
-Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJzZWxmIiwic3ViIjoidXNlciIsImV4cCI6MTY5Nzk2ODEwMCwiaWF0IjoxNjk3ODgxNzAwLCJzY29wZSI6IlVTRVIifQ.pKwEdzOMEVzLpht9sAGpi8r8zB4j7IMpibB3-yr08fM
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJzZWxmIiwic3ViIjoidXNlciIsImV4cCI6MTY5ODEzNzQ4NCwiaWF0IjoxNjk4MDUxMDg0LCJzY29wZSI6IlVTRVIifQ.xC5fknWJYJG-1sIXitY2LjAM9yxCmJ-mZJAiAmacQks
 
 ### Get games by name
-GET http://localhost:8080/api/game/name/Far cry 3
-Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJzZWxmIiwic3ViIjoidXNlciIsImV4cCI6MTY5Nzk2ODEwMCwiaWF0IjoxNjk3ODgxNzAwLCJzY29wZSI6IlVTRVIifQ.pKwEdzOMEVzLpht9sAGpi8r8zB4j7IMpibB3-yr08fM
+GET http://localhost:8080/api/game/name/Half
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJzZWxmIiwic3ViIjoidXNlciIsImV4cCI6MTY5ODEzNzQ4NCwiaWF0IjoxNjk4MDUxMDg0LCJzY29wZSI6IlVTRVIifQ.xC5fknWJYJG-1sIXitY2LjAM9yxCmJ-mZJAiAmacQks
 
 ### Get game by id
 GET http://localhost:8080/api/game/1
-Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJzZWxmIiwic3ViIjoidXNlciIsImV4cCI6MTY5Nzk2ODEwMCwiaWF0IjoxNjk3ODgxNzAwLCJzY29wZSI6IlVTRVIifQ.pKwEdzOMEVzLpht9sAGpi8r8zB4j7IMpibB3-yr08fM
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJzZWxmIiwic3ViIjoidXNlciIsImV4cCI6MTY5ODEzNzQ4NCwiaWF0IjoxNjk4MDUxMDg0LCJzY29wZSI6IlVTRVIifQ.xC5fknWJYJG-1sIXitY2LjAM9yxCmJ-mZJAiAmacQks
 
 ### Insert game - admin
 POST http://localhost:8080/api/game
