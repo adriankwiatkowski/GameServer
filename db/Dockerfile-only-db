@@ -1,5 +1,6 @@
 FROM mysql:8.0.33
-# docker build -f Dockerfile -t <image_tag> . && docker run -p 3306:3306 <image_tag> --default-authentication-plugin=mysql_native_password
+# docker build -f Dockerfile-only-db -t <image_tag> . && docker run -p 3306:3306 <image_tag> --default-authentication-plugin=mysql_native_password
+# docker build -f Dockerfile-only-db -t db . && docker run -p 3306:3306 db --default-authentication-plugin=mysql_native_password
 ENV MYSQL_DATABASE game
 ENV MYSQL_ALLOW_EMPTY_PASSWORD true
 
