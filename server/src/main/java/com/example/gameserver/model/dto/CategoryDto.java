@@ -26,4 +26,13 @@ public class CategoryDto implements Serializable {
 
         return categoryDto;
     }
+
+    public static Category toCategory(CategoryDto categoryDto) {
+        var category = new Category();
+
+        category.setId(categoryDto.getId());
+        category.setName(category.getName());
+
+        return category;
+    }
 }
