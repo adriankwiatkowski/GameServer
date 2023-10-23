@@ -1,0 +1,27 @@
+### Get categories
+GET http://localhost:8080/api/category
+Authorization: Bearer {{jwt}}
+
+### Insert category - admin
+POST http://localhost:8080/api/category
+Authorization: Bearer {{jwtAdmin}}
+Content-Type: application/json
+
+{
+  "id": null,
+  "name": "New category name"
+}
+
+### Update category - admin
+PUT http://localhost:8080/api/category
+Authorization: Bearer {{jwtAdmin}}
+Content-Type: application/json
+
+{
+  "id": 26,
+  "name": "Updated category name"
+}
+
+### Delete category by id - admin
+DELETE http://localhost:8080/api/category/1
+Authorization: Bearer {{jwtAdmin}}
