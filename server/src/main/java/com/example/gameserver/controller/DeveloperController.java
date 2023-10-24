@@ -24,19 +24,19 @@ public class DeveloperController {
         return developerService.getAllDevelopers();
     }
 
-    @PreAuthorize(Authority.SCOPE_ADMIN)
+    @PreAuthorize(Authority.ADMIN_SCOPE)
     @PostMapping
     public DeveloperDto post(@RequestBody @Valid DeveloperDto developerDto) {
         return developerService.insert(developerDto);
     }
 
-    @PreAuthorize(Authority.SCOPE_ADMIN)
+    @PreAuthorize(Authority.ADMIN_SCOPE)
     @PutMapping
     public DeveloperDto put(@RequestBody @Valid DeveloperDto developerDto) {
         return developerService.update(developerDto);
     }
 
-    @PreAuthorize(Authority.SCOPE_ADMIN)
+    @PreAuthorize(Authority.ADMIN_SCOPE)
     @DeleteMapping("/{id}")
     public void delete(@PathVariable Integer id) {
         developerService.deleteDeveloper(id);

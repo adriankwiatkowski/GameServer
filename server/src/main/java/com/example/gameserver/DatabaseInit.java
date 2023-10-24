@@ -24,8 +24,8 @@ public class DatabaseInit implements ApplicationRunner {
     @Transactional
     @Override
     public void run(ApplicationArguments args) {
-        saveRole(Authority.ROLE_USER);
-        saveRole(Authority.ROLE_ADMIN);
+        saveRole(Authority.USER_ROLE);
+        saveRole(Authority.ADMIN_ROLE);
 
         {
             var registerDto = new RegisterDto("user", "user", "User", "User");
