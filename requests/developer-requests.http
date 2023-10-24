@@ -1,0 +1,27 @@
+### Get developers
+GET http://localhost:8080/api/developer
+Authorization: Bearer {{jwt}}
+
+### Insert developer - admin
+POST http://localhost:8080/api/developer
+Authorization: Bearer {{jwtAdmin}}
+Content-Type: application/json
+
+{
+  "id": null,
+  "name": "New developer name"
+}
+
+### Update developer - admin
+PUT http://localhost:8080/api/developer
+Authorization: Bearer {{jwtAdmin}}
+Content-Type: application/json
+
+{
+  "id": 1,
+  "name": "Updated developer name"
+}
+
+### Delete developer by id - admin
+DELETE http://localhost:8080/api/developer/1
+Authorization: Bearer {{jwtAdmin}}

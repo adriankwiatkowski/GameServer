@@ -1,0 +1,27 @@
+### Get publishers
+GET http://localhost:8080/api/publisher
+Authorization: Bearer {{jwt}}
+
+### Insert publisher - admin
+POST http://localhost:8080/api/publisher
+Authorization: Bearer {{jwtAdmin}}
+Content-Type: application/json
+
+{
+  "id": null,
+  "name": "New publisher name"
+}
+
+### Update publisher - admin
+PUT http://localhost:8080/api/publisher
+Authorization: Bearer {{jwtAdmin}}
+Content-Type: application/json
+
+{
+  "id": 1,
+  "name": "Updated publisher name"
+}
+
+### Delete publisher by id - admin
+DELETE http://localhost:8080/api/publisher/1
+Authorization: Bearer {{jwtAdmin}}

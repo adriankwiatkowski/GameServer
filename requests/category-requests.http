@@ -18,7 +18,7 @@ Authorization: Bearer {{jwtAdmin}}
 Content-Type: application/json
 
 {
-  "id": 26,
+  "id": 1,
   "name": "Updated category name"
 }
 
