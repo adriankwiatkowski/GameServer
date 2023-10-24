@@ -4,7 +4,8 @@ import com.example.gameserver.model.Authority;
 import com.example.gameserver.model.MyUserDetails;
 import com.example.gameserver.model.domain.Role;
 import com.example.gameserver.model.domain.User;
-import com.example.gameserver.repository.RoleRepository;
+import com.example.gameserver.model.dto.LoginDto;
+import com.example.gameserver.model.dto.RegisterDto;
 import com.example.gameserver.repository.UserRepository;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -13,21 +14,22 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.Set;
+
 @Service
 public class MyUserDetailsServiceImpl implements MyUserDetailsService {
 
     private final PasswordEncoder passwordEncoder;
     private final UserRepository userRepository;
-    private final RoleRepository roleRepository;
+    private final RoleService roleService;
 
-    public MyUserDetailsServiceImpl(
-            PasswordEncoder passwordEncoder,
-            UserRepository userRepository,
-            RoleRepository roleRepository
-    ) {
+    public MyUserDetailsServiceImpl(PasswordEncoder passwordEncoder, UserRepository userRepository, RoleService roleService) {
         this.passwordEncoder = passwordEncoder;
         this.userRepository = userRepository;
-        this.roleRepository = roleRepository;
+        this.roleService = roleService;
     }
 
     @Override
@@ -41,9 +43,9 @@ public class MyUserDetailsServiceImpl implements MyUserDetailsService {
 
     @Transactional
     @Override
-    public MyUserDetails login(String username, String password) {
-        var user = userRepository.findByUsername(username).orElseThrow();
-        if (!passwordEncoder.matches(password, user.getPassword())) {
+    public MyUserDetails login(LoginDto loginDto) {
+        var user = userRepository.findByUsername(loginDto.username()).orElseThrow();
+        if (!passwordEncoder.matches(loginDto.password(), user.getPassword())) {
             throw new BadCredentialsException("");
         }
 
@@ -52,30 +54,31 @@ public class MyUserDetailsServiceImpl implements MyUserDetailsService {
 
     @Transactional
     @Override
-    public void register(String username, String password) throws Exception {
-        if (userRepository.findByUsername(username).isPresent()) {
-            throw new Exception(String.format("User already exists with username: %s", username));
-        }
-
-        var userRole = findRoleByNameOrCreate(Authority.ROLE_USER);
-
-        var user = new User();
-        user.setUsername(username);
-        user.setPassword(passwordEncoder.encode(password));
-        user.addRole(userRole);
-
-        userRepository.saveAndFlush(user);
+    public void register(RegisterDto registerDto) throws Exception {
+        var userRole = roleService.getRoleByName(Authority.ROLE_USER);
+        register(registerDto, Collections.singleton(userRole));
     }
 
-    private Role findRoleByNameOrCreate(String roleName) {
-        var userRole = roleRepository.findByName(roleName);
-        if (userRole.isPresent()) {
-            return userRole.get();
+    @Transactional
+    @Override
+    public void registerAdmin(RegisterDto registerDto) throws Exception {
+        var userRole = roleService.getRoleByName(Authority.ROLE_USER);
+        var adminRole = roleService.getRoleByName(Authority.ROLE_ADMIN);
+        register(registerDto, new HashSet<>(Arrays.asList(userRole, adminRole)));
+    }
+
+    private void register(RegisterDto registerDto, Set<Role> roles) throws Exception {
+        if (userRepository.findByUsername(registerDto.username()).isPresent()) {
+            throw new Exception(String.format("User already exists with username: %s", registerDto.username()));
         }
 
-        var role = new Role();
-        role.setName(roleName);
-        roleRepository.save(role);
-        return role;
+        var user = new User();
+        user.setUsername(registerDto.username());
+        user.setPassword(passwordEncoder.encode(registerDto.password()));
+        user.setName(registerDto.name());
+        user.setSurname(registerDto.surname());
+        user.setRoles(roles);
+
+        userRepository.saveAndFlush(user);
     }
 }

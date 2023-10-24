@@ -32,6 +32,14 @@ public class User {
     @JsonIgnore
     private String password;
 
+    @Column(nullable = false, length = 80)
+    @Length(min = 1, max = 80)
+    private String name;
+
+    @Column(nullable = false, length = 80)
+    @Length(min = 1, max = 80)
+    private String surname;
+
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "user_role",
