@@ -33,7 +33,7 @@ public class UserDto implements Serializable {
     public static UserDto from(User user) {
         var userDto = new UserDto();
 
-        userDto.setId(userDto.getId());
+        userDto.setId(user.getId());
         userDto.setUsername(user.getUsername());
         userDto.setName(user.getName());
         userDto.setSurname(user.getSurname());

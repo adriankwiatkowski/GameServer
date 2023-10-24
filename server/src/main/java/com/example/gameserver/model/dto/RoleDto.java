@@ -21,7 +21,7 @@ public class RoleDto implements Serializable {
     public static RoleDto from(Role role) {
         var roleDto = new RoleDto();
 
-        roleDto.setId(roleDto.getId());
+        roleDto.setId(role.getId());
         roleDto.setName(role.getName());
 
         return roleDto;
