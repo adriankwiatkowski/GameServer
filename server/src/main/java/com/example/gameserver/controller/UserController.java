@@ -1,11 +1,10 @@
 package com.example.gameserver.controller;
 
 import com.example.gameserver.model.Authority;
-import com.example.gameserver.model.MyUserDetails;
 import com.example.gameserver.model.dto.UserDto;
 import com.example.gameserver.service.UserService;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -30,12 +29,16 @@ public class UserController {
     }
 
     @GetMapping("/details")
-    public UserDto get(@AuthenticationPrincipal MyUserDetails userDetails) {
-        return userService.getUser(userDetails.getUser().getId());
+    public UserDto get() {
+        return userService.getUser(getCurrentUsername());
     }
 
     @DeleteMapping
-    public void delete(@AuthenticationPrincipal MyUserDetails userDetails) {
-        userService.deleteUser(userDetails.getUser().getId());
+    public void delete() {
+        userService.deleteUser(getCurrentUsername());
+    }
+
+    private String getCurrentUsername() {
+        return SecurityContextHolder.getContext().getAuthentication().getName();
     }
 }
