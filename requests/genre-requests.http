@@ -1,0 +1,27 @@
+### Get genres
+GET http://localhost:8080/api/genre
+Authorization: Bearer {{jwt}}
+
+### Insert genre - admin
+POST http://localhost:8080/api/genre
+Authorization: Bearer {{jwtAdmin}}
+Content-Type: application/json
+
+{
+  "id": null,
+  "name": "New genre name"
+}
+
+### Update genre - admin
+PUT http://localhost:8080/api/genre
+Authorization: Bearer {{jwtAdmin}}
+Content-Type: application/json
+
+{
+  "id": 1,
+  "name": "Updated genre name"
+}
+
+### Delete genre by id - admin
+DELETE http://localhost:8080/api/genre/1
+Authorization: Bearer {{jwtAdmin}}

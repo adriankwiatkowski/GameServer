@@ -1,0 +1,27 @@
+### Get platforms
+GET http://localhost:8080/api/platform
+Authorization: Bearer {{jwt}}
+
+### Insert platform - admin
+POST http://localhost:8080/api/platform
+Authorization: Bearer {{jwtAdmin}}
+Content-Type: application/json
+
+{
+  "id": null,
+  "name": "New platform name"
+}
+
+### Update platform - admin
+PUT http://localhost:8080/api/platform
+Authorization: Bearer {{jwtAdmin}}
+Content-Type: application/json
+
+{
+  "id": 1,
+  "name": "Updated platform name"
+}
+
+### Delete platform by id - admin
+DELETE http://localhost:8080/api/platform/1
+Authorization: Bearer {{jwtAdmin}}
