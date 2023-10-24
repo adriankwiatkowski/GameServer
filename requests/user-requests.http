@@ -1,26 +1,11 @@
-### Register user
-POST http://localhost:8080/api/auth/register
-Content-Type: application/json
+### Get users - admin
+GET http://localhost:8080/api/user
+Authorization: Bearer {{jwtAdmin}}
 
-{
-  "username": "abcd",
-  "password": "abcd"
-}
+### Get account details
+GET http://localhost:8080/api/user/details
+Authorization: Bearer {{jwt}}
 
-### Login user
-POST http://localhost:8080/api/auth/login
-Content-Type: application/json
-
-{
-  "username": "user",
-  "password": "user"
-}
-
-### Login admin
-POST http://localhost:8080/api/auth/login
-Content-Type: application/json
-
-{
-  "username": "admin",
-  "password": "admin"
-}
+### Delete account
+DELETE http://localhost:8080/api/user
+Authorization: Bearer {{jwt}}
