@@ -22,7 +22,11 @@ public class RoleService {
     }
 
     @Transactional(isolation = Isolation.REPEATABLE_READ)
-    public RoleDto insert(RoleDto roleDto) {
+    public RoleDto insert(RoleDto roleDto) throws Exception {
+        if (roleRepository.existsByName(roleDto.getName())) {
+            throw new Exception(String.format("Role already exists with name: %s", roleDto.getName()));
+        }
+
         roleDto.setId(null);
         return upsert(roleDto);
     }
@@ -39,7 +43,7 @@ public class RoleService {
     private RoleDto upsert(RoleDto roleDto) {
         var role = RoleDto.toRole(roleDto);
 
-        roleRepository.save(role);
+        roleRepository.saveAndFlush(role);
 
         return RoleDto.from(role);
     }
