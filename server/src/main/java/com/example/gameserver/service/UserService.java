@@ -25,13 +25,16 @@ public class UserService {
                 .collect(Collectors.toList());
     }
 
-    public UserDto getUser(Integer id) {
-        return userRepository.findById(id).map(UserDto::from).orElseThrow(EntityNotFoundException::new);
+    public UserDto getUser(String username) {
+        return userRepository.findByUsername(username)
+                .map(UserDto::from)
+                .orElseThrow(EntityNotFoundException::new);
     }
 
     @Transactional(isolation = Isolation.REPEATABLE_READ)
-    public void deleteUser(Integer id) {
-        userRepository.findById(id).orElseThrow(EntityNotFoundException::new);
-        userRepository.deleteById(id);
+    public void deleteUser(String username) {
+        var user = userRepository.findByUsername(username)
+                .orElseThrow(EntityNotFoundException::new);
+        userRepository.deleteById(user.getId());
     }
 }
