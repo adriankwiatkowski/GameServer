@@ -24,19 +24,19 @@ public class CategoryController {
         return categoryService.getAllCategories();
     }
 
-    @PreAuthorize(Authority.SCOPE_ADMIN)
+    @PreAuthorize(Authority.ADMIN_SCOPE)
     @PostMapping
     public CategoryDto post(@RequestBody @Valid CategoryDto categoryDto) {
         return categoryService.insert(categoryDto);
     }
 
-    @PreAuthorize(Authority.SCOPE_ADMIN)
+    @PreAuthorize(Authority.ADMIN_SCOPE)
     @PutMapping
     public CategoryDto put(@RequestBody @Valid CategoryDto categoryDto) {
         return categoryService.update(categoryDto);
     }
 
-    @PreAuthorize(Authority.SCOPE_ADMIN)
+    @PreAuthorize(Authority.ADMIN_SCOPE)
     @DeleteMapping("/{id}")
     public void delete(@PathVariable Integer id) {
         categoryService.deleteCategory(id);

@@ -24,19 +24,19 @@ public class GenreController {
         return genreService.getAllGenres();
     }
 
-    @PreAuthorize(Authority.SCOPE_ADMIN)
+    @PreAuthorize(Authority.ADMIN_SCOPE)
     @PostMapping
     public GenreDto post(@RequestBody @Valid GenreDto genreDto) {
         return genreService.insert(genreDto);
     }
 
-    @PreAuthorize(Authority.SCOPE_ADMIN)
+    @PreAuthorize(Authority.ADMIN_SCOPE)
     @PutMapping
     public GenreDto put(@RequestBody @Valid GenreDto genreDto) {
         return genreService.update(genreDto);
     }
 
-    @PreAuthorize(Authority.SCOPE_ADMIN)
+    @PreAuthorize(Authority.ADMIN_SCOPE)
     @DeleteMapping("/{id}")
     public void delete(@PathVariable Integer id) {
         genreService.deleteGenre(id);

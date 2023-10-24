@@ -55,15 +55,15 @@ public class MyUserDetailsServiceImpl implements MyUserDetailsService {
     @Transactional
     @Override
     public void register(RegisterDto registerDto) throws Exception {
-        var userRole = roleService.getRoleByName(Authority.ROLE_USER);
+        var userRole = roleService.getRoleByName(Authority.USER_ROLE);
         register(registerDto, Collections.singleton(userRole));
     }
 
     @Transactional
     @Override
     public void registerAdmin(RegisterDto registerDto) throws Exception {
-        var userRole = roleService.getRoleByName(Authority.ROLE_USER);
-        var adminRole = roleService.getRoleByName(Authority.ROLE_ADMIN);
+        var userRole = roleService.getRoleByName(Authority.USER_ROLE);
+        var adminRole = roleService.getRoleByName(Authority.ADMIN_ROLE);
         register(registerDto, new HashSet<>(Arrays.asList(userRole, adminRole)));
     }
 

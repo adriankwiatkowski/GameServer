@@ -34,19 +34,19 @@ public class GameController {
         return gameService.getGame(id);
     }
 
-    @PreAuthorize(Authority.SCOPE_ADMIN)
+    @PreAuthorize(Authority.ADMIN_SCOPE)
     @PostMapping
     public GameDto post(@RequestBody @Valid GameDto gameDto) {
         return gameService.insert(gameDto);
     }
 
-    @PreAuthorize(Authority.SCOPE_ADMIN)
+    @PreAuthorize(Authority.ADMIN_SCOPE)
     @PutMapping
     public GameDto put(@RequestBody @Valid GameDto gameDto) {
         return gameService.update(gameDto);
     }
 
-    @PreAuthorize(Authority.SCOPE_ADMIN)
+    @PreAuthorize(Authority.ADMIN_SCOPE)
     @DeleteMapping("/{id}")
     public void delete(@PathVariable Integer id) {
         gameService.deleteGame(id);

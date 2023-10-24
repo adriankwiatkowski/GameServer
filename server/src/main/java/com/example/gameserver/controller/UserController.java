@@ -22,7 +22,7 @@ public class UserController {
         this.userService = userService;
     }
 
-    @PreAuthorize(Authority.SCOPE_ADMIN)
+    @PreAuthorize(Authority.ADMIN_SCOPE)
     @GetMapping
     public List<UserDto> getUsers() {
         return userService.getAllUsers();
