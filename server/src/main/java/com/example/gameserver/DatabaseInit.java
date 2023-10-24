@@ -1,27 +1,24 @@
 package com.example.gameserver;
 
 import com.example.gameserver.model.Authority;
-import com.example.gameserver.model.domain.Role;
-import com.example.gameserver.model.domain.User;
-import com.example.gameserver.repository.RoleRepository;
-import com.example.gameserver.repository.UserRepository;
+import com.example.gameserver.model.dto.RegisterDto;
+import com.example.gameserver.model.dto.RoleDto;
+import com.example.gameserver.service.MyUserDetailsService;
+import com.example.gameserver.service.RoleService;
 import jakarta.transaction.Transactional;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 @Component
 public class DatabaseInit implements ApplicationRunner {
 
-    private final PasswordEncoder passwordEncoder;
-    private final RoleRepository roleRepository;
-    private final UserRepository userRepository;
+    private final RoleService roleService;
+    private final MyUserDetailsService myUserDetailsService;
 
-    public DatabaseInit(PasswordEncoder passwordEncoder, RoleRepository roleRepository, UserRepository userRepository) {
-        this.passwordEncoder = passwordEncoder;
-        this.roleRepository = roleRepository;
-        this.userRepository = userRepository;
+    public DatabaseInit(RoleService roleService, MyUserDetailsService myUserDetailsService) {
+        this.roleService = roleService;
+        this.myUserDetailsService = myUserDetailsService;
     }
 
     @Transactional
@@ -31,37 +28,31 @@ public class DatabaseInit implements ApplicationRunner {
         saveRole(Authority.ROLE_ADMIN);
 
         {
-            var user = new User();
-            user.setUsername("user");
-            user.setPassword(passwordEncoder.encode("user"));
-            user.addRole(roleRepository.findByName(Authority.ROLE_USER).get());
-            saveUser(user);
+            var registerDto = new RegisterDto("user", "user", "User", "User");
+            saveUser(registerDto, false);
         }
         {
-            var user = new User();
-            user.setUsername("admin");
-            user.setPassword(passwordEncoder.encode("admin"));
-            user.addRole(roleRepository.findByName(Authority.ROLE_USER).get());
-            user.addRole(roleRepository.findByName(Authority.ROLE_ADMIN).get());
-            saveUser(user);
+            var registerDto = new RegisterDto("admin", "admin", "Admin", "Admin");
+            saveUser(registerDto, true);
         }
     }
 
-    private void saveUser(User user) {
-        if (userRepository.findByUsername(user.getUsername()).isPresent()) {
-            return;
+    private void saveUser(RegisterDto registerDto, boolean admin) {
+        try {
+            if (admin) {
+                myUserDetailsService.registerAdmin(registerDto);
+            } else {
+                myUserDetailsService.register(registerDto);
+            }
+        } catch (Exception ignored) {
         }
-
-        userRepository.save(user);
     }
 
     private void saveRole(String roleName) {
-        if (roleRepository.findByName(roleName).isPresent()) {
-            return;
+        try {
+            var roleDto = new RoleDto(null, roleName);
+            roleService.insert(roleDto);
+        } catch (Exception ignored) {
         }
-
-        var role = new Role();
-        role.setName(roleName);
-        roleRepository.save(role);
     }
 }
