@@ -49,7 +49,7 @@ public class PlatformService {
     }
 
     @Transactional(isolation = Isolation.REPEATABLE_READ)
-    public void deletePlatform(Integer id) {
+    public void deletePlatform(Long id) {
         platformRepository.findById(id).orElseThrow(EntityNotFoundException::new);
         platformRepository.deleteById(id);
     }

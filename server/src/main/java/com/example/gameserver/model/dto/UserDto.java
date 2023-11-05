@@ -11,12 +11,15 @@ import java.io.Serializable;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+/**
+ * DTO for {@link com.example.gameserver.model.domain.User}
+ */
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 public class UserDto implements Serializable {
 
-    private Integer id;
+    private Long id;
 
     @Size(min = 4, max = 50)
     private String username;

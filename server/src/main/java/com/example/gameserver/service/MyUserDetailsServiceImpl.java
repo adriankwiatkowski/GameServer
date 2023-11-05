@@ -44,8 +44,8 @@ public class MyUserDetailsServiceImpl implements MyUserDetailsService {
     @Transactional
     @Override
     public MyUserDetails login(LoginDto loginDto) {
-        var user = userRepository.findByUsername(loginDto.username()).orElseThrow();
-        if (!passwordEncoder.matches(loginDto.password(), user.getPassword())) {
+        var user = userRepository.findByUsername(loginDto.getUsername()).orElseThrow();
+        if (!passwordEncoder.matches(loginDto.getPassword(), user.getPassword())) {
             throw new BadCredentialsException("");
         }
 
@@ -68,15 +68,15 @@ public class MyUserDetailsServiceImpl implements MyUserDetailsService {
     }
 
     private void register(RegisterDto registerDto, Set<Role> roles) throws Exception {
-        if (userRepository.findByUsername(registerDto.username()).isPresent()) {
-            throw new Exception(String.format("User already exists with username: %s", registerDto.username()));
+        if (userRepository.findByUsername(registerDto.getUsername()).isPresent()) {
+            throw new Exception(String.format("User already exists with username: %s", registerDto.getUsername()));
         }
 
         var user = new User();
-        user.setUsername(registerDto.username());
-        user.setPassword(passwordEncoder.encode(registerDto.password()));
-        user.setName(registerDto.name());
-        user.setSurname(registerDto.surname());
+        user.setUsername(registerDto.getUsername());
+        user.setPassword(passwordEncoder.encode(registerDto.getPassword()));
+        user.setName(registerDto.getName());
+        user.setSurname(registerDto.getSurname());
         user.setRoles(roles);
 
         userRepository.saveAndFlush(user);

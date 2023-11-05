@@ -30,7 +30,7 @@ public class GameController {
     }
 
     @GetMapping("/{id}")
-    public GameDto get(@PathVariable Integer id) {
+    public GameDto get(@PathVariable Long id) {
         return gameService.getGame(id);
     }
 
@@ -48,7 +48,7 @@ public class GameController {
 
     @PreAuthorize(Authority.ADMIN_SCOPE)
     @DeleteMapping("/{id}")
-    public void delete(@PathVariable Integer id) {
+    public void delete(@PathVariable Long id) {
         gameService.deleteGame(id);
     }
 }

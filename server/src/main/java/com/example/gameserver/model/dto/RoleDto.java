@@ -8,12 +8,15 @@ import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
 
+/**
+ * DTO for {@link com.example.gameserver.model.domain.Role}
+ */
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 public class RoleDto implements Serializable {
 
-    private Integer id;
+    private Long id;
 
     @Size(max = 50)
     private String name;

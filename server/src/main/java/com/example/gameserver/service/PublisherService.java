@@ -49,7 +49,7 @@ public class PublisherService {
     }
 
     @Transactional(isolation = Isolation.REPEATABLE_READ)
-    public void deletePublisher(Integer id) {
+    public void deletePublisher(Long id) {
         publisherRepository.findById(id).orElseThrow(EntityNotFoundException::new);
         publisherRepository.deleteById(id);
     }
