@@ -1,6 +1,5 @@
 package com.example.gameserver.model.dto;
 
-import com.example.gameserver.model.domain.User;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
@@ -9,7 +8,6 @@ import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 /**
  * DTO for {@link com.example.gameserver.model.domain.User}
@@ -32,19 +30,4 @@ public class UserDto implements Serializable {
 
     @NotNull
     private Set<RoleDto> roles;
-
-    public static UserDto from(User user) {
-        var userDto = new UserDto();
-
-        userDto.setId(user.getId());
-        userDto.setUsername(user.getUsername());
-        userDto.setName(user.getName());
-        userDto.setSurname(user.getSurname());
-        userDto.setRoles(user.getRoles()
-                .stream()
-                .map(RoleDto::from)
-                .collect(Collectors.toSet()));
-
-        return userDto;
-    }
 }

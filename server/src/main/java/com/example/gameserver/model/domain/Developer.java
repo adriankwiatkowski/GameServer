@@ -34,5 +34,4 @@ public class Developer {
             joinColumns = @JoinColumn(name = "developer_id"),
             inverseJoinColumns = @JoinColumn(name = "game_id"))
     private Set<Game> games = new LinkedHashSet<>();
-
 }

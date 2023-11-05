@@ -1,5 +1,6 @@
 package com.example.gameserver.service;
 
+import com.example.gameserver.mapper.RoleMapper;
 import com.example.gameserver.model.domain.Role;
 import com.example.gameserver.model.dto.RoleDto;
 import com.example.gameserver.repository.RoleRepository;
@@ -12,9 +13,11 @@ import org.springframework.transaction.annotation.Transactional;
 public class RoleService {
 
     private final RoleRepository roleRepository;
+    private final RoleMapper roleMapper;
 
-    public RoleService(RoleRepository roleRepository) {
+    public RoleService(RoleRepository roleRepository, RoleMapper roleMapper) {
         this.roleRepository = roleRepository;
+        this.roleMapper = roleMapper;
     }
 
     public Role getRoleByName(String name) {
@@ -41,10 +44,10 @@ public class RoleService {
     }
 
     private RoleDto upsert(RoleDto roleDto) {
-        var role = RoleDto.toRole(roleDto);
+        var role = roleMapper.toRole(roleDto);
 
         roleRepository.saveAndFlush(role);
 
-        return RoleDto.from(role);
+        return roleMapper.from(role);
     }
 }

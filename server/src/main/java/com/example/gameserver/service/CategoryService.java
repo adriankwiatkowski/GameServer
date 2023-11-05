@@ -1,5 +1,6 @@
 package com.example.gameserver.service;
 
+import com.example.gameserver.mapper.CategoryMapper;
 import com.example.gameserver.model.dto.CategoryDto;
 import com.example.gameserver.repository.CategoryRepository;
 import jakarta.persistence.EntityNotFoundException;
@@ -14,14 +15,16 @@ import java.util.stream.Collectors;
 public class CategoryService {
 
     private final CategoryRepository categoryRepository;
+    private final CategoryMapper categoryMapper;
 
-    public CategoryService(CategoryRepository categoryRepository) {
+    public CategoryService(CategoryRepository categoryRepository, CategoryMapper categoryMapper) {
         this.categoryRepository = categoryRepository;
+        this.categoryMapper = categoryMapper;
     }
 
     public List<CategoryDto> getAllCategories() {
         return categoryRepository.findAll().stream()
-                .map(CategoryDto::from)
+                .map(categoryMapper::from)
                 .collect(Collectors.toList());
     }
 
@@ -41,11 +44,11 @@ public class CategoryService {
     }
 
     private CategoryDto upsert(CategoryDto categoryDto) {
-        var category = CategoryDto.toCategory(categoryDto);
+        var category = categoryMapper.toCategory(categoryDto);
 
         categoryRepository.save(category);
 
-        return CategoryDto.from(category);
+        return categoryMapper.from(category);
     }
 
     @Transactional(isolation = Isolation.REPEATABLE_READ)

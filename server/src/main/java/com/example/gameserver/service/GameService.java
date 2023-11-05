@@ -1,58 +1,42 @@
 package com.example.gameserver.service;
 
-import com.example.gameserver.model.domain.*;
-import com.example.gameserver.model.dto.*;
-import com.example.gameserver.repository.*;
+import com.example.gameserver.mapper.GameMapper;
+import com.example.gameserver.model.dto.GameDto;
+import com.example.gameserver.repository.GameRepository;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
 public class GameService {
 
     private final GameRepository gameRepository;
-    private final CategoryRepository categoryRepository;
-    private final DeveloperRepository developerRepository;
-    private final GenreRepository genreRepository;
-    private final PlatformRepository platformRepository;
-    private final PublisherRepository publisherRepository;
+    private final GameMapper gameMapper;
 
-    public GameService(GameRepository gameRepository,
-                       CategoryRepository categoryRepository,
-                       DeveloperRepository developerRepository,
-                       GenreRepository genreRepository,
-                       PlatformRepository platformRepository,
-                       PublisherRepository publisherRepository) {
+    public GameService(GameRepository gameRepository, GameMapper gameMapper) {
         this.gameRepository = gameRepository;
-        this.categoryRepository = categoryRepository;
-        this.developerRepository = developerRepository;
-        this.genreRepository = genreRepository;
-        this.platformRepository = platformRepository;
-        this.publisherRepository = publisherRepository;
+        this.gameMapper = gameMapper;
     }
 
     public List<GameDto> getAllGames() {
-        var games = gameRepository.findAllByOrderByNameAsc();
-        return games.stream()
-                .map(GameDto::from)
+        return gameRepository.findAllByOrderByNameAsc().stream()
+                .map(gameMapper::from)
                 .collect(Collectors.toList());
     }
 
     public List<GameDto> getAllGamesByName(String name) {
-        var games = gameRepository.findAllByNameContainingIgnoreCaseOrderByNameAsc(name);
-        return games.stream()
-                .map(GameDto::from)
+        return gameRepository.findAllByNameContainingIgnoreCaseOrderByNameAsc(name).stream()
+                .map(gameMapper::from)
                 .collect(Collectors.toList());
     }
 
     public GameDto getGame(Long id) {
         var game = gameRepository.findById(id).orElseThrow(EntityNotFoundException::new);
-        return GameDto.from(game);
+        return gameMapper.from(game);
     }
 
     @Transactional(isolation = Isolation.REPEATABLE_READ)
@@ -71,56 +55,16 @@ public class GameService {
     }
 
     private GameDto upsert(GameDto gameDto) {
-        var game = GameDto.toGame(gameDto,
-                this::getCategories,
-                this::getDevelopers,
-                this::getGenres,
-                this::getPlatforms,
-                this::getPublishers);
+        var game = gameMapper.toGame(gameDto);
 
         gameRepository.save(game);
 
-        return GameDto.from(game);
+        return gameMapper.from(game);
     }
 
     @Transactional(isolation = Isolation.REPEATABLE_READ)
     public void deleteGame(Long id) {
         gameRepository.findById(id).orElseThrow(EntityNotFoundException::new);
         gameRepository.deleteById(id);
-    }
-
-    private Set<Category> getCategories(Set<CategoryDto> categories) {
-        return categories
-                .stream()
-                .map(category -> categoryRepository.findById(category.getId()).orElseThrow())
-                .collect(Collectors.toSet());
-    }
-
-    private Set<Developer> getDevelopers(Set<DeveloperDto> developers) {
-        return developers
-                .stream()
-                .map(developer -> developerRepository.findById(developer.getId()).orElseThrow())
-                .collect(Collectors.toSet());
-    }
-
-    private Set<Genre> getGenres(Set<GenreDto> genres) {
-        return genres
-                .stream()
-                .map(genre -> genreRepository.findById(genre.getId()).orElseThrow())
-                .collect(Collectors.toSet());
-    }
-
-    private Set<Platform> getPlatforms(Set<PlatformDto> platforms) {
-        return platforms
-                .stream()
-                .map(platform -> platformRepository.findById(platform.getId()).orElseThrow())
-                .collect(Collectors.toSet());
-    }
-
-    private Set<Publisher> getPublishers(Set<PublisherDto> publishers) {
-        return publishers
-                .stream()
-                .map(publisher -> publisherRepository.findById(publisher.getId()).orElseThrow())
-                .collect(Collectors.toSet());
     }
 }

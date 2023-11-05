@@ -1,5 +1,6 @@
 package com.example.gameserver.service;
 
+import com.example.gameserver.mapper.GenreMapper;
 import com.example.gameserver.model.dto.GenreDto;
 import com.example.gameserver.repository.GenreRepository;
 import jakarta.persistence.EntityNotFoundException;
@@ -14,14 +15,16 @@ import java.util.stream.Collectors;
 public class GenreService {
 
     private final GenreRepository genreRepository;
+    private final GenreMapper genreMapper;
 
-    public GenreService(GenreRepository genreRepository) {
+    public GenreService(GenreRepository genreRepository, GenreMapper genreMapper) {
         this.genreRepository = genreRepository;
+        this.genreMapper = genreMapper;
     }
 
     public List<GenreDto> getAllGenres() {
         return genreRepository.findAll().stream()
-                .map(GenreDto::from)
+                .map(genreMapper::from)
                 .collect(Collectors.toList());
     }
 
@@ -41,11 +44,11 @@ public class GenreService {
     }
 
     private GenreDto upsert(GenreDto genreDto) {
-        var genre = GenreDto.toGenre(genreDto);
+        var genre = genreMapper.toGenre(genreDto);
 
         genreRepository.save(genre);
 
-        return GenreDto.from(genre);
+        return genreMapper.from(genre);
     }
 
     @Transactional(isolation = Isolation.REPEATABLE_READ)
