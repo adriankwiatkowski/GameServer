@@ -24,7 +24,7 @@ import java.util.stream.Collectors;
 @NoArgsConstructor
 public class GameDto implements Serializable {
 
-    private Integer id;
+    private Long id;
 
     @NotNull(message = "Name cannot be null")
     @Size(max = 255)

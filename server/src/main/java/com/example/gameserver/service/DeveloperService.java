@@ -49,7 +49,7 @@ public class DeveloperService {
     }
 
     @Transactional(isolation = Isolation.REPEATABLE_READ)
-    public void deleteDeveloper(Integer id) {
+    public void deleteDeveloper(Long id) {
         developerRepository.findById(id).orElseThrow(EntityNotFoundException::new);
         developerRepository.deleteById(id);
     }

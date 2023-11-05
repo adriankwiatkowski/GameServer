@@ -1,40 +1,17 @@
--- phpMyAdmin SQL Dump
--- version 5.2.1
--- https://www.phpmyadmin.net/
---
--- Host: 127.0.0.1
--- Generation Time: Paź 23, 2023 at 10:33 AM
--- Wersja serwera: 10.4.28-MariaDB
--- Wersja PHP: 8.2.4
-
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
 SET time_zone = "+00:00";
-
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
 /*!40101 SET NAMES utf8mb4 */;
 
---
--- Database: `game`
---
-
--- --------------------------------------------------------
-
---
--- Struktura tabeli dla tabeli `category`
---
 
 CREATE TABLE `category` (
-  `id` int(11) NOT NULL,
+  `id` bigint(20) NOT NULL,
   `name` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `category`
---
 
 INSERT INTO `category` (`id`, `name`) VALUES
 (9, 'Captions available'),
@@ -63,20 +40,10 @@ INSERT INTO `category` (`id`, `name`) VALUES
 (21, 'SteamVR Collectibles'),
 (4, 'Valve Anti-Cheat enabled');
 
--- --------------------------------------------------------
-
---
--- Struktura tabeli dla tabeli `developer`
---
-
 CREATE TABLE `developer` (
-  `id` int(11) NOT NULL,
+  `id` bigint(20) NOT NULL,
   `name` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `developer`
---
 
 INSERT INTO `developer` (`id`, `name`) VALUES
 (34, '1C Entertainment'),
@@ -175,14 +142,8 @@ INSERT INTO `developer` (`id`, `name`) VALUES
 (1, 'Valve'),
 (15, 'Xatrix Entertainment');
 
--- --------------------------------------------------------
-
---
--- Struktura tabeli dla tabeli `game`
---
-
 CREATE TABLE `game` (
-  `id` int(11) NOT NULL,
+  `id` bigint(20) NOT NULL,
   `name` varchar(255) NOT NULL,
   `description` text NOT NULL,
   `release_date` date NOT NULL,
@@ -193,10 +154,6 @@ CREATE TABLE `game` (
   `owners` varchar(255) NOT NULL,
   `price` decimal(10,2) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `game`
---
 
 INSERT INTO `game` (`id`, `name`, `description`, `release_date`, `positive_ratings`, `negative_ratings`, `average_playtime`, `median_playtime`, `owners`, `price`) VALUES
 (1, 'Team Fortress Classic', 'One of the most popular online action games of all time, Team Fortress Classic features over nine character classes -- from Medic to Spy to Demolition Man -- enlisted in a unique style of online team warfare. Each character class possesses unique weapons, items, and abilities, as teams compete online in a variety of game play modes.', '1999-04-01', 3318, 633, 277, 62, '5000000-10000000', 3.99),
@@ -405,20 +362,10 @@ INSERT INTO `game` (`id`, `name`, `description`, `release_date`, `positive_ratin
 (199, 'X-COM: Enforcer', 'X-COM: Earth\'s top-secret eXtraterrestrial COMbat unit                                                \r\n					                        The Place: America - early 21st century                                                \r\n					                        The Mission: Eradicate the extraterrestrials                                                \r\n					                        Alien forces have invaded Earth and are terrorizing the population. To combat this sinister threat, a lone X-COM scientist has created the Enforcer, a high-tech fighting machine made of earthly robotics and scavenged alien technology.                                                \r\n					                        Armed with the latest high-powered weapons, the Enforcer is sent into alien hot spots to fight in adrenaline-charged battles that rage on city streets, across rooftops and in the sewers. YOU are the Enforcer.                                                \r\n					                        Powered by the same game engine as Unreal Tournament™, X-COM ENFORCER™ puts you on the front line of an alien attack.', '2008-09-04', 146, 138, 0, 0, '500000-1000000', 2.99),
 (200, 'Men of War™', 'Men of War is a stunning Real-Time Strategy game that takes place during the height of World War II. Intense battles span Europe and North Africa as gamers play as Soviet, Allied or German forces across 19 massive single-player missions. Both online multiplayer and single-player conflicts feature authentic vehicles and weapons of the era and brutal combat that will take players into the heart of the fight.                    Features                    The Direct Control feature allows gamers to command any single unit on the field at any time. Players have complete control over the unit\'s actions and can change, upgrade and repair equipment and vehicles.                    Three evolving storylines in the Soviet, Allied and German armies, comprising 19 missions in total.                    Realistic models of armament and military equipment recreated in accordance with design drawings and historical documents.                    Highly detailed WWII environments and characters faithfully recreated with a cutting-edge graphics engine.                    The single player campaign features a fully customizable user interface.                    Online play features a unique faction (the Japanese) and numerous gameplay modes including Capture the Flag and High-Value Cargo.                    Men of War is affected by the GameSpy shutdown on the 31st of May. You can continue to play the game through LAN, DirectIP and GameRanger.', '2009-05-06', 1664, 257, 0, 0, '200000-500000', 3.99);
 
--- --------------------------------------------------------
-
---
--- Struktura tabeli dla tabeli `game_category`
---
-
 CREATE TABLE `game_category` (
-  `game_id` int(11) NOT NULL,
-  `category_id` int(11) NOT NULL
+  `game_id` bigint(20) NOT NULL,
+  `category_id` bigint(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `game_category`
---
 
 INSERT INTO `game_category` (`game_id`, `category_id`) VALUES
 (1, 1),
@@ -995,20 +942,10 @@ INSERT INTO `game_category` (`game_id`, `category_id`) VALUES
 (200, 6),
 (200, 15);
 
--- --------------------------------------------------------
-
---
--- Struktura tabeli dla tabeli `game_developer`
---
-
 CREATE TABLE `game_developer` (
-  `game_id` int(11) NOT NULL,
-  `developer_id` int(11) NOT NULL
+  `game_id` bigint(20) NOT NULL,
+  `developer_id` bigint(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `game_developer`
---
 
 INSERT INTO `game_developer` (`game_id`, `developer_id`) VALUES
 (1, 1),
@@ -1241,20 +1178,10 @@ INSERT INTO `game_developer` (`game_id`, `developer_id`) VALUES
 (199, 94),
 (200, 95);
 
--- --------------------------------------------------------
-
---
--- Struktura tabeli dla tabeli `game_genre`
---
-
 CREATE TABLE `game_genre` (
-  `game_id` int(11) NOT NULL,
-  `genre_id` int(11) NOT NULL
+  `game_id` bigint(20) NOT NULL,
+  `genre_id` bigint(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `game_genre`
---
 
 INSERT INTO `game_genre` (`game_id`, `genre_id`) VALUES
 (1, 1),
@@ -1518,20 +1445,10 @@ INSERT INTO `game_genre` (`game_id`, `genre_id`) VALUES
 (199, 3),
 (200, 3);
 
--- --------------------------------------------------------
-
---
--- Struktura tabeli dla tabeli `game_platform`
---
-
 CREATE TABLE `game_platform` (
-  `game_id` int(11) NOT NULL,
-  `platform_id` int(11) NOT NULL
+  `game_id` bigint(20) NOT NULL,
+  `platform_id` bigint(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `game_platform`
---
 
 INSERT INTO `game_platform` (`game_id`, `platform_id`) VALUES
 (1, 1),
@@ -1833,20 +1750,10 @@ INSERT INTO `game_platform` (`game_id`, `platform_id`) VALUES
 (199, 1),
 (200, 1);
 
--- --------------------------------------------------------
-
---
--- Struktura tabeli dla tabeli `game_publisher`
---
-
 CREATE TABLE `game_publisher` (
-  `game_id` int(11) NOT NULL,
-  `publisher_id` int(11) NOT NULL
+  `game_id` bigint(20) NOT NULL,
+  `publisher_id` bigint(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `game_publisher`
---
 
 INSERT INTO `game_publisher` (`game_id`, `publisher_id`) VALUES
 (1, 1),
@@ -2093,20 +2000,10 @@ INSERT INTO `game_publisher` (`game_id`, `publisher_id`) VALUES
 (200, 26),
 (200, 27);
 
--- --------------------------------------------------------
-
---
--- Struktura tabeli dla tabeli `genre`
---
-
 CREATE TABLE `genre` (
-  `id` int(11) NOT NULL,
+  `id` bigint(20) NOT NULL,
   `name` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `genre`
---
 
 INSERT INTO `genre` (`id`, `name`) VALUES
 (1, 'Action'),
@@ -2124,40 +2021,20 @@ INSERT INTO `genre` (`id`, `name`) VALUES
 (8, 'Video Production'),
 (12, 'Violent');
 
--- --------------------------------------------------------
-
---
--- Struktura tabeli dla tabeli `platform`
---
-
 CREATE TABLE `platform` (
-  `id` int(11) NOT NULL,
+  `id` bigint(20) NOT NULL,
   `name` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `platform`
---
 
 INSERT INTO `platform` (`id`, `name`) VALUES
 (3, 'linux'),
 (2, 'mac'),
 (1, 'windows');
 
--- --------------------------------------------------------
-
---
--- Struktura tabeli dla tabeli `publisher`
---
-
 CREATE TABLE `publisher` (
-  `id` int(11) NOT NULL,
+  `id` bigint(20) NOT NULL,
   `name` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `publisher`
---
 
 INSERT INTO `publisher` (`id`, `name`) VALUES
 (26, '1C Entertainment'),
@@ -2220,161 +2097,86 @@ INSERT INTO `publisher` (`id`, `name`) VALUES
 (44, 'Unknown Worlds Entertainment'),
 (1, 'Valve');
 
---
--- Indeksy dla zrzutów tabel
---
 
---
--- Indeksy dla tabeli `category`
---
 ALTER TABLE `category`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `name` (`name`);
 
---
--- Indeksy dla tabeli `developer`
---
 ALTER TABLE `developer`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `name` (`name`);
 
---
--- Indeksy dla tabeli `game`
---
 ALTER TABLE `game`
   ADD PRIMARY KEY (`id`);
 
---
--- Indeksy dla tabeli `game_category`
---
 ALTER TABLE `game_category`
   ADD KEY `game_id` (`game_id`),
   ADD KEY `category_id` (`category_id`);
 
---
--- Indeksy dla tabeli `game_developer`
---
 ALTER TABLE `game_developer`
   ADD KEY `game_id` (`game_id`),
   ADD KEY `developer_id` (`developer_id`);
 
---
--- Indeksy dla tabeli `game_genre`
---
 ALTER TABLE `game_genre`
   ADD KEY `game_id` (`game_id`),
   ADD KEY `genre_id` (`genre_id`);
 
---
--- Indeksy dla tabeli `game_platform`
---
 ALTER TABLE `game_platform`
   ADD KEY `game_id` (`game_id`),
   ADD KEY `platform_id` (`platform_id`);
 
---
--- Indeksy dla tabeli `game_publisher`
---
 ALTER TABLE `game_publisher`
   ADD KEY `game_id` (`game_id`),
   ADD KEY `publisher_id` (`publisher_id`);
 
---
--- Indeksy dla tabeli `genre`
---
 ALTER TABLE `genre`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `name` (`name`);
 
---
--- Indeksy dla tabeli `platform`
---
 ALTER TABLE `platform`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `name` (`name`);
 
---
--- Indeksy dla tabeli `publisher`
---
 ALTER TABLE `publisher`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `name` (`name`);
 
---
--- AUTO_INCREMENT for dumped tables
---
 
---
--- AUTO_INCREMENT for table `category`
---
 ALTER TABLE `category`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
 
---
--- AUTO_INCREMENT for table `developer`
---
 ALTER TABLE `developer`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=96;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=96;
 
---
--- AUTO_INCREMENT for table `game`
---
 ALTER TABLE `game`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=201;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=201;
 
---
--- AUTO_INCREMENT for table `genre`
---
 ALTER TABLE `genre`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
---
--- AUTO_INCREMENT for table `platform`
---
 ALTER TABLE `platform`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
---
--- AUTO_INCREMENT for table `publisher`
---
 ALTER TABLE `publisher`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=60;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=60;
 
---
--- Constraints for dumped tables
---
 
---
--- Constraints for table `game_category`
---
 ALTER TABLE `game_category`
   ADD CONSTRAINT `game_category_ibfk_1` FOREIGN KEY (`game_id`) REFERENCES `game` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `game_category_ibfk_2` FOREIGN KEY (`category_id`) REFERENCES `category` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
---
--- Constraints for table `game_developer`
---
 ALTER TABLE `game_developer`
   ADD CONSTRAINT `game_developer_ibfk_1` FOREIGN KEY (`game_id`) REFERENCES `game` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `game_developer_ibfk_2` FOREIGN KEY (`developer_id`) REFERENCES `developer` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
---
--- Constraints for table `game_genre`
---
 ALTER TABLE `game_genre`
   ADD CONSTRAINT `game_genre_ibfk_1` FOREIGN KEY (`game_id`) REFERENCES `game` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `game_genre_ibfk_2` FOREIGN KEY (`genre_id`) REFERENCES `genre` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
---
--- Constraints for table `game_platform`
---
 ALTER TABLE `game_platform`
   ADD CONSTRAINT `game_platform_ibfk_1` FOREIGN KEY (`game_id`) REFERENCES `game` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `game_platform_ibfk_2` FOREIGN KEY (`platform_id`) REFERENCES `platform` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
---
--- Constraints for table `game_publisher`
---
 ALTER TABLE `game_publisher`
   ADD CONSTRAINT `game_publisher_ibfk_1` FOREIGN KEY (`game_id`) REFERENCES `game` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `game_publisher_ibfk_2` FOREIGN KEY (`publisher_id`) REFERENCES `publisher` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;

@@ -50,7 +50,7 @@ public class GameService {
                 .collect(Collectors.toList());
     }
 
-    public GameDto getGame(Integer id) {
+    public GameDto getGame(Long id) {
         var game = gameRepository.findById(id).orElseThrow(EntityNotFoundException::new);
         return GameDto.from(game);
     }
@@ -84,7 +84,7 @@ public class GameService {
     }
 
     @Transactional(isolation = Isolation.REPEATABLE_READ)
-    public void deleteGame(Integer id) {
+    public void deleteGame(Long id) {
         gameRepository.findById(id).orElseThrow(EntityNotFoundException::new);
         gameRepository.deleteById(id);
     }

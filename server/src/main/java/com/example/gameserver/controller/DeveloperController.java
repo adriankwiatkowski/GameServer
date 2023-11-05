@@ -38,7 +38,7 @@ public class DeveloperController {
 
     @PreAuthorize(Authority.ADMIN_SCOPE)
     @DeleteMapping("/{id}")
-    public void delete(@PathVariable Integer id) {
+    public void delete(@PathVariable Long id) {
         developerService.deleteDeveloper(id);
     }
 }

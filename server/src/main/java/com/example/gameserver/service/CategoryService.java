@@ -49,7 +49,7 @@ public class CategoryService {
     }
 
     @Transactional(isolation = Isolation.REPEATABLE_READ)
-    public void deleteCategory(Integer id) {
+    public void deleteCategory(Long id) {
         categoryRepository.findById(id).orElseThrow(EntityNotFoundException::new);
         categoryRepository.deleteById(id);
     }

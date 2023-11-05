@@ -49,7 +49,7 @@ public class GenreService {
     }
 
     @Transactional(isolation = Isolation.REPEATABLE_READ)
-    public void deleteGenre(Integer id) {
+    public void deleteGenre(Long id) {
         genreRepository.findById(id).orElseThrow(EntityNotFoundException::new);
         genreRepository.deleteById(id);
     }

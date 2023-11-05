@@ -17,7 +17,7 @@ import java.io.Serializable;
 @NoArgsConstructor
 public class PublisherDto implements Serializable {
 
-    private Integer id;
+    private Long id;
 
     @Size(max = 255)
     @NotNull(message = "Name cannot be null")
