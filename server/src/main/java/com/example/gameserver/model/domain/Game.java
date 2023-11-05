@@ -80,4 +80,6 @@ public class Game {
     @ManyToMany(mappedBy = "games", fetch = FetchType.EAGER)
     private Set<Publisher> publishers = new LinkedHashSet<>();
 
+    @OneToMany(mappedBy = "game", cascade = CascadeType.ALL)
+    private Set<GameReview> gameReviews;
 }
