@@ -1,5 +1,6 @@
 package com.example.gameserver.service;
 
+import com.example.gameserver.mapper.PlatformMapper;
 import com.example.gameserver.model.dto.PlatformDto;
 import com.example.gameserver.repository.PlatformRepository;
 import jakarta.persistence.EntityNotFoundException;
@@ -14,14 +15,16 @@ import java.util.stream.Collectors;
 public class PlatformService {
 
     private final PlatformRepository platformRepository;
+    private final PlatformMapper platformMapper;
 
-    public PlatformService(PlatformRepository platformRepository) {
+    public PlatformService(PlatformRepository platformRepository, PlatformMapper platformMapper) {
         this.platformRepository = platformRepository;
+        this.platformMapper = platformMapper;
     }
 
     public List<PlatformDto> getAllPlatforms() {
         return platformRepository.findAll().stream()
-                .map(PlatformDto::from)
+                .map(platformMapper::from)
                 .collect(Collectors.toList());
     }
 
@@ -41,11 +44,11 @@ public class PlatformService {
     }
 
     private PlatformDto upsert(PlatformDto platformDto) {
-        var platform = PlatformDto.toPlatform(platformDto);
+        var platform = platformMapper.toPlatform(platformDto);
 
         platformRepository.save(platform);
 
-        return PlatformDto.from(platform);
+        return platformMapper.from(platform);
     }
 
     @Transactional(isolation = Isolation.REPEATABLE_READ)

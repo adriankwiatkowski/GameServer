@@ -1,5 +1,6 @@
 package com.example.gameserver.service;
 
+import com.example.gameserver.mapper.DeveloperMapper;
 import com.example.gameserver.model.dto.DeveloperDto;
 import com.example.gameserver.repository.DeveloperRepository;
 import jakarta.persistence.EntityNotFoundException;
@@ -14,14 +15,16 @@ import java.util.stream.Collectors;
 public class DeveloperService {
 
     private final DeveloperRepository developerRepository;
+    private final DeveloperMapper developerMapper;
 
-    public DeveloperService(DeveloperRepository developerRepository) {
+    public DeveloperService(DeveloperRepository developerRepository, DeveloperMapper developerMapper) {
         this.developerRepository = developerRepository;
+        this.developerMapper = developerMapper;
     }
 
     public List<DeveloperDto> getAllDevelopers() {
         return developerRepository.findAll().stream()
-                .map(DeveloperDto::from)
+                .map(developerMapper::from)
                 .collect(Collectors.toList());
     }
 
@@ -41,11 +44,11 @@ public class DeveloperService {
     }
 
     private DeveloperDto upsert(DeveloperDto developerDto) {
-        var developer = DeveloperDto.toDeveloper(developerDto);
+        var developer = developerMapper.toDeveloper(developerDto);
 
         developerRepository.save(developer);
 
-        return DeveloperDto.from(developer);
+        return developerMapper.from(developer);
     }
 
     @Transactional(isolation = Isolation.REPEATABLE_READ)

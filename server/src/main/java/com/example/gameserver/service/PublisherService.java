@@ -1,5 +1,6 @@
 package com.example.gameserver.service;
 
+import com.example.gameserver.mapper.PublisherMapper;
 import com.example.gameserver.model.dto.PublisherDto;
 import com.example.gameserver.repository.PublisherRepository;
 import jakarta.persistence.EntityNotFoundException;
@@ -14,14 +15,16 @@ import java.util.stream.Collectors;
 public class PublisherService {
 
     private final PublisherRepository publisherRepository;
+    private final PublisherMapper publisherMapper;
 
-    public PublisherService(PublisherRepository publisherRepository) {
+    public PublisherService(PublisherRepository publisherRepository, PublisherMapper publisherMapper) {
         this.publisherRepository = publisherRepository;
+        this.publisherMapper = publisherMapper;
     }
 
     public List<PublisherDto> getAllPublishers() {
         return publisherRepository.findAll().stream()
-                .map(PublisherDto::from)
+                .map(publisherMapper::from)
                 .collect(Collectors.toList());
     }
 
@@ -41,11 +44,11 @@ public class PublisherService {
     }
 
     private PublisherDto upsert(PublisherDto publisherDto) {
-        var publisher = PublisherDto.toPublisher(publisherDto);
+        var publisher = publisherMapper.toPublisher(publisherDto);
 
         publisherRepository.save(publisher);
 
-        return PublisherDto.from(publisher);
+        return publisherMapper.from(publisher);
     }
 
     @Transactional(isolation = Isolation.REPEATABLE_READ)
