@@ -1,0 +1,33 @@
+### Get game review by game id
+GET http://localhost:8080/api/gamereview/1
+Authorization: Bearer {{jwt}}
+
+### Insert game review - admin
+POST http://localhost:8080/api/gamereview
+Authorization: Bearer {{jwtAdmin}}
+Content-Type: application/json
+
+{
+  "id": null,
+  "score": 2,
+  "review": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin pulvinar gravida ante, quis imperdiet velit molestie ut. Ut consectetur quam at justo rutrum condimentum. Donec et euismod tellus. Fusce sed orci lacinia, venenatis urna quis, condimentum libero. Curabitur eu rhoncus ante, et convallis sapien. Nam accumsan, nisi a blandit commodo.",
+  "userId": 1,
+  "gameId": 1
+}
+
+### Update game review - admin
+PUT http://localhost:8080/api/gamereview
+Authorization: Bearer {{jwtAdmin}}
+Content-Type: application/json
+
+{
+  "id": 1,
+  "score": 2,
+  "review": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin pulvinar gravida ante, quis imperdiet velit molestie ut. Ut consectetur quam at justo rutrum condimentum. Donec et euismod tellus. Fusce sed orci lacinia, venenatis urna quis, condimentum libero. Curabitur eu rhoncus ante, et convallis sapien. Nam accumsan, nisi a blandit commodo.",
+  "userId": 1,
+  "gameId": 1
+}
+
+### Delete game review by id - admin
+DELETE http://localhost:8080/api/gamereview/1
+Authorization: Bearer {{jwtAdmin}}
