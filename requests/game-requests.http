@@ -83,7 +83,7 @@ Content-Type: application/json
 }
 
 ### Update game - admin
-POST http://localhost:8080/api/game
+PUT http://localhost:8080/api/game
 Authorization: Bearer {{jwtAdmin}}
 Content-Type: application/json
 
