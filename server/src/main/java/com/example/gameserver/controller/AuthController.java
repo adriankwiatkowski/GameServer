@@ -2,6 +2,7 @@ package com.example.gameserver.controller;
 
 import com.example.gameserver.model.dto.LoginDto;
 import com.example.gameserver.model.dto.RegisterDto;
+import com.example.gameserver.model.dto.TokenDto;
 import com.example.gameserver.service.MyUserDetailsService;
 import com.example.gameserver.service.TokenService;
 import jakarta.validation.Valid;
@@ -28,25 +29,19 @@ public class AuthController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<String> login(@RequestBody @Valid LoginDto loginDto) {
+    public TokenDto login(@RequestBody @Valid LoginDto loginDto) {
         LOG.debug("login");
-        try {
-            var user = myUserDetailsService.login(loginDto);
-            var token = tokenService.generateToken(user);
-            return ResponseEntity.ok(token);
-        } catch (Exception e) {
-            return ResponseEntity.badRequest().body(e.getMessage());
-        }
+
+        var user = myUserDetailsService.login(loginDto);
+        var token = tokenService.generateToken(user);
+
+        return new TokenDto(token);
     }
 
     @PostMapping("/register")
     public ResponseEntity<String> register(@RequestBody @Valid RegisterDto registerDto) {
         LOG.debug("register");
-        try {
-            myUserDetailsService.register(registerDto);
-            return ResponseEntity.ok().build();
-        } catch (Exception e) {
-            return ResponseEntity.badRequest().body(e.getMessage());
-        }
+        myUserDetailsService.register(registerDto);
+        return ResponseEntity.ok().build();
     }
 }

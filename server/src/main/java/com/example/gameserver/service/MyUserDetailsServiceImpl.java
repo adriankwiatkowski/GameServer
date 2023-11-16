@@ -1,5 +1,6 @@
 package com.example.gameserver.service;
 
+import com.example.gameserver.exception.UsernameUsedException;
 import com.example.gameserver.model.Authority;
 import com.example.gameserver.model.MyUserDetails;
 import com.example.gameserver.model.domain.Role;
@@ -54,22 +55,22 @@ public class MyUserDetailsServiceImpl implements MyUserDetailsService {
 
     @Transactional
     @Override
-    public void register(RegisterDto registerDto) throws Exception {
+    public void register(RegisterDto registerDto) {
         var userRole = roleService.getRoleByName(Authority.USER_ROLE);
         register(registerDto, Collections.singleton(userRole));
     }
 
     @Transactional
     @Override
-    public void registerAdmin(RegisterDto registerDto) throws Exception {
+    public void registerAdmin(RegisterDto registerDto) {
         var userRole = roleService.getRoleByName(Authority.USER_ROLE);
         var adminRole = roleService.getRoleByName(Authority.ADMIN_ROLE);
         register(registerDto, new HashSet<>(Arrays.asList(userRole, adminRole)));
     }
 
-    private void register(RegisterDto registerDto, Set<Role> roles) throws Exception {
+    private void register(RegisterDto registerDto, Set<Role> roles) {
         if (userRepository.findByUsername(registerDto.getUsername()).isPresent()) {
-            throw new Exception(String.format("User already exists with username: %s", registerDto.getUsername()));
+            throw new UsernameUsedException(String.format("User already exists with username: %s", registerDto.getUsername()));
         }
 
         var user = new User();

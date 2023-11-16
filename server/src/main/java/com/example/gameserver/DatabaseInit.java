@@ -5,7 +5,6 @@ import com.example.gameserver.model.dto.RegisterDto;
 import com.example.gameserver.model.dto.RoleDto;
 import com.example.gameserver.service.MyUserDetailsService;
 import com.example.gameserver.service.RoleService;
-import jakarta.transaction.Transactional;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.stereotype.Component;
@@ -21,7 +20,6 @@ public class DatabaseInit implements ApplicationRunner {
         this.myUserDetailsService = myUserDetailsService;
     }
 
-    @Transactional
     @Override
     public void run(ApplicationArguments args) {
         saveRole(Authority.USER_ROLE);

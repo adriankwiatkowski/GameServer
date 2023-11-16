@@ -7,9 +7,9 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 
 public interface MyUserDetailsService extends UserDetailsService {
 
-    MyUserDetails login(LoginDto loginDto) throws Exception;
+    MyUserDetails login(LoginDto loginDto);
 
-    void register(RegisterDto registerDto) throws Exception;
+    void register(RegisterDto registerDto);
 
-    void registerAdmin(RegisterDto registerDto) throws Exception;
+    void registerAdmin(RegisterDto registerDto);
 }
