@@ -26,13 +26,13 @@ public class DeveloperController {
 
     @PreAuthorize(Authority.ADMIN_SCOPE)
     @PostMapping
-    public DeveloperDto post(@RequestBody @Valid DeveloperDto developerDto) {
+    public DeveloperDto insert(@RequestBody @Valid DeveloperDto developerDto) {
         return developerService.insert(developerDto);
     }
 
     @PreAuthorize(Authority.ADMIN_SCOPE)
     @PutMapping
-    public DeveloperDto put(@RequestBody @Valid DeveloperDto developerDto) {
+    public DeveloperDto update(@RequestBody @Valid DeveloperDto developerDto) {
         return developerService.update(developerDto);
     }
 
