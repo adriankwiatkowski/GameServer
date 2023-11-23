@@ -7,14 +7,6 @@ import org.springframework.stereotype.Component;
 @Component
 public class GameReviewMapper {
 
-    private final UserMapper userMapper;
-    private final GameMapper gameMapper;
-
-    public GameReviewMapper(UserMapper userMapper, GameMapper gameMapper) {
-        this.userMapper = userMapper;
-        this.gameMapper = gameMapper;
-    }
-
     public GameReviewDto from(GameReview gameReview) {
         var gameReviewDto = new GameReviewDto();
 
@@ -33,8 +25,6 @@ public class GameReviewMapper {
         gameReview.setId(gameReviewDto.getId());
         gameReview.setScore(gameReviewDto.getScore());
         gameReview.setReview(gameReviewDto.getReview());
-        gameReview.setUser(userMapper.findById(gameReviewDto.getUserId()));
-        gameReview.setGame(gameMapper.findById(gameReviewDto.getGameId()));
 
         return gameReview;
     }

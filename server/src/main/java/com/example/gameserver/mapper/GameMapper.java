@@ -2,8 +2,6 @@ package com.example.gameserver.mapper;
 
 import com.example.gameserver.model.domain.Game;
 import com.example.gameserver.model.dto.GameDto;
-import com.example.gameserver.repository.GameRepository;
-import jakarta.persistence.EntityNotFoundException;
 import org.springframework.stereotype.Component;
 
 import java.util.stream.Collectors;
@@ -11,20 +9,17 @@ import java.util.stream.Collectors;
 @Component
 public class GameMapper {
 
-    private final GameRepository gameRepository;
     private final CategoryMapper categoryMapper;
     private final DeveloperMapper developerMapper;
     private final GenreMapper genreMapper;
     private final PlatformMapper platformMapper;
     private final PublisherMapper publisherMapper;
 
-    public GameMapper(GameRepository gameRepository,
-                      CategoryMapper categoryMapper,
+    public GameMapper(CategoryMapper categoryMapper,
                       DeveloperMapper developerMapper,
                       GenreMapper genreMapper,
                       PlatformMapper platformMapper,
                       PublisherMapper publisherMapper) {
-        this.gameRepository = gameRepository;
         this.categoryMapper = categoryMapper;
         this.developerMapper = developerMapper;
         this.genreMapper = genreMapper;
@@ -82,16 +77,22 @@ public class GameMapper {
         game.setMedianPlaytime(gameDto.getMedianPlaytime());
         game.setOwners(gameDto.getOwners());
         game.setPrice(gameDto.getPrice());
-        game.setCategories(categoryMapper.getByIds(gameDto.getCategories()));
-        game.setDevelopers(developerMapper.getByIds(gameDto.getDevelopers()));
-        game.setGenres(genreMapper.getByIds(gameDto.getGenres()));
-        game.setPlatforms(platformMapper.getByIds(gameDto.getPlatforms()));
-        game.setPublishers(publisherMapper.getByIds(gameDto.getPublishers()));
+        game.setCategories(gameDto.getCategories().stream()
+                .map(categoryMapper::toCategory)
+                .collect(Collectors.toSet()));
+        game.setDevelopers(gameDto.getDevelopers().stream()
+                .map(developerMapper::toDeveloper)
+                .collect(Collectors.toSet()));
+        game.setGenres(gameDto.getGenres().stream()
+                .map(genreMapper::toGenre)
+                .collect(Collectors.toSet()));
+        game.setPlatforms(gameDto.getPlatforms().stream()
+                .map(platformMapper::toPlatform)
+                .collect(Collectors.toSet()));
+        game.setPublishers(gameDto.getPublishers().stream()
+                .map(publisherMapper::toPublisher)
+                .collect(Collectors.toSet()));
 
         return game;
-    }
-
-    public Game findById(Long id) {
-        return gameRepository.findById(id).orElseThrow(EntityNotFoundException::new);
     }
 }
