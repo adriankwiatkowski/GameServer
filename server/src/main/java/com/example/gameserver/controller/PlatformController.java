@@ -26,13 +26,13 @@ public class PlatformController {
 
     @PreAuthorize(Authority.ADMIN_SCOPE)
     @PostMapping
-    public PlatformDto post(@RequestBody @Valid PlatformDto platformDto) {
+    public PlatformDto insert(@RequestBody @Valid PlatformDto platformDto) {
         return platformService.insert(platformDto);
     }
 
     @PreAuthorize(Authority.ADMIN_SCOPE)
     @PutMapping
-    public PlatformDto put(@RequestBody @Valid PlatformDto platformDto) {
+    public PlatformDto update(@RequestBody @Valid PlatformDto platformDto) {
         return platformService.update(platformDto);
     }
 

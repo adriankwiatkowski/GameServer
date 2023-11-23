@@ -26,13 +26,13 @@ public class GameReviewController {
 
     @PreAuthorize(Authority.ADMIN_SCOPE)
     @PostMapping
-    public GameReviewDto post(@RequestBody @Valid GameReviewDto gameReviewDto) {
+    public GameReviewDto insert(@RequestBody @Valid GameReviewDto gameReviewDto) {
         return gameReviewService.insert(gameReviewDto);
     }
 
     @PreAuthorize(Authority.ADMIN_SCOPE)
     @PutMapping
-    public GameReviewDto put(@RequestBody @Valid GameReviewDto gameReviewDto) {
+    public GameReviewDto update(@RequestBody @Valid GameReviewDto gameReviewDto) {
         return gameReviewService.update(gameReviewDto);
     }
 

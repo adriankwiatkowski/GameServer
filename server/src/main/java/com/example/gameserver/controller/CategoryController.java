@@ -26,13 +26,13 @@ public class CategoryController {
 
     @PreAuthorize(Authority.ADMIN_SCOPE)
     @PostMapping
-    public CategoryDto post(@RequestBody @Valid CategoryDto categoryDto) {
+    public CategoryDto insert(@RequestBody @Valid CategoryDto categoryDto) {
         return categoryService.insert(categoryDto);
     }
 
     @PreAuthorize(Authority.ADMIN_SCOPE)
     @PutMapping
-    public CategoryDto put(@RequestBody @Valid CategoryDto categoryDto) {
+    public CategoryDto update(@RequestBody @Valid CategoryDto categoryDto) {
         return categoryService.update(categoryDto);
     }
 

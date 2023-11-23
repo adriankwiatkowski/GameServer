@@ -26,13 +26,13 @@ public class GenreController {
 
     @PreAuthorize(Authority.ADMIN_SCOPE)
     @PostMapping
-    public GenreDto post(@RequestBody @Valid GenreDto genreDto) {
+    public GenreDto insert(@RequestBody @Valid GenreDto genreDto) {
         return genreService.insert(genreDto);
     }
 
     @PreAuthorize(Authority.ADMIN_SCOPE)
     @PutMapping
-    public GenreDto put(@RequestBody @Valid GenreDto genreDto) {
+    public GenreDto update(@RequestBody @Valid GenreDto genreDto) {
         return genreService.update(genreDto);
     }
 
