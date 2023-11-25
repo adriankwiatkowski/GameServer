@@ -1,4 +1,4 @@
-package com.example.gameserver.model.dto;
+package com.example.gameserver.dto;
 
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
@@ -8,13 +8,10 @@ import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
 
-/**
- * DTO for {@link com.example.gameserver.model.domain.Platform}
- */
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class PlatformDto implements Serializable {
+public class CategoryDto implements Serializable {
 
     private Long id;
 

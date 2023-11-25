@@ -1,8 +1,8 @@
 package com.example.gameserver.controller;
 
-import com.example.gameserver.model.Authority;
-import com.example.gameserver.model.dto.CategoryDto;
+import com.example.gameserver.dto.CategoryDto;
 import com.example.gameserver.service.CategoryService;
+import com.example.gameserver.util.Authority;
 import jakarta.validation.Valid;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;

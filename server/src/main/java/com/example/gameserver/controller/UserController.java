@@ -1,8 +1,8 @@
 package com.example.gameserver.controller;
 
-import com.example.gameserver.model.Authority;
-import com.example.gameserver.model.dto.UserDto;
+import com.example.gameserver.dto.UserDto;
 import com.example.gameserver.service.UserService;
+import com.example.gameserver.util.Authority;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.DeleteMapping;

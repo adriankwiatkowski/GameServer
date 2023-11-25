@@ -1,6 +1,6 @@
 package com.example.gameserver.repository;
 
-import com.example.gameserver.model.domain.GameReview;
+import com.example.gameserver.domain.GameReview;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

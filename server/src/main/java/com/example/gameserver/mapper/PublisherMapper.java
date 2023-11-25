@@ -1,7 +1,7 @@
 package com.example.gameserver.mapper;
 
-import com.example.gameserver.model.domain.Publisher;
-import com.example.gameserver.model.dto.PublisherDto;
+import com.example.gameserver.domain.Publisher;
+import com.example.gameserver.dto.PublisherDto;
 import org.springframework.stereotype.Component;
 
 @Component

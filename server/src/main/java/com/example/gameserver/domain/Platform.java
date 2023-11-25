@@ -1,4 +1,4 @@
-package com.example.gameserver.model.domain;
+package com.example.gameserver.domain;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
@@ -16,8 +16,8 @@ import java.util.Set;
 @Getter
 @Setter
 @Entity
-@Table(name = "developer")
-public class Developer {
+@Table(name = "platform")
+public class Platform {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -30,8 +30,8 @@ public class Developer {
     private String name;
 
     @ManyToMany
-    @JoinTable(name = "game_developer",
-            joinColumns = @JoinColumn(name = "developer_id"),
+    @JoinTable(name = "game_platform",
+            joinColumns = @JoinColumn(name = "platform_id"),
             inverseJoinColumns = @JoinColumn(name = "game_id"))
     private Set<Game> games = new LinkedHashSet<>();
 }

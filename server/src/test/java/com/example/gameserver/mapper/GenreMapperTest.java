@@ -1,8 +1,8 @@
 package com.example.gameserver.mapper;
 
 import com.example.gameserver.GameServerApplication;
-import com.example.gameserver.model.domain.Genre;
-import com.example.gameserver.model.dto.GenreDto;
+import com.example.gameserver.domain.Genre;
+import com.example.gameserver.dto.GenreDto;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

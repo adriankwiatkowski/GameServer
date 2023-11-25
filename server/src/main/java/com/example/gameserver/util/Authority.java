@@ -1,4 +1,4 @@
-package com.example.gameserver.model;
+package com.example.gameserver.util;
 
 public final class Authority {
 

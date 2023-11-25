@@ -1,6 +1,6 @@
 package com.example.gameserver.model;
 
-import com.example.gameserver.model.domain.User;
+import com.example.gameserver.domain.User;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
