@@ -38,21 +38,23 @@ public class GameReviewService {
     }
 
     @Transactional(isolation = Isolation.REPEATABLE_READ)
-    public GameReviewDto insert(GameReviewDto gameReviewDto) {
+    public GameReviewDto insert(String username, GameReviewDto gameReviewDto) {
         gameReviewDto.setId(null);
-        return upsert(gameReviewDto);
+        return upsert(username, gameReviewDto);
     }
 
     @Transactional(isolation = Isolation.REPEATABLE_READ)
-    public GameReviewDto update(GameReviewDto gameReviewDto) {
+    public GameReviewDto update(String username, GameReviewDto gameReviewDto) {
         if (!gameReviewRepository.existsById(gameReviewDto.getId())) {
             throw new EntityNotFoundException();
         }
 
-        return upsert(gameReviewDto);
+        return upsert(username, gameReviewDto);
     }
 
-    private GameReviewDto upsert(GameReviewDto gameReviewDto) {
+    private GameReviewDto upsert(String username, GameReviewDto gameReviewDto) {
+        sanitizeUserId(username, gameReviewDto);
+
         var gameReview = gameReviewMapper.toGameReview(gameReviewDto);
         gameReview.setUser(userRepository.findById(gameReviewDto.getUserId()).orElseThrow(EntityNotFoundException::new));
         gameReview.setGame(gameRepository.findById(gameReviewDto.getGameId()).orElseThrow(EntityNotFoundException::new));
@@ -66,5 +68,10 @@ public class GameReviewService {
     public void deleteGameReview(Long id) {
         gameReviewRepository.findById(id).orElseThrow(EntityNotFoundException::new);
         gameReviewRepository.deleteById(id);
+    }
+
+    private void sanitizeUserId(String username, GameReviewDto gameReviewDto) {
+        var user = userRepository.findByUsername(username).orElseThrow(EntityNotFoundException::new);
+        gameReviewDto.setUserId(user.getId());
     }
 }
