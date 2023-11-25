@@ -1,8 +1,8 @@
 package com.example.gameserver.controller;
 
-import com.example.gameserver.model.dto.LoginDto;
-import com.example.gameserver.model.dto.RegisterDto;
-import com.example.gameserver.model.dto.TokenDto;
+import com.example.gameserver.dto.LoginDto;
+import com.example.gameserver.dto.RegisterDto;
+import com.example.gameserver.dto.TokenDto;
 import com.example.gameserver.service.MyUserDetailsService;
 import com.example.gameserver.service.TokenService;
 import jakarta.validation.Valid;

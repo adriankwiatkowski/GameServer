@@ -1,7 +1,7 @@
 package com.example.gameserver.mapper;
 
-import com.example.gameserver.model.domain.Category;
-import com.example.gameserver.model.dto.CategoryDto;
+import com.example.gameserver.domain.Category;
+import com.example.gameserver.dto.CategoryDto;
 import org.springframework.stereotype.Component;
 
 @Component

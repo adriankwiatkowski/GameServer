@@ -1,7 +1,7 @@
 package com.example.gameserver.service;
 
+import com.example.gameserver.dto.GameReviewDto;
 import com.example.gameserver.mapper.GameReviewMapper;
-import com.example.gameserver.model.dto.GameReviewDto;
 import com.example.gameserver.repository.GameRepository;
 import com.example.gameserver.repository.GameReviewRepository;
 import com.example.gameserver.repository.UserRepository;

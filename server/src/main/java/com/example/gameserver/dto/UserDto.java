@@ -1,4 +1,4 @@
-package com.example.gameserver.model.dto;
+package com.example.gameserver.dto;
 
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
@@ -7,18 +7,24 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
+import java.util.Set;
 
-/**
- * DTO for {@link com.example.gameserver.model.domain.Publisher}
- */
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class PublisherDto implements Serializable {
+public class UserDto implements Serializable {
 
     private Long id;
 
-    @Size(max = 255)
-    @NotNull(message = "Name cannot be null")
+    @Size(min = 4, max = 50)
+    private String username;
+
+    @Size(min = 1, max = 80)
     private String name;
+
+    @Size(min = 1, max = 80)
+    private String surname;
+
+    @NotNull
+    private Set<RoleDto> roles;
 }

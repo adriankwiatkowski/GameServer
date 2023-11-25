@@ -1,4 +1,4 @@
-package com.example.gameserver.model.domain;
+package com.example.gameserver.domain;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Max;

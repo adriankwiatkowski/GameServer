@@ -1,7 +1,7 @@
 package com.example.gameserver.mapper;
 
-import com.example.gameserver.model.domain.Game;
-import com.example.gameserver.model.dto.GameDto;
+import com.example.gameserver.domain.Game;
+import com.example.gameserver.dto.GameDto;
 import org.springframework.stereotype.Component;
 
 import java.util.stream.Collectors;

@@ -1,4 +1,4 @@
-package com.example.gameserver.model.dto;
+package com.example.gameserver.dto;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -13,9 +13,6 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.Set;
 
-/**
- * DTO for {@link com.example.gameserver.model.domain.Game}
- */
 @Data
 @AllArgsConstructor
 @NoArgsConstructor

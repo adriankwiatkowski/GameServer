@@ -1,4 +1,4 @@
-package com.example.gameserver.model.dto;
+package com.example.gameserver.dto;
 
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
@@ -7,9 +7,6 @@ import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
 
-/**
- * DTO for {@link com.example.gameserver.model.domain.Role}
- */
 @Data
 @AllArgsConstructor
 @NoArgsConstructor

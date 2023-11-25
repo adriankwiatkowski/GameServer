@@ -1,7 +1,7 @@
 package com.example.gameserver.mapper;
 
-import com.example.gameserver.model.domain.Role;
-import com.example.gameserver.model.dto.RoleDto;
+import com.example.gameserver.domain.Role;
+import com.example.gameserver.dto.RoleDto;
 import org.springframework.stereotype.Component;
 
 @Component

@@ -1,7 +1,7 @@
 package com.example.gameserver.service;
 
+import com.example.gameserver.dto.PlatformDto;
 import com.example.gameserver.mapper.PlatformMapper;
-import com.example.gameserver.model.dto.PlatformDto;
 import com.example.gameserver.repository.PlatformRepository;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.stereotype.Service;

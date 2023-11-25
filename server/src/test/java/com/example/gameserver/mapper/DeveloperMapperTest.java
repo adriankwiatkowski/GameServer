@@ -1,8 +1,8 @@
 package com.example.gameserver.mapper;
 
 import com.example.gameserver.GameServerApplication;
-import com.example.gameserver.model.domain.Developer;
-import com.example.gameserver.model.dto.DeveloperDto;
+import com.example.gameserver.domain.Developer;
+import com.example.gameserver.dto.DeveloperDto;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

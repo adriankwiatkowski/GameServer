@@ -1,8 +1,8 @@
 package com.example.gameserver.service;
 
+import com.example.gameserver.domain.Role;
+import com.example.gameserver.dto.RoleDto;
 import com.example.gameserver.mapper.RoleMapper;
-import com.example.gameserver.model.domain.Role;
-import com.example.gameserver.model.dto.RoleDto;
 import com.example.gameserver.repository.RoleRepository;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.stereotype.Service;

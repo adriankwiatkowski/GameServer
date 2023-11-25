@@ -1,13 +1,13 @@
 package com.example.gameserver.service;
 
+import com.example.gameserver.domain.Role;
+import com.example.gameserver.domain.User;
+import com.example.gameserver.dto.LoginDto;
+import com.example.gameserver.dto.RegisterDto;
 import com.example.gameserver.exception.UsernameUsedException;
-import com.example.gameserver.model.Authority;
 import com.example.gameserver.model.MyUserDetails;
-import com.example.gameserver.model.domain.Role;
-import com.example.gameserver.model.domain.User;
-import com.example.gameserver.model.dto.LoginDto;
-import com.example.gameserver.model.dto.RegisterDto;
 import com.example.gameserver.repository.UserRepository;
+import com.example.gameserver.util.Authority;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;

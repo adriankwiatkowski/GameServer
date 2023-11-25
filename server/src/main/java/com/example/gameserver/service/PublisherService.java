@@ -1,7 +1,7 @@
 package com.example.gameserver.service;
 
+import com.example.gameserver.dto.PublisherDto;
 import com.example.gameserver.mapper.PublisherMapper;
-import com.example.gameserver.model.dto.PublisherDto;
 import com.example.gameserver.repository.PublisherRepository;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.stereotype.Service;

@@ -1,10 +1,10 @@
 package com.example.gameserver;
 
-import com.example.gameserver.model.Authority;
-import com.example.gameserver.model.dto.RegisterDto;
-import com.example.gameserver.model.dto.RoleDto;
+import com.example.gameserver.dto.RegisterDto;
+import com.example.gameserver.dto.RoleDto;
 import com.example.gameserver.service.MyUserDetailsService;
 import com.example.gameserver.service.RoleService;
+import com.example.gameserver.util.Authority;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.stereotype.Component;
