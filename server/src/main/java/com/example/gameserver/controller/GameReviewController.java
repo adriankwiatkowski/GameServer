@@ -23,13 +23,11 @@ public class GameReviewController {
         return gameReviewService.getGameReviews(gameId);
     }
 
-    @PreAuthorize(Authority.ADMIN_SCOPE)
     @PostMapping
     public GameReviewDto insert(@RequestBody @Valid GameReviewDto gameReviewDto) {
         return gameReviewService.insert(getCurrentUsername(), gameReviewDto);
     }
 
-    @PreAuthorize(Authority.ADMIN_SCOPE)
     @PutMapping
     public GameReviewDto update(@RequestBody @Valid GameReviewDto gameReviewDto) {
         return gameReviewService.update(getCurrentUsername(), gameReviewDto);
