@@ -2,11 +2,13 @@ package com.example.gameserver.mapper;
 
 import com.example.gameserver.domain.Game;
 import com.example.gameserver.dto.GameDto;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
 import java.util.stream.Collectors;
 
 @Component
+@RequiredArgsConstructor
 public class GameMapper {
 
     private final CategoryMapper categoryMapper;
@@ -14,18 +16,6 @@ public class GameMapper {
     private final GenreMapper genreMapper;
     private final PlatformMapper platformMapper;
     private final PublisherMapper publisherMapper;
-
-    public GameMapper(CategoryMapper categoryMapper,
-                      DeveloperMapper developerMapper,
-                      GenreMapper genreMapper,
-                      PlatformMapper platformMapper,
-                      PublisherMapper publisherMapper) {
-        this.categoryMapper = categoryMapper;
-        this.developerMapper = developerMapper;
-        this.genreMapper = genreMapper;
-        this.platformMapper = platformMapper;
-        this.publisherMapper = publisherMapper;
-    }
 
     public GameDto from(Game game) {
         var gameDto = new GameDto();

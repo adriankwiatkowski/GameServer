@@ -3,6 +3,7 @@ package com.example.gameserver.controller;
 import com.example.gameserver.dto.UserDto;
 import com.example.gameserver.service.UserService;
 import com.example.gameserver.util.Authority;
+import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -14,13 +15,10 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/user")
+@RequiredArgsConstructor
 public class UserController {
 
     private final UserService userService;
-
-    public UserController(UserService userService) {
-        this.userService = userService;
-    }
 
     @PreAuthorize(Authority.ADMIN_SCOPE)
     @GetMapping

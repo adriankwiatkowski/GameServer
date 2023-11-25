@@ -4,6 +4,7 @@ import com.example.gameserver.dto.PublisherDto;
 import com.example.gameserver.mapper.PublisherMapper;
 import com.example.gameserver.repository.PublisherRepository;
 import jakarta.persistence.EntityNotFoundException;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Transactional;
@@ -12,15 +13,11 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
+@RequiredArgsConstructor
 public class PublisherService {
 
     private final PublisherRepository publisherRepository;
     private final PublisherMapper publisherMapper;
-
-    public PublisherService(PublisherRepository publisherRepository, PublisherMapper publisherMapper) {
-        this.publisherRepository = publisherRepository;
-        this.publisherMapper = publisherMapper;
-    }
 
     public List<PublisherDto> getAllPublishers() {
         return publisherRepository.findAll().stream()

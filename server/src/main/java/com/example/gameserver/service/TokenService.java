@@ -1,6 +1,7 @@
 package com.example.gameserver.service;
 
 import com.example.gameserver.model.MyUserDetails;
+import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.oauth2.jwt.JwsHeader;
 import org.springframework.security.oauth2.jwt.JwtClaimsSet;
@@ -13,13 +14,10 @@ import java.time.temporal.ChronoUnit;
 import java.util.stream.Collectors;
 
 @Service
+@RequiredArgsConstructor
 public class TokenService {
 
     private final JwtEncoder encoder;
-
-    public TokenService(JwtEncoder encoder) {
-        this.encoder = encoder;
-    }
 
     public String generateToken(MyUserDetails myUserDetails) {
         Instant now = Instant.now();

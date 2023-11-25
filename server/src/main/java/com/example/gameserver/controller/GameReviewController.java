@@ -4,6 +4,7 @@ import com.example.gameserver.dto.GameReviewDto;
 import com.example.gameserver.service.GameReviewService;
 import com.example.gameserver.util.Authority;
 import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
@@ -12,13 +13,10 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/gamereview")
+@RequiredArgsConstructor
 public class GameReviewController {
 
     private final GameReviewService gameReviewService;
-
-    public GameReviewController(GameReviewService gameReviewService) {
-        this.gameReviewService = gameReviewService;
-    }
 
     @GetMapping("/{gameId}")
     public List<GameReviewDto> getGameReviews(@PathVariable Long gameId) {

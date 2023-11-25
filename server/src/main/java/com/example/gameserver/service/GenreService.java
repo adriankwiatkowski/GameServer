@@ -4,6 +4,7 @@ import com.example.gameserver.dto.GenreDto;
 import com.example.gameserver.mapper.GenreMapper;
 import com.example.gameserver.repository.GenreRepository;
 import jakarta.persistence.EntityNotFoundException;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Transactional;
@@ -12,15 +13,11 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
+@RequiredArgsConstructor
 public class GenreService {
 
     private final GenreRepository genreRepository;
     private final GenreMapper genreMapper;
-
-    public GenreService(GenreRepository genreRepository, GenreMapper genreMapper) {
-        this.genreRepository = genreRepository;
-        this.genreMapper = genreMapper;
-    }
 
     public List<GenreDto> getAllGenres() {
         return genreRepository.findAll().stream()

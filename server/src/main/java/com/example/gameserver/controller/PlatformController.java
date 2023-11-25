@@ -4,6 +4,7 @@ import com.example.gameserver.dto.PlatformDto;
 import com.example.gameserver.service.PlatformService;
 import com.example.gameserver.util.Authority;
 import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
@@ -11,13 +12,10 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/platform")
+@RequiredArgsConstructor
 public class PlatformController {
 
     private final PlatformService platformService;
-
-    public PlatformController(PlatformService platformService) {
-        this.platformService = platformService;
-    }
 
     @GetMapping
     public List<PlatformDto> getPlatforms() {

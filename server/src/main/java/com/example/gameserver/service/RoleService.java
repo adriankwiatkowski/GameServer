@@ -5,20 +5,17 @@ import com.example.gameserver.dto.RoleDto;
 import com.example.gameserver.mapper.RoleMapper;
 import com.example.gameserver.repository.RoleRepository;
 import jakarta.persistence.EntityNotFoundException;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
+@RequiredArgsConstructor
 public class RoleService {
 
     private final RoleRepository roleRepository;
     private final RoleMapper roleMapper;
-
-    public RoleService(RoleRepository roleRepository, RoleMapper roleMapper) {
-        this.roleRepository = roleRepository;
-        this.roleMapper = roleMapper;
-    }
 
     public Role getRoleByName(String name) {
         return roleRepository.findByName(name).orElseThrow(EntityNotFoundException::new);

@@ -8,6 +8,7 @@ import com.example.gameserver.exception.UsernameUsedException;
 import com.example.gameserver.model.MyUserDetails;
 import com.example.gameserver.repository.UserRepository;
 import com.example.gameserver.util.Authority;
+import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -21,17 +22,12 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Service
+@RequiredArgsConstructor
 public class MyUserDetailsServiceImpl implements MyUserDetailsService {
 
     private final PasswordEncoder passwordEncoder;
     private final UserRepository userRepository;
     private final RoleService roleService;
-
-    public MyUserDetailsServiceImpl(PasswordEncoder passwordEncoder, UserRepository userRepository, RoleService roleService) {
-        this.passwordEncoder = passwordEncoder;
-        this.userRepository = userRepository;
-        this.roleService = roleService;
-    }
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
