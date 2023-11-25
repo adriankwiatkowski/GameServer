@@ -34,7 +34,7 @@ public class PublisherService {
     @Transactional(isolation = Isolation.REPEATABLE_READ)
     public PublisherDto update(PublisherDto publisherDto) {
         if (!publisherRepository.existsById(publisherDto.getId())) {
-            throw new EntityNotFoundException();
+            throw new EntityNotFoundException(String.format("Publisher not found with id: %d", publisherDto.getId()));
         }
 
         return upsert(publisherDto);
@@ -50,7 +50,8 @@ public class PublisherService {
 
     @Transactional(isolation = Isolation.REPEATABLE_READ)
     public void deletePublisher(Long id) {
-        publisherRepository.findById(id).orElseThrow(EntityNotFoundException::new);
+        publisherRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException(String.format("Publisher not found with id: %d", id)));
         publisherRepository.deleteById(id);
     }
 }

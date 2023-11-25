@@ -2,6 +2,7 @@ package com.example.gameserver.service;
 
 import com.example.gameserver.domain.Role;
 import com.example.gameserver.dto.RoleDto;
+import com.example.gameserver.exception.RoleNameUsedException;
 import com.example.gameserver.mapper.RoleMapper;
 import com.example.gameserver.repository.RoleRepository;
 import jakarta.persistence.EntityNotFoundException;
@@ -24,7 +25,7 @@ public class RoleService {
     @Transactional(isolation = Isolation.REPEATABLE_READ)
     public RoleDto insert(RoleDto roleDto) throws Exception {
         if (roleRepository.existsByName(roleDto.getName())) {
-            throw new Exception(String.format("Role already exists with name: %s", roleDto.getName()));
+            throw new RoleNameUsedException(String.format("Role already exists with name: %s", roleDto.getName()));
         }
 
         roleDto.setId(null);
@@ -34,7 +35,7 @@ public class RoleService {
     @Transactional(isolation = Isolation.REPEATABLE_READ)
     public RoleDto update(RoleDto roleDto) {
         if (!roleRepository.existsById(roleDto.getId())) {
-            throw new EntityNotFoundException();
+            throw new EntityNotFoundException(String.format("Role not found with id: %d", roleDto.getId()));
         }
 
         return upsert(roleDto);

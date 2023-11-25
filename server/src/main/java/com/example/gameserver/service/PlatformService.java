@@ -34,7 +34,7 @@ public class PlatformService {
     @Transactional(isolation = Isolation.REPEATABLE_READ)
     public PlatformDto update(PlatformDto platformDto) {
         if (!platformRepository.existsById(platformDto.getId())) {
-            throw new EntityNotFoundException();
+            throw new EntityNotFoundException(String.format("Platform not found with id: %d", platformDto.getId()));
         }
 
         return upsert(platformDto);
@@ -50,7 +50,8 @@ public class PlatformService {
 
     @Transactional(isolation = Isolation.REPEATABLE_READ)
     public void deletePlatform(Long id) {
-        platformRepository.findById(id).orElseThrow(EntityNotFoundException::new);
+        platformRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException(String.format("Platform not found with id: %d", id)));
         platformRepository.deleteById(id);
     }
 }

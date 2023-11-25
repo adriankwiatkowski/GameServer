@@ -7,6 +7,7 @@ import com.example.gameserver.repository.GameReviewRepository;
 import com.example.gameserver.repository.UserRepository;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Transactional;
@@ -38,7 +39,7 @@ public class GameReviewService {
     @Transactional(isolation = Isolation.REPEATABLE_READ)
     public GameReviewDto update(String username, GameReviewDto gameReviewDto) {
         if (!gameReviewRepository.existsById(gameReviewDto.getId())) {
-            throw new EntityNotFoundException();
+            throw new EntityNotFoundException(String.format("GameReview not found with id: %d", gameReviewDto.getId()));
         }
 
         return upsert(username, gameReviewDto);
@@ -58,12 +59,16 @@ public class GameReviewService {
 
     @Transactional(isolation = Isolation.REPEATABLE_READ)
     public void deleteGameReview(Long id) {
-        gameReviewRepository.findById(id).orElseThrow(EntityNotFoundException::new);
+        gameReviewRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException(
+                        String.format("GameReview not found with id: %d", id)));
         gameReviewRepository.deleteById(id);
     }
 
     private void sanitizeUserId(String username, GameReviewDto gameReviewDto) {
-        var user = userRepository.findByUsername(username).orElseThrow(EntityNotFoundException::new);
+        var user = userRepository.findByUsername(username)
+                .orElseThrow(() -> new UsernameNotFoundException(
+                        String.format("User not found with username: %s", username)));
         gameReviewDto.setUserId(user.getId());
     }
 }

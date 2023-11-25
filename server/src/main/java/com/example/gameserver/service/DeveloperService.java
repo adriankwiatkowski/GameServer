@@ -34,7 +34,7 @@ public class DeveloperService {
     @Transactional(isolation = Isolation.REPEATABLE_READ)
     public DeveloperDto update(DeveloperDto developerDto) {
         if (!developerRepository.existsById(developerDto.getId())) {
-            throw new EntityNotFoundException();
+            throw new EntityNotFoundException(String.format("Developer not found with id: %d", developerDto.getId()));
         }
 
         return upsert(developerDto);
@@ -50,7 +50,8 @@ public class DeveloperService {
 
     @Transactional(isolation = Isolation.REPEATABLE_READ)
     public void deleteDeveloper(Long id) {
-        developerRepository.findById(id).orElseThrow(EntityNotFoundException::new);
+        developerRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException(String.format("Developer not found with id: %d", id)));
         developerRepository.deleteById(id);
     }
 }
