@@ -8,20 +8,16 @@ import org.springframework.stereotype.Component;
 public class PlatformMapper {
 
     public PlatformDto from(Platform platform) {
-        var platformDto = new PlatformDto();
-
-        platformDto.setId(platform.getId());
-        platformDto.setName(platform.getName());
-
-        return platformDto;
+        return PlatformDto.builder()
+                .id(platform.getId())
+                .name(platform.getName())
+                .build();
     }
 
     public Platform toPlatform(PlatformDto platformDto) {
-        var platform = new Platform();
-
-        platform.setId(platformDto.getId());
-        platform.setName(platformDto.getName());
-
-        return platform;
+        return Platform.builder()
+                .id(platformDto.getId())
+                .name(platformDto.getName())
+                .build();
     }
 }

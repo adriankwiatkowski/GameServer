@@ -8,20 +8,16 @@ import org.springframework.stereotype.Component;
 public class DeveloperMapper {
 
     public DeveloperDto from(Developer developer) {
-        var developerDto = new DeveloperDto();
-
-        developerDto.setId(developer.getId());
-        developerDto.setName(developer.getName());
-
-        return developerDto;
+        return DeveloperDto.builder()
+                .id(developer.getId())
+                .name(developer.getName())
+                .build();
     }
 
     public Developer toDeveloper(DeveloperDto developerDto) {
-        var developer = new Developer();
-
-        developer.setId(developerDto.getId());
-        developer.setName(developerDto.getName());
-
-        return developer;
+        return Developer.builder()
+                .id(developerDto.getId())
+                .name(developerDto.getName())
+                .build();
     }
 }

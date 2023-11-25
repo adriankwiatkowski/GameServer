@@ -8,24 +8,20 @@ import org.springframework.stereotype.Component;
 public class GameReviewMapper {
 
     public GameReviewDto from(GameReview gameReview) {
-        var gameReviewDto = new GameReviewDto();
-
-        gameReviewDto.setId(gameReview.getId());
-        gameReviewDto.setScore(gameReview.getScore());
-        gameReviewDto.setReview(gameReview.getReview());
-        gameReviewDto.setUserId(gameReview.getUser().getId());
-        gameReviewDto.setGameId(gameReview.getGame().getId());
-
-        return gameReviewDto;
+        return GameReviewDto.builder()
+                .id(gameReview.getId())
+                .score(gameReview.getScore())
+                .review(gameReview.getReview())
+                .userId(gameReview.getUser().getId())
+                .gameId(gameReview.getGame().getId())
+                .build();
     }
 
     public GameReview toGameReview(GameReviewDto gameReviewDto) {
-        var gameReview = new GameReview();
-
-        gameReview.setId(gameReviewDto.getId());
-        gameReview.setScore(gameReviewDto.getScore());
-        gameReview.setReview(gameReviewDto.getReview());
-
-        return gameReview;
+        return GameReview.builder()
+                .id(gameReviewDto.getId())
+                .score(gameReviewDto.getScore())
+                .review(gameReviewDto.getReview())
+                .build();
     }
 }

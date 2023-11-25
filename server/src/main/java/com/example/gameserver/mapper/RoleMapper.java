@@ -8,20 +8,16 @@ import org.springframework.stereotype.Component;
 public class RoleMapper {
 
     public RoleDto from(Role role) {
-        var roleDto = new RoleDto();
-
-        roleDto.setId(role.getId());
-        roleDto.setName(role.getName());
-
-        return roleDto;
+        return RoleDto.builder()
+                .id(role.getId())
+                .name(role.getName())
+                .build();
     }
 
     public Role toRole(RoleDto roleDto) {
-        var role = new Role();
-
-        role.setId(roleDto.getId());
-        role.setName(roleDto.getName());
-
-        return role;
+        return Role.builder()
+                .id(roleDto.getId())
+                .name(roleDto.getName())
+                .build();
     }
 }

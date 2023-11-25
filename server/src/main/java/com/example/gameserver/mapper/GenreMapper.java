@@ -8,20 +8,16 @@ import org.springframework.stereotype.Component;
 public class GenreMapper {
 
     public GenreDto from(Genre genre) {
-        var genreDto = new GenreDto();
-
-        genreDto.setId(genre.getId());
-        genreDto.setName(genre.getName());
-
-        return genreDto;
+        return GenreDto.builder()
+                .id(genre.getId())
+                .name(genre.getName())
+                .build();
     }
 
     public Genre toGenre(GenreDto genreDto) {
-        var genre = new Genre();
-
-        genre.setId(genreDto.getId());
-        genre.setName(genreDto.getName());
-
-        return genre;
+        return Genre.builder()
+                .id(genreDto.getId())
+                .name(genreDto.getName())
+                .build();
     }
 }
