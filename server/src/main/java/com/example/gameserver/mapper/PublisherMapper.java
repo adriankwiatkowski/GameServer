@@ -8,20 +8,16 @@ import org.springframework.stereotype.Component;
 public class PublisherMapper {
 
     public PublisherDto from(Publisher publisher) {
-        var publisherDto = new PublisherDto();
-
-        publisherDto.setId(publisher.getId());
-        publisherDto.setName(publisher.getName());
-
-        return publisherDto;
+        return PublisherDto.builder()
+                .id(publisher.getId())
+                .name(publisher.getName())
+                .build();
     }
 
     public Publisher toPublisher(PublisherDto publisherDto) {
-        var publisher = new Publisher();
-
-        publisher.setId(publisherDto.getId());
-        publisher.setName(publisherDto.getName());
-
-        return publisher;
+        return Publisher.builder()
+                .id(publisherDto.getId())
+                .name(publisherDto.getName())
+                .build();
     }
 }
