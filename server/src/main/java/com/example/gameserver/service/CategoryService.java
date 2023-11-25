@@ -34,7 +34,7 @@ public class CategoryService {
     @Transactional(isolation = Isolation.REPEATABLE_READ)
     public CategoryDto update(CategoryDto categoryDto) {
         if (!categoryRepository.existsById(categoryDto.getId())) {
-            throw new EntityNotFoundException();
+            throw new EntityNotFoundException(String.format("Category not found with id: %d", categoryDto.getId()));
         }
 
         return upsert(categoryDto);
@@ -50,7 +50,8 @@ public class CategoryService {
 
     @Transactional(isolation = Isolation.REPEATABLE_READ)
     public void deleteCategory(Long id) {
-        categoryRepository.findById(id).orElseThrow(EntityNotFoundException::new);
+        categoryRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException(String.format("Category not found with id: %d", id)));
         categoryRepository.deleteById(id);
     }
 }

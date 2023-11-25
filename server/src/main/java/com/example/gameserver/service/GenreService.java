@@ -34,7 +34,7 @@ public class GenreService {
     @Transactional(isolation = Isolation.REPEATABLE_READ)
     public GenreDto update(GenreDto genreDto) {
         if (!genreRepository.existsById(genreDto.getId())) {
-            throw new EntityNotFoundException();
+            throw new EntityNotFoundException(String.format("Genre not found with id: %d", genreDto.getId()));
         }
 
         return upsert(genreDto);
@@ -50,7 +50,8 @@ public class GenreService {
 
     @Transactional(isolation = Isolation.REPEATABLE_READ)
     public void deleteGenre(Long id) {
-        genreRepository.findById(id).orElseThrow(EntityNotFoundException::new);
+        genreRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException(String.format("Genre not found with id: %d", id)));
         genreRepository.deleteById(id);
     }
 }

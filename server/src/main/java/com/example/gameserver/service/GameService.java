@@ -55,7 +55,7 @@ public class GameService {
     @Transactional(isolation = Isolation.REPEATABLE_READ)
     public GameDto update(GameDto gameDto) {
         if (!gameRepository.existsById(gameDto.getId())) {
-            throw new EntityNotFoundException();
+            throw new EntityNotFoundException(String.format("Game not found with id: %d", gameDto.getId()));
         }
 
         return upsert(gameDto);
@@ -76,7 +76,8 @@ public class GameService {
 
     @Transactional(isolation = Isolation.REPEATABLE_READ)
     public void deleteGame(Long id) {
-        gameRepository.findById(id).orElseThrow(EntityNotFoundException::new);
+        gameRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException(String.format("Game not found with id: %d", id)));
         gameRepository.deleteById(id);
     }
 
