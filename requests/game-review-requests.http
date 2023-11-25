@@ -11,7 +11,7 @@ Content-Type: application/json
   "id": null,
   "score": 2,
   "review": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin pulvinar gravida ante, quis imperdiet velit molestie ut. Ut consectetur quam at justo rutrum condimentum. Donec et euismod tellus. Fusce sed orci lacinia, venenatis urna quis, condimentum libero. Curabitur eu rhoncus ante, et convallis sapien. Nam accumsan, nisi a blandit commodo.",
-  "userId": 1,
+  "userId": null,
   "gameId": 1
 }
 
@@ -24,7 +24,7 @@ Content-Type: application/json
   "id": 1,
   "score": 2,
   "review": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin pulvinar gravida ante, quis imperdiet velit molestie ut. Ut consectetur quam at justo rutrum condimentum. Donec et euismod tellus. Fusce sed orci lacinia, venenatis urna quis, condimentum libero. Curabitur eu rhoncus ante, et convallis sapien. Nam accumsan, nisi a blandit commodo.",
-  "userId": 1,
+  "userId": null,
   "gameId": 1
 }
 

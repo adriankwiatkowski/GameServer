@@ -5,6 +5,7 @@ import com.example.gameserver.model.dto.GameReviewDto;
 import com.example.gameserver.service.GameReviewService;
 import jakarta.validation.Valid;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -27,18 +28,22 @@ public class GameReviewController {
     @PreAuthorize(Authority.ADMIN_SCOPE)
     @PostMapping
     public GameReviewDto insert(@RequestBody @Valid GameReviewDto gameReviewDto) {
-        return gameReviewService.insert(gameReviewDto);
+        return gameReviewService.insert(getCurrentUsername(), gameReviewDto);
     }
 
     @PreAuthorize(Authority.ADMIN_SCOPE)
     @PutMapping
     public GameReviewDto update(@RequestBody @Valid GameReviewDto gameReviewDto) {
-        return gameReviewService.update(gameReviewDto);
+        return gameReviewService.update(getCurrentUsername(), gameReviewDto);
     }
 
     @PreAuthorize(Authority.ADMIN_SCOPE)
     @DeleteMapping("/{id}")
     public void delete(@PathVariable Long id) {
         gameReviewService.deleteGameReview(id);
+    }
+
+    private String getCurrentUsername() {
+        return SecurityContextHolder.getContext().getAuthentication().getName();
     }
 }

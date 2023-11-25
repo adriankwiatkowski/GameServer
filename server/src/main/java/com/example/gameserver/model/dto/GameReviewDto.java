@@ -27,7 +27,6 @@ public class GameReviewDto implements Serializable {
     @NotBlank
     private String review;
 
-    @NotNull
     private Long userId;
 
     @NotNull
