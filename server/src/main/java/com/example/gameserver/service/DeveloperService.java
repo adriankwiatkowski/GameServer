@@ -4,6 +4,7 @@ import com.example.gameserver.dto.DeveloperDto;
 import com.example.gameserver.mapper.DeveloperMapper;
 import com.example.gameserver.repository.DeveloperRepository;
 import jakarta.persistence.EntityNotFoundException;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Transactional;
@@ -12,15 +13,11 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
+@RequiredArgsConstructor
 public class DeveloperService {
 
     private final DeveloperRepository developerRepository;
     private final DeveloperMapper developerMapper;
-
-    public DeveloperService(DeveloperRepository developerRepository, DeveloperMapper developerMapper) {
-        this.developerRepository = developerRepository;
-        this.developerMapper = developerMapper;
-    }
 
     public List<DeveloperDto> getAllDevelopers() {
         return developerRepository.findAll().stream()

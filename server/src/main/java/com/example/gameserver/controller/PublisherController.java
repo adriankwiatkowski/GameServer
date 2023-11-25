@@ -4,6 +4,7 @@ import com.example.gameserver.dto.PublisherDto;
 import com.example.gameserver.service.PublisherService;
 import com.example.gameserver.util.Authority;
 import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
@@ -11,13 +12,10 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/publisher")
+@RequiredArgsConstructor
 public class PublisherController {
 
     private final PublisherService publisherService;
-
-    public PublisherController(PublisherService publisherService) {
-        this.publisherService = publisherService;
-    }
 
     @GetMapping
     public List<PublisherDto> getPublishers() {

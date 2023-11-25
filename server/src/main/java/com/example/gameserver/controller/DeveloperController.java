@@ -4,6 +4,7 @@ import com.example.gameserver.dto.DeveloperDto;
 import com.example.gameserver.service.DeveloperService;
 import com.example.gameserver.util.Authority;
 import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
@@ -11,13 +12,10 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/developer")
+@RequiredArgsConstructor
 public class DeveloperController {
 
     private final DeveloperService developerService;
-
-    public DeveloperController(DeveloperService developerService) {
-        this.developerService = developerService;
-    }
 
     @GetMapping
     public List<DeveloperDto> getDevelopers() {

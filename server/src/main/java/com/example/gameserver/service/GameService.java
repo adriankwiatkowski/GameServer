@@ -5,6 +5,7 @@ import com.example.gameserver.dto.*;
 import com.example.gameserver.mapper.GameMapper;
 import com.example.gameserver.repository.*;
 import jakarta.persistence.EntityNotFoundException;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Transactional;
@@ -15,6 +16,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
+@RequiredArgsConstructor
 public class GameService {
 
     private final GameRepository gameRepository;
@@ -26,22 +28,6 @@ public class GameService {
     private final PublisherRepository publisherRepository;
 
     private final GameMapper gameMapper;
-
-    public GameService(GameRepository gameRepository,
-                       CategoryRepository categoryRepository,
-                       DeveloperRepository developerRepository,
-                       GenreRepository genreRepository,
-                       PlatformRepository platformRepository,
-                       PublisherRepository publisherRepository,
-                       GameMapper gameMapper) {
-        this.gameRepository = gameRepository;
-        this.categoryRepository = categoryRepository;
-        this.developerRepository = developerRepository;
-        this.genreRepository = genreRepository;
-        this.platformRepository = platformRepository;
-        this.publisherRepository = publisherRepository;
-        this.gameMapper = gameMapper;
-    }
 
     public List<GameDto> getAllGames() {
         return gameRepository.findAllByOrderByNameAsc().stream()

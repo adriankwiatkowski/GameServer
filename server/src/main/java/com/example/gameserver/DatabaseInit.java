@@ -5,20 +5,17 @@ import com.example.gameserver.dto.RoleDto;
 import com.example.gameserver.service.MyUserDetailsService;
 import com.example.gameserver.service.RoleService;
 import com.example.gameserver.util.Authority;
+import lombok.RequiredArgsConstructor;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.stereotype.Component;
 
 @Component
+@RequiredArgsConstructor
 public class DatabaseInit implements ApplicationRunner {
 
     private final RoleService roleService;
     private final MyUserDetailsService myUserDetailsService;
-
-    public DatabaseInit(RoleService roleService, MyUserDetailsService myUserDetailsService) {
-        this.roleService = roleService;
-        this.myUserDetailsService = myUserDetailsService;
-    }
 
     @Override
     public void run(ApplicationArguments args) {

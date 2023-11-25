@@ -6,6 +6,7 @@ import com.example.gameserver.dto.TokenDto;
 import com.example.gameserver.service.MyUserDetailsService;
 import com.example.gameserver.service.TokenService;
 import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
@@ -16,17 +17,13 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/api/auth")
+@RequiredArgsConstructor
 public class AuthController {
 
     private static final Logger LOG = LoggerFactory.getLogger(AuthController.class);
 
     private final MyUserDetailsService myUserDetailsService;
     private final TokenService tokenService;
-
-    public AuthController(MyUserDetailsService myUserDetailsService, TokenService tokenService) {
-        this.myUserDetailsService = myUserDetailsService;
-        this.tokenService = tokenService;
-    }
 
     @PostMapping("/login")
     public TokenDto login(@RequestBody @Valid LoginDto loginDto) {
