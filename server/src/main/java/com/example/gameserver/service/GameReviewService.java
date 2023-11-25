@@ -9,13 +9,13 @@ import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
+@Transactional
 @RequiredArgsConstructor
 public class GameReviewService {
 
@@ -30,13 +30,11 @@ public class GameReviewService {
                 .collect(Collectors.toList());
     }
 
-    @Transactional(isolation = Isolation.REPEATABLE_READ)
     public GameReviewDto insert(String username, GameReviewDto gameReviewDto) {
         gameReviewDto.setId(null);
         return upsert(username, gameReviewDto);
     }
 
-    @Transactional(isolation = Isolation.REPEATABLE_READ)
     public GameReviewDto update(String username, GameReviewDto gameReviewDto) {
         if (!gameReviewRepository.existsById(gameReviewDto.getId())) {
             throw new EntityNotFoundException(String.format("GameReview not found with id: %d", gameReviewDto.getId()));
@@ -57,7 +55,6 @@ public class GameReviewService {
         return gameReviewMapper.from(gameReview);
     }
 
-    @Transactional(isolation = Isolation.REPEATABLE_READ)
     public void deleteGameReview(Long id) {
         gameReviewRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException(

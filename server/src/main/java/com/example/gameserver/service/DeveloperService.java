@@ -6,13 +6,13 @@ import com.example.gameserver.repository.DeveloperRepository;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
+@Transactional
 @RequiredArgsConstructor
 public class DeveloperService {
 
@@ -25,13 +25,11 @@ public class DeveloperService {
                 .collect(Collectors.toList());
     }
 
-    @Transactional(isolation = Isolation.REPEATABLE_READ)
     public DeveloperDto insert(DeveloperDto developerDto) {
         developerDto.setId(null);
         return upsert(developerDto);
     }
 
-    @Transactional(isolation = Isolation.REPEATABLE_READ)
     public DeveloperDto update(DeveloperDto developerDto) {
         if (!developerRepository.existsById(developerDto.getId())) {
             throw new EntityNotFoundException(String.format("Developer not found with id: %d", developerDto.getId()));
@@ -48,7 +46,6 @@ public class DeveloperService {
         return developerMapper.from(developer);
     }
 
-    @Transactional(isolation = Isolation.REPEATABLE_READ)
     public void deleteDeveloper(Long id) {
         developerRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException(String.format("Developer not found with id: %d", id)));

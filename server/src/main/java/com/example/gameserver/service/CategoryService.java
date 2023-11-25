@@ -6,13 +6,13 @@ import com.example.gameserver.repository.CategoryRepository;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
+@Transactional
 @RequiredArgsConstructor
 public class CategoryService {
 
@@ -25,13 +25,11 @@ public class CategoryService {
                 .collect(Collectors.toList());
     }
 
-    @Transactional(isolation = Isolation.REPEATABLE_READ)
     public CategoryDto insert(CategoryDto categoryDto) {
         categoryDto.setId(null);
         return upsert(categoryDto);
     }
 
-    @Transactional(isolation = Isolation.REPEATABLE_READ)
     public CategoryDto update(CategoryDto categoryDto) {
         if (!categoryRepository.existsById(categoryDto.getId())) {
             throw new EntityNotFoundException(String.format("Category not found with id: %d", categoryDto.getId()));
@@ -48,7 +46,6 @@ public class CategoryService {
         return categoryMapper.from(category);
     }
 
-    @Transactional(isolation = Isolation.REPEATABLE_READ)
     public void deleteCategory(Long id) {
         categoryRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException(String.format("Category not found with id: %d", id)));

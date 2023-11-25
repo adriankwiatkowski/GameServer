@@ -8,10 +8,10 @@ import com.example.gameserver.repository.RoleRepository;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
+@Transactional
 @RequiredArgsConstructor
 public class RoleService {
 
@@ -22,7 +22,6 @@ public class RoleService {
         return roleRepository.findByName(name).orElseThrow(EntityNotFoundException::new);
     }
 
-    @Transactional(isolation = Isolation.REPEATABLE_READ)
     public RoleDto insert(RoleDto roleDto) throws Exception {
         if (roleRepository.existsByName(roleDto.getName())) {
             throw new RoleNameUsedException(String.format("Role already exists with name: %s", roleDto.getName()));
@@ -32,7 +31,6 @@ public class RoleService {
         return upsert(roleDto);
     }
 
-    @Transactional(isolation = Isolation.REPEATABLE_READ)
     public RoleDto update(RoleDto roleDto) {
         if (!roleRepository.existsById(roleDto.getId())) {
             throw new EntityNotFoundException(String.format("Role not found with id: %d", roleDto.getId()));
