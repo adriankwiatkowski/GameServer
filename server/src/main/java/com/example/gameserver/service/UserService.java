@@ -6,13 +6,13 @@ import com.example.gameserver.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
+@Transactional
 @RequiredArgsConstructor
 public class UserService {
 
@@ -32,7 +32,6 @@ public class UserService {
                         String.format("User not found with username: %s", username)));
     }
 
-    @Transactional(isolation = Isolation.REPEATABLE_READ)
     public void deleteUser(String username) {
         var user = userRepository.findByUsername(username)
                 .orElseThrow(() -> new UsernameNotFoundException(

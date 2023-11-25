@@ -6,13 +6,13 @@ import com.example.gameserver.repository.PlatformRepository;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
+@Transactional
 @RequiredArgsConstructor
 public class PlatformService {
 
@@ -25,13 +25,11 @@ public class PlatformService {
                 .collect(Collectors.toList());
     }
 
-    @Transactional(isolation = Isolation.REPEATABLE_READ)
     public PlatformDto insert(PlatformDto platformDto) {
         platformDto.setId(null);
         return upsert(platformDto);
     }
 
-    @Transactional(isolation = Isolation.REPEATABLE_READ)
     public PlatformDto update(PlatformDto platformDto) {
         if (!platformRepository.existsById(platformDto.getId())) {
             throw new EntityNotFoundException(String.format("Platform not found with id: %d", platformDto.getId()));
@@ -48,7 +46,6 @@ public class PlatformService {
         return platformMapper.from(platform);
     }
 
-    @Transactional(isolation = Isolation.REPEATABLE_READ)
     public void deletePlatform(Long id) {
         platformRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException(String.format("Platform not found with id: %d", id)));

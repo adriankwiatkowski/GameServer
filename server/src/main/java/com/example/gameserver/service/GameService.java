@@ -7,7 +7,6 @@ import com.example.gameserver.repository.*;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.HashSet;
@@ -16,6 +15,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
+@Transactional
 @RequiredArgsConstructor
 public class GameService {
 
@@ -46,13 +46,11 @@ public class GameService {
         return gameMapper.from(game);
     }
 
-    @Transactional(isolation = Isolation.REPEATABLE_READ)
     public GameDto insert(GameDto gameDto) {
         gameDto.setId(null);
         return upsert(gameDto);
     }
 
-    @Transactional(isolation = Isolation.REPEATABLE_READ)
     public GameDto update(GameDto gameDto) {
         if (!gameRepository.existsById(gameDto.getId())) {
             throw new EntityNotFoundException(String.format("Game not found with id: %d", gameDto.getId()));
@@ -74,7 +72,6 @@ public class GameService {
         return gameMapper.from(game);
     }
 
-    @Transactional(isolation = Isolation.REPEATABLE_READ)
     public void deleteGame(Long id) {
         gameRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException(String.format("Game not found with id: %d", id)));

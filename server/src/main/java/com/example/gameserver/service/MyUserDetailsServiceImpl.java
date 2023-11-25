@@ -22,6 +22,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Service
+@Transactional
 @RequiredArgsConstructor
 public class MyUserDetailsServiceImpl implements MyUserDetailsService {
 
@@ -38,7 +39,6 @@ public class MyUserDetailsServiceImpl implements MyUserDetailsService {
         return new MyUserDetails(user);
     }
 
-    @Transactional
     @Override
     public MyUserDetails login(LoginDto loginDto) {
         var user = userRepository.findByUsername(loginDto.getUsername()).orElseThrow();
@@ -49,14 +49,12 @@ public class MyUserDetailsServiceImpl implements MyUserDetailsService {
         return new MyUserDetails(user);
     }
 
-    @Transactional
     @Override
     public void register(RegisterDto registerDto) {
         var userRole = roleService.getRoleByName(Authority.USER_ROLE);
         register(registerDto, Collections.singleton(userRole));
     }
 
-    @Transactional
     @Override
     public void registerAdmin(RegisterDto registerDto) {
         var userRole = roleService.getRoleByName(Authority.USER_ROLE);

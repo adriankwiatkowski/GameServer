@@ -6,13 +6,13 @@ import com.example.gameserver.repository.PublisherRepository;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
+@Transactional
 @RequiredArgsConstructor
 public class PublisherService {
 
@@ -25,13 +25,11 @@ public class PublisherService {
                 .collect(Collectors.toList());
     }
 
-    @Transactional(isolation = Isolation.REPEATABLE_READ)
     public PublisherDto insert(PublisherDto publisherDto) {
         publisherDto.setId(null);
         return upsert(publisherDto);
     }
 
-    @Transactional(isolation = Isolation.REPEATABLE_READ)
     public PublisherDto update(PublisherDto publisherDto) {
         if (!publisherRepository.existsById(publisherDto.getId())) {
             throw new EntityNotFoundException(String.format("Publisher not found with id: %d", publisherDto.getId()));
@@ -48,7 +46,6 @@ public class PublisherService {
         return publisherMapper.from(publisher);
     }
 
-    @Transactional(isolation = Isolation.REPEATABLE_READ)
     public void deletePublisher(Long id) {
         publisherRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException(String.format("Publisher not found with id: %d", id)));
