@@ -3,6 +3,8 @@ package com.example.gameserver.controller;
 import com.example.gameserver.dto.UserDto;
 import com.example.gameserver.service.UserService;
 import com.example.gameserver.util.Authority;
+import com.example.gameserver.util.OpenApiUtil;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -15,6 +17,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/user")
+@SecurityRequirement(name = OpenApiUtil.SCHEME_NAME)
 @RequiredArgsConstructor
 public class UserController {
 

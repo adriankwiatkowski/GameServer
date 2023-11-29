@@ -3,6 +3,8 @@ package com.example.gameserver.controller;
 import com.example.gameserver.dto.GenreDto;
 import com.example.gameserver.service.GenreService;
 import com.example.gameserver.util.Authority;
+import com.example.gameserver.util.OpenApiUtil;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -12,6 +14,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/genre")
+@SecurityRequirement(name = OpenApiUtil.SCHEME_NAME)
 @RequiredArgsConstructor
 public class GenreController {
 
