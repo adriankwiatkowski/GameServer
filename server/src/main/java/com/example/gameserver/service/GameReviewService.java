@@ -47,8 +47,14 @@ public class GameReviewService {
         sanitizeUserId(username, gameReviewDto);
 
         var gameReview = gameReviewMapper.toGameReview(gameReviewDto);
-        gameReview.setUser(userRepository.findById(gameReviewDto.getUserId()).orElseThrow(EntityNotFoundException::new));
-        gameReview.setGame(gameRepository.findById(gameReviewDto.getGameId()).orElseThrow(EntityNotFoundException::new));
+        gameReview.setUser(userRepository
+                .findById(gameReviewDto.getUserDto().getId())
+                .orElseThrow(() -> new EntityNotFoundException(
+                        String.format("User not found with id: %d", gameReviewDto.getUserDto().getId()))));
+        gameReview.setGame(gameRepository
+                .findById(gameReviewDto.getGameId())
+                .orElseThrow(() -> new EntityNotFoundException(
+                        String.format("Game not found with id: %d", gameReviewDto.getGameId()))));
 
         gameReviewRepository.save(gameReview);
 
@@ -66,6 +72,6 @@ public class GameReviewService {
         var user = userRepository.findByUsername(username)
                 .orElseThrow(() -> new UsernameNotFoundException(
                         String.format("User not found with username: %s", username)));
-        gameReviewDto.setUserId(user.getId());
+        gameReviewDto.getUserDto().setId(user.getId());
     }
 }
