@@ -25,19 +25,19 @@ public class PlatformController {
         return platformService.getAllPlatforms();
     }
 
-    @PreAuthorize(Authority.ADMIN_SCOPE)
+    @PreAuthorize(Authority.HAS_ADMIN_SCOPE)
     @PostMapping
     public PlatformDto insert(@RequestBody @Valid PlatformDto platformDto) {
         return platformService.insert(platformDto);
     }
 
-    @PreAuthorize(Authority.ADMIN_SCOPE)
+    @PreAuthorize(Authority.HAS_ADMIN_SCOPE)
     @PutMapping
     public PlatformDto update(@RequestBody @Valid PlatformDto platformDto) {
         return platformService.update(platformDto);
     }
 
-    @PreAuthorize(Authority.ADMIN_SCOPE)
+    @PreAuthorize(Authority.HAS_ADMIN_SCOPE)
     @DeleteMapping("/{id}")
     public void delete(@PathVariable Long id) {
         platformService.deletePlatform(id);

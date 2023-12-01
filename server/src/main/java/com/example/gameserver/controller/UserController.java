@@ -23,7 +23,7 @@ public class UserController {
 
     private final UserService userService;
 
-    @PreAuthorize(Authority.ADMIN_SCOPE)
+    @PreAuthorize(Authority.HAS_ADMIN_SCOPE)
     @GetMapping
     public List<UserDto> getUsers() {
         return userService.getAllUsers();

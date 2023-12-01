@@ -25,19 +25,19 @@ public class PublisherController {
         return publisherService.getAllPublishers();
     }
 
-    @PreAuthorize(Authority.ADMIN_SCOPE)
+    @PreAuthorize(Authority.HAS_ADMIN_SCOPE)
     @PostMapping
     public PublisherDto insert(@RequestBody @Valid PublisherDto publisherDto) {
         return publisherService.insert(publisherDto);
     }
 
-    @PreAuthorize(Authority.ADMIN_SCOPE)
+    @PreAuthorize(Authority.HAS_ADMIN_SCOPE)
     @PutMapping
     public PublisherDto update(@RequestBody @Valid PublisherDto publisherDto) {
         return publisherService.update(publisherDto);
     }
 
-    @PreAuthorize(Authority.ADMIN_SCOPE)
+    @PreAuthorize(Authority.HAS_ADMIN_SCOPE)
     @DeleteMapping("/{id}")
     public void delete(@PathVariable Long id) {
         publisherService.deletePublisher(id);

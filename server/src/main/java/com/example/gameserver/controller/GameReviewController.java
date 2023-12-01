@@ -36,7 +36,7 @@ public class GameReviewController {
         return gameReviewService.update(getCurrentUsername(), gameReviewDto);
     }
 
-    @PreAuthorize(Authority.ADMIN_SCOPE)
+    @PreAuthorize(Authority.HAS_ADMIN_SCOPE)
     @DeleteMapping("/{id}")
     public void delete(@PathVariable Long id) {
         gameReviewService.deleteGameReview(id);
