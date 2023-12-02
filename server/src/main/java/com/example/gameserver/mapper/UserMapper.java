@@ -13,26 +13,26 @@ public class UserMapper {
 
     private final RoleMapper roleMapper;
 
-    public UserDto from(UserEntity userEntity) {
+    public UserDto toDto(UserEntity userEntity) {
         return UserDto.builder()
                 .id(userEntity.getId())
                 .username(userEntity.getUsername())
                 .name(userEntity.getName())
                 .surname(userEntity.getSurname())
                 .roles(userEntity.getRoles().stream()
-                        .map(roleMapper::from)
+                        .map(roleMapper::toDto)
                         .collect(Collectors.toSet()))
                 .build();
     }
 
-    public UserEntity toUser(UserDto userDto) {
+    public UserEntity toEntity(UserDto userDto) {
         return UserEntity.builder()
                 .id(userDto.getId())
                 .username(userDto.getUsername())
                 .name(userDto.getName())
                 .surname(userDto.getSurname())
                 .roles(userDto.getRoles().stream()
-                        .map(roleMapper::toRole)
+                        .map(roleMapper::toEntity)
                         .collect(Collectors.toSet()))
                 .build();
     }

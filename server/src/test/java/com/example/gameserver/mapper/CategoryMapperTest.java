@@ -20,7 +20,7 @@ class CategoryMapperTest {
         categoryEntity.setId(1L);
         categoryEntity.setName("Kategoria");
 
-        CategoryDto categoryDto = categoryMapper.from(categoryEntity);
+        CategoryDto categoryDto = categoryMapper.toDto(categoryEntity);
 
         Assertions.assertEquals(categoryEntity.getId(), categoryDto.getId());
         Assertions.assertEquals(categoryEntity.getName(), categoryDto.getName());
@@ -32,7 +32,7 @@ class CategoryMapperTest {
         categoryDto.setId(1L);
         categoryDto.setName("Kategoria");
 
-        CategoryEntity categoryEntity = categoryMapper.toCategory(categoryDto);
+        CategoryEntity categoryEntity = categoryMapper.toEntity(categoryDto);
 
         Assertions.assertEquals(categoryDto.getId(), categoryEntity.getId());
         Assertions.assertEquals(categoryDto.getName(), categoryEntity.getName());

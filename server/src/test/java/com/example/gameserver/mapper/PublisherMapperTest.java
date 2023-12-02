@@ -20,7 +20,7 @@ class PublisherMapperTest {
         publisherEntity.setId(1L);
         publisherEntity.setName("Wydawca");
 
-        PublisherDto publisherDto = publisherMapper.from(publisherEntity);
+        PublisherDto publisherDto = publisherMapper.toDto(publisherEntity);
 
         Assertions.assertEquals(publisherEntity.getId(), publisherDto.getId());
         Assertions.assertEquals(publisherEntity.getName(), publisherDto.getName());
@@ -32,7 +32,7 @@ class PublisherMapperTest {
         publisherDto.setId(1L);
         publisherDto.setName("Wydawca");
 
-        PublisherEntity publisherEntity = publisherMapper.toPublisher(publisherDto);
+        PublisherEntity publisherEntity = publisherMapper.toEntity(publisherDto);
 
         Assertions.assertEquals(publisherDto.getId(), publisherEntity.getId());
         Assertions.assertEquals(publisherDto.getName(), publisherEntity.getName());

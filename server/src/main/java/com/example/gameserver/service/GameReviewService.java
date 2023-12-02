@@ -26,7 +26,7 @@ public class GameReviewService {
 
     public List<GameReviewDto> getGameReviews(Long gameId) {
         return gameReviewRepository.findAllByGameId(gameId).stream()
-                .map(gameReviewMapper::from)
+                .map(gameReviewMapper::toDto)
                 .collect(Collectors.toList());
     }
 
@@ -46,7 +46,7 @@ public class GameReviewService {
     private GameReviewDto upsert(String username, GameReviewDto gameReviewDto) {
         sanitizeUserId(username, gameReviewDto);
 
-        var gameReview = gameReviewMapper.toGameReview(gameReviewDto);
+        var gameReview = gameReviewMapper.toEntity(gameReviewDto);
         gameReview.setUser(userRepository
                 .findById(gameReviewDto.getUserDto().getId())
                 .orElseThrow(() -> new EntityNotFoundException(
@@ -58,7 +58,7 @@ public class GameReviewService {
 
         gameReviewRepository.save(gameReview);
 
-        return gameReviewMapper.from(gameReview);
+        return gameReviewMapper.toDto(gameReview);
     }
 
     public void deleteGameReview(Long id) {

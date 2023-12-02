@@ -7,14 +7,14 @@ import org.springframework.stereotype.Component;
 @Component
 public class PlatformMapper {
 
-    public PlatformDto from(PlatformEntity platformEntity) {
+    public PlatformDto toDto(PlatformEntity platformEntity) {
         return PlatformDto.builder()
                 .id(platformEntity.getId())
                 .name(platformEntity.getName())
                 .build();
     }
 
-    public PlatformEntity toPlatform(PlatformDto platformDto) {
+    public PlatformEntity toEntity(PlatformDto platformDto) {
         return PlatformEntity.builder()
                 .id(platformDto.getId())
                 .name(platformDto.getName())

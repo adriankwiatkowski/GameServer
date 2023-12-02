@@ -20,7 +20,7 @@ class DeveloperMapperTest {
         developerEntity.setId(1L);
         developerEntity.setName("Developer");
 
-        DeveloperDto developerDto = developerMapper.from(developerEntity);
+        DeveloperDto developerDto = developerMapper.toDto(developerEntity);
 
         Assertions.assertEquals(developerEntity.getId(), developerDto.getId());
         Assertions.assertEquals(developerEntity.getName(), developerDto.getName());
@@ -32,7 +32,7 @@ class DeveloperMapperTest {
         developerDto.setId(1L);
         developerDto.setName("Developer");
 
-        DeveloperEntity developerEntity = developerMapper.toDeveloper(developerDto);
+        DeveloperEntity developerEntity = developerMapper.toEntity(developerDto);
 
         Assertions.assertEquals(developerDto.getId(), developerEntity.getId());
         Assertions.assertEquals(developerDto.getName(), developerEntity.getName());

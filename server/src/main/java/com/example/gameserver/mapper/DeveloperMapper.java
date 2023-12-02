@@ -7,14 +7,14 @@ import org.springframework.stereotype.Component;
 @Component
 public class DeveloperMapper {
 
-    public DeveloperDto from(DeveloperEntity developerEntity) {
+    public DeveloperDto toDto(DeveloperEntity developerEntity) {
         return DeveloperDto.builder()
                 .id(developerEntity.getId())
                 .name(developerEntity.getName())
                 .build();
     }
 
-    public DeveloperEntity toDeveloper(DeveloperDto developerDto) {
+    public DeveloperEntity toEntity(DeveloperDto developerDto) {
         return DeveloperEntity.builder()
                 .id(developerDto.getId())
                 .name(developerDto.getName())

@@ -21,7 +21,7 @@ public class DeveloperService {
 
     public List<DeveloperDto> getAllDevelopers() {
         return developerRepository.findAll().stream()
-                .map(developerMapper::from)
+                .map(developerMapper::toDto)
                 .collect(Collectors.toList());
     }
 
@@ -39,11 +39,11 @@ public class DeveloperService {
     }
 
     private DeveloperDto upsert(DeveloperDto developerDto) {
-        var developer = developerMapper.toDeveloper(developerDto);
+        var developer = developerMapper.toEntity(developerDto);
 
         developerRepository.save(developer);
 
-        return developerMapper.from(developer);
+        return developerMapper.toDto(developer);
     }
 
     public void deleteDeveloper(Long id) {
