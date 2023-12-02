@@ -7,17 +7,20 @@ import com.example.client.model.UserProperty;
 import com.example.client.service.UserService;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.text.Text;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
 public class MainPanelController implements Initializable, Controller {
     private UserService userService;
+    private ScreenController screenController;
     private ProfileModel profileModel;
     @FXML
     Text usernameText;
@@ -38,6 +41,7 @@ public class MainPanelController implements Initializable, Controller {
             throw new IllegalStateException("Model can only be initialized once");
         }
         this.profileModel = profileModel;
+        this.screenController = screenController;
         updateUIProfile();
 
         this.userService = ApiServiceGenerator.createService(UserService.class, this.profileModel.getCurrentToken().getToken());
@@ -76,5 +80,16 @@ public class MainPanelController implements Initializable, Controller {
         if (token.length() < 9)
             tokenSubstr = token.length();
         accessTokenText.setText("AT: " + token.substring(0, tokenSubstr) + "...");
+    }
+
+    @FXML
+    public void showGameList() {
+        FXMLLoader lo = new FXMLLoader(getClass().getResource("/view/gameList.fxml"));
+        try {
+            this.screenController.addScreen("gameList", lo);
+            this.screenController.activate("gameList");
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 }

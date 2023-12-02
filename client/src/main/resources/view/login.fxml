@@ -61,12 +61,6 @@
                         <Font name="Poppins SemiBold" size="43.0"/>
                     </font>
                 </Text>
-                <Text fx:id="testText" layoutX="79.0" layoutY="333.0" strokeType="OUTSIDE" strokeWidth="0.0"
-                      text="Text">
-                    <font>
-                        <Font size="36.0"/>
-                    </font>
-                </Text>
             </children>
         </AnchorPane>
     </right>
