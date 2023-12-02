@@ -50,6 +50,7 @@ public class LoginController implements Initializable, Controller {
         AuthService authService = ApiServiceGenerator.createService(AuthService.class);
         LoginDto loginDto = new LoginDto(username, password);
         Call<Token> callAsync = authService.loginUser(loginDto);
+        System.out.println(loginDto);
         callAsync.enqueue(new Callback<Token>() {
             @Override
             public void onResponse(Call<Token> call, Response<Token> response) {

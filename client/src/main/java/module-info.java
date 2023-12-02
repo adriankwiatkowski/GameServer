@@ -21,4 +21,6 @@ module com.example.client {
     exports com.example.client.domain;
     exports com.example.client.controller;
     exports com.example.client;
+    exports com.example.client.controller.components;
+    opens com.example.client.controller.components to gson;
 }

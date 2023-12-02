@@ -3,7 +3,7 @@ package com.example.client.domain;
 import lombok.Data;
 
 import java.math.BigDecimal;
-import java.time.LocalDate;
+import java.util.Date;
 import java.util.Set;
 
 @Data
@@ -11,7 +11,7 @@ public class Game {
     private Long id;
     private String name;
     private String description;
-    private LocalDate releaseDate;
+    private Date releaseDate;
     private Integer positiveRatings;
     private Integer negativeRatings;
     private Integer averagePlaytime;
