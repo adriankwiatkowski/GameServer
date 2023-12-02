@@ -11,22 +11,22 @@ public class GameReviewMapper {
 
     private final UserMapper userMapper;
 
-    public GameReviewDto from(GameReviewEntity gameReviewEntity) {
+    public GameReviewDto toDto(GameReviewEntity gameReviewEntity) {
         return GameReviewDto.builder()
                 .id(gameReviewEntity.getId())
                 .score(gameReviewEntity.getScore())
                 .review(gameReviewEntity.getReview())
-                .userDto(userMapper.from(gameReviewEntity.getUser()))
+                .userDto(userMapper.toDto(gameReviewEntity.getUser()))
                 .gameId(gameReviewEntity.getGame().getId())
                 .build();
     }
 
-    public GameReviewEntity toGameReview(GameReviewDto gameReviewDto) {
+    public GameReviewEntity toEntity(GameReviewDto gameReviewDto) {
         return GameReviewEntity.builder()
                 .id(gameReviewDto.getId())
                 .score(gameReviewDto.getScore())
                 .review(gameReviewDto.getReview())
-                .user(userMapper.toUser(gameReviewDto.getUserDto()))
+                .user(userMapper.toEntity(gameReviewDto.getUserDto()))
                 .build();
     }
 }

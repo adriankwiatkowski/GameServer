@@ -21,7 +21,7 @@ public class CategoryService {
 
     public List<CategoryDto> getAllCategories() {
         return categoryRepository.findAll().stream()
-                .map(categoryMapper::from)
+                .map(categoryMapper::toDto)
                 .collect(Collectors.toList());
     }
 
@@ -39,11 +39,11 @@ public class CategoryService {
     }
 
     private CategoryDto upsert(CategoryDto categoryDto) {
-        var category = categoryMapper.toCategory(categoryDto);
+        var category = categoryMapper.toEntity(categoryDto);
 
         categoryRepository.save(category);
 
-        return categoryMapper.from(category);
+        return categoryMapper.toDto(category);
     }
 
     public void deleteCategory(Long id) {

@@ -21,7 +21,7 @@ public class PublisherService {
 
     public List<PublisherDto> getAllPublishers() {
         return publisherRepository.findAll().stream()
-                .map(publisherMapper::from)
+                .map(publisherMapper::toDto)
                 .collect(Collectors.toList());
     }
 
@@ -39,11 +39,11 @@ public class PublisherService {
     }
 
     private PublisherDto upsert(PublisherDto publisherDto) {
-        var publisher = publisherMapper.toPublisher(publisherDto);
+        var publisher = publisherMapper.toEntity(publisherDto);
 
         publisherRepository.save(publisher);
 
-        return publisherMapper.from(publisher);
+        return publisherMapper.toDto(publisher);
     }
 
     public void deletePublisher(Long id) {

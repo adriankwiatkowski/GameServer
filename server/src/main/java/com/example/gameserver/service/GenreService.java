@@ -21,7 +21,7 @@ public class GenreService {
 
     public List<GenreDto> getAllGenres() {
         return genreRepository.findAll().stream()
-                .map(genreMapper::from)
+                .map(genreMapper::toDto)
                 .collect(Collectors.toList());
     }
 
@@ -39,11 +39,11 @@ public class GenreService {
     }
 
     private GenreDto upsert(GenreDto genreDto) {
-        var genre = genreMapper.toGenre(genreDto);
+        var genre = genreMapper.toEntity(genreDto);
 
         genreRepository.save(genre);
 
-        return genreMapper.from(genre);
+        return genreMapper.toDto(genre);
     }
 
     public void deleteGenre(Long id) {

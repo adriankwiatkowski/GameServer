@@ -42,10 +42,10 @@ public class RoleService {
     }
 
     private RoleDto upsert(RoleDto roleDto) {
-        var role = roleMapper.toRole(roleDto);
+        var role = roleMapper.toEntity(roleDto);
 
         roleRepository.saveAndFlush(role);
 
-        return roleMapper.from(role);
+        return roleMapper.toDto(role);
     }
 }

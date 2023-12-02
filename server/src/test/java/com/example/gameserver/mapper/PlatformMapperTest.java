@@ -20,7 +20,7 @@ class PlatformMapperTest {
         platformEntity.setId(1L);
         platformEntity.setName("Platforma");
 
-        PlatformDto platformDto = platformMapper.from(platformEntity);
+        PlatformDto platformDto = platformMapper.toDto(platformEntity);
 
         Assertions.assertEquals(platformEntity.getId(), platformDto.getId());
         Assertions.assertEquals(platformEntity.getName(), platformDto.getName());
@@ -32,7 +32,7 @@ class PlatformMapperTest {
         platformDto.setId(1L);
         platformDto.setName("Platforma");
 
-        PlatformEntity platformEntity = platformMapper.toPlatform(platformDto);
+        PlatformEntity platformEntity = platformMapper.toEntity(platformDto);
 
         Assertions.assertEquals(platformDto.getId(), platformEntity.getId());
         Assertions.assertEquals(platformDto.getName(), platformEntity.getName());

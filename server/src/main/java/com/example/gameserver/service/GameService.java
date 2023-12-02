@@ -31,19 +31,21 @@ public class GameService {
 
     public List<GameDto> getAllGames() {
         return gameRepository.findAllByOrderByNameAsc().stream()
-                .map(gameMapper::from)
+                .map(gameMapper::toDto)
                 .collect(Collectors.toList());
     }
 
     public List<GameDto> getAllGamesByName(String name) {
         return gameRepository.findAllByNameContainingIgnoreCaseOrderByNameAsc(name).stream()
-                .map(gameMapper::from)
+                .map(gameMapper::toDto)
                 .collect(Collectors.toList());
     }
 
     public GameDto getGame(Long id) {
-        var game = gameRepository.findById(id).orElseThrow(EntityNotFoundException::new);
-        return gameMapper.from(game);
+        var game = gameRepository
+                .findById(id)
+                .orElseThrow(() -> new EntityNotFoundException(String.format("Game not found with id: %d", id)));
+        return gameMapper.toDto(game);
     }
 
     public GameDto insert(GameDto gameDto) {
@@ -60,7 +62,7 @@ public class GameService {
     }
 
     private GameDto upsert(GameDto gameDto) {
-        var game = gameMapper.toGame(gameDto);
+        var game = gameMapper.toEntity(gameDto);
         game.setCategories(getCategoriesByIds(gameDto.getCategories()));
         game.setDevelopers(getDevelopersByIds(gameDto.getDevelopers()));
         game.setGenres(getGenresByIds(gameDto.getGenres()));
@@ -69,7 +71,7 @@ public class GameService {
 
         gameRepository.save(game);
 
-        return gameMapper.from(game);
+        return gameMapper.toDto(game);
     }
 
     public void deleteGame(Long id) {

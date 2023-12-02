@@ -7,14 +7,14 @@ import org.springframework.stereotype.Component;
 @Component
 public class GenreMapper {
 
-    public GenreDto from(GenreEntity genreEntity) {
+    public GenreDto toDto(GenreEntity genreEntity) {
         return GenreDto.builder()
                 .id(genreEntity.getId())
                 .name(genreEntity.getName())
                 .build();
     }
 
-    public GenreEntity toGenre(GenreDto genreDto) {
+    public GenreEntity toEntity(GenreDto genreDto) {
         return GenreEntity.builder()
                 .id(genreDto.getId())
                 .name(genreDto.getName())

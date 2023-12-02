@@ -21,7 +21,7 @@ public class PlatformService {
 
     public List<PlatformDto> getAllPlatforms() {
         return platformRepository.findAll().stream()
-                .map(platformMapper::from)
+                .map(platformMapper::toDto)
                 .collect(Collectors.toList());
     }
 
@@ -39,11 +39,11 @@ public class PlatformService {
     }
 
     private PlatformDto upsert(PlatformDto platformDto) {
-        var platform = platformMapper.toPlatform(platformDto);
+        var platform = platformMapper.toEntity(platformDto);
 
         platformRepository.save(platform);
 
-        return platformMapper.from(platform);
+        return platformMapper.toDto(platform);
     }
 
     public void deletePlatform(Long id) {

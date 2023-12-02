@@ -7,14 +7,14 @@ import org.springframework.stereotype.Component;
 @Component
 public class PublisherMapper {
 
-    public PublisherDto from(PublisherEntity publisherEntity) {
+    public PublisherDto toDto(PublisherEntity publisherEntity) {
         return PublisherDto.builder()
                 .id(publisherEntity.getId())
                 .name(publisherEntity.getName())
                 .build();
     }
 
-    public PublisherEntity toPublisher(PublisherDto publisherDto) {
+    public PublisherEntity toEntity(PublisherDto publisherDto) {
         return PublisherEntity.builder()
                 .id(publisherDto.getId())
                 .name(publisherDto.getName())

@@ -21,13 +21,13 @@ public class UserService {
 
     public List<UserDto> getAllUsers() {
         return userRepository.findAll().stream()
-                .map(userMapper::from)
+                .map(userMapper::toDto)
                 .collect(Collectors.toList());
     }
 
     public UserDto getUser(String username) {
         return userRepository.findByUsername(username)
-                .map(userMapper::from)
+                .map(userMapper::toDto)
                 .orElseThrow(() -> new UsernameNotFoundException(
                         String.format("User not found with username: %s", username)));
     }

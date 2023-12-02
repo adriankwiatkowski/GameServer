@@ -20,7 +20,7 @@ class GenreMapperTest {
         genreEntity.setId(1L);
         genreEntity.setName("Gatunek");
 
-        GenreDto genreDto = genreMapper.from(genreEntity);
+        GenreDto genreDto = genreMapper.toDto(genreEntity);
 
         Assertions.assertEquals(genreEntity.getId(), genreDto.getId());
         Assertions.assertEquals(genreEntity.getName(), genreDto.getName());
@@ -32,7 +32,7 @@ class GenreMapperTest {
         genreDto.setId(1L);
         genreDto.setName("Gatunek");
 
-        GenreEntity genreEntity = genreMapper.toGenre(genreDto);
+        GenreEntity genreEntity = genreMapper.toEntity(genreDto);
 
         Assertions.assertEquals(genreDto.getId(), genreEntity.getId());
         Assertions.assertEquals(genreDto.getName(), genreEntity.getName());
