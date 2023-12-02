@@ -1,21 +1,21 @@
 package com.example.gameserver.mapper;
 
-import com.example.gameserver.domain.Genre;
+import com.example.gameserver.domain.GenreEntity;
 import com.example.gameserver.dto.GenreDto;
 import org.springframework.stereotype.Component;
 
 @Component
 public class GenreMapper {
 
-    public GenreDto from(Genre genre) {
+    public GenreDto from(GenreEntity genreEntity) {
         return GenreDto.builder()
-                .id(genre.getId())
-                .name(genre.getName())
+                .id(genreEntity.getId())
+                .name(genreEntity.getName())
                 .build();
     }
 
-    public Genre toGenre(GenreDto genreDto) {
-        return Genre.builder()
+    public GenreEntity toGenre(GenreDto genreDto) {
+        return GenreEntity.builder()
                 .id(genreDto.getId())
                 .name(genreDto.getName())
                 .build();

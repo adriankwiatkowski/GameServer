@@ -17,7 +17,7 @@ import java.util.Set;
 @Builder
 @Entity
 @Table(name = "game")
-public class Game {
+public class GameEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -64,20 +64,20 @@ public class Game {
     private BigDecimal price;
 
     @ManyToMany(mappedBy = "games", fetch = FetchType.EAGER)
-    private Set<Category> categories = new LinkedHashSet<>();
+    private Set<CategoryEntity> categories = new LinkedHashSet<>();
 
     @ManyToMany(mappedBy = "games", fetch = FetchType.EAGER)
-    private Set<Developer> developers = new LinkedHashSet<>();
+    private Set<DeveloperEntity> developers = new LinkedHashSet<>();
 
     @ManyToMany(mappedBy = "games", fetch = FetchType.EAGER)
-    private Set<Genre> genres = new LinkedHashSet<>();
+    private Set<GenreEntity> genres = new LinkedHashSet<>();
 
     @ManyToMany(mappedBy = "games", fetch = FetchType.EAGER)
-    private Set<Platform> platforms = new LinkedHashSet<>();
+    private Set<PlatformEntity> platforms = new LinkedHashSet<>();
 
     @ManyToMany(mappedBy = "games", fetch = FetchType.EAGER)
-    private Set<Publisher> publishers = new LinkedHashSet<>();
+    private Set<PublisherEntity> publishers = new LinkedHashSet<>();
 
     @OneToMany(mappedBy = "game", cascade = CascadeType.ALL)
-    private Set<GameReview> gameReviews;
+    private Set<GameReviewEntity> gameReviews;
 }

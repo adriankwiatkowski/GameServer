@@ -1,7 +1,7 @@
 package com.example.gameserver.mapper;
 
 import com.example.gameserver.GameServerApplication;
-import com.example.gameserver.domain.Genre;
+import com.example.gameserver.domain.GenreEntity;
 import com.example.gameserver.dto.GenreDto;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -16,14 +16,14 @@ class GenreMapperTest {
 
     @Test
     public void givenGenre_whenMapToGenreDto_thenOk() {
-        Genre genre = new Genre();
-        genre.setId(1L);
-        genre.setName("Gatunek");
+        GenreEntity genreEntity = new GenreEntity();
+        genreEntity.setId(1L);
+        genreEntity.setName("Gatunek");
 
-        GenreDto genreDto = genreMapper.from(genre);
+        GenreDto genreDto = genreMapper.from(genreEntity);
 
-        Assertions.assertEquals(genre.getId(), genreDto.getId());
-        Assertions.assertEquals(genre.getName(), genreDto.getName());
+        Assertions.assertEquals(genreEntity.getId(), genreDto.getId());
+        Assertions.assertEquals(genreEntity.getName(), genreDto.getName());
     }
 
     @Test
@@ -32,9 +32,9 @@ class GenreMapperTest {
         genreDto.setId(1L);
         genreDto.setName("Gatunek");
 
-        Genre genre = genreMapper.toGenre(genreDto);
+        GenreEntity genreEntity = genreMapper.toGenre(genreDto);
 
-        Assertions.assertEquals(genreDto.getId(), genre.getId());
-        Assertions.assertEquals(genreDto.getName(), genre.getName());
+        Assertions.assertEquals(genreDto.getId(), genreEntity.getId());
+        Assertions.assertEquals(genreDto.getName(), genreEntity.getName());
     }
 }

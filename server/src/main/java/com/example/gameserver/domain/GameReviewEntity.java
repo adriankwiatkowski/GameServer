@@ -16,7 +16,7 @@ import lombok.*;
         name = "game_review",
         uniqueConstraints = {@UniqueConstraint(columnNames = {"user_id", "game_id"})}
 )
-public class GameReview {
+public class GameReviewEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -37,10 +37,10 @@ public class GameReview {
     @NotNull
     @ManyToOne
     @JoinColumn(name = "user_id")
-    private User user;
+    private UserEntity user;
 
     @NotNull
     @ManyToOne
     @JoinColumn(name = "game_id")
-    private Game game;
+    private GameEntity game;
 }

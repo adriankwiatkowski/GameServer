@@ -1,6 +1,6 @@
 package com.example.gameserver.mapper;
 
-import com.example.gameserver.domain.GameReview;
+import com.example.gameserver.domain.GameReviewEntity;
 import com.example.gameserver.dto.GameReviewDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -11,18 +11,18 @@ public class GameReviewMapper {
 
     private final UserMapper userMapper;
 
-    public GameReviewDto from(GameReview gameReview) {
+    public GameReviewDto from(GameReviewEntity gameReviewEntity) {
         return GameReviewDto.builder()
-                .id(gameReview.getId())
-                .score(gameReview.getScore())
-                .review(gameReview.getReview())
-                .userDto(userMapper.from(gameReview.getUser()))
-                .gameId(gameReview.getGame().getId())
+                .id(gameReviewEntity.getId())
+                .score(gameReviewEntity.getScore())
+                .review(gameReviewEntity.getReview())
+                .userDto(userMapper.from(gameReviewEntity.getUser()))
+                .gameId(gameReviewEntity.getGame().getId())
                 .build();
     }
 
-    public GameReview toGameReview(GameReviewDto gameReviewDto) {
-        return GameReview.builder()
+    public GameReviewEntity toGameReview(GameReviewDto gameReviewDto) {
+        return GameReviewEntity.builder()
                 .id(gameReviewDto.getId())
                 .score(gameReviewDto.getScore())
                 .review(gameReviewDto.getReview())

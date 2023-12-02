@@ -1,6 +1,6 @@
 package com.example.gameserver.model;
 
-import com.example.gameserver.domain.User;
+import com.example.gameserver.domain.UserEntity;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -14,11 +14,11 @@ import java.util.Collection;
 @Builder
 public class MyUserDetails implements UserDetails {
 
-    private User user;
+    private UserEntity userEntity;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return user.getRoles()
+        return userEntity.getRoles()
                 .stream()
                 .map(role -> (GrantedAuthority) role::getName)
                 .toList();
@@ -26,12 +26,12 @@ public class MyUserDetails implements UserDetails {
 
     @Override
     public String getPassword() {
-        return user.getPassword();
+        return userEntity.getPassword();
     }
 
     @Override
     public String getUsername() {
-        return user.getUsername();
+        return userEntity.getUsername();
     }
 
     @Override

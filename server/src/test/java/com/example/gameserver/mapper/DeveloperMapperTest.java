@@ -1,7 +1,7 @@
 package com.example.gameserver.mapper;
 
 import com.example.gameserver.GameServerApplication;
-import com.example.gameserver.domain.Developer;
+import com.example.gameserver.domain.DeveloperEntity;
 import com.example.gameserver.dto.DeveloperDto;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -16,12 +16,14 @@ class DeveloperMapperTest {
 
     @Test
     public void givenDeveloper_whenMapToDeveloperDto_thenOk() {
-        Developer developer = new Developer();
-        developer.setId(1L);
-        developer.setName("Developer");
-        DeveloperDto developerDto = developerMapper.from(developer);
-        Assertions.assertEquals(developer.getId(), developerDto.getId());
-        Assertions.assertEquals(developer.getName(), developerDto.getName());
+        DeveloperEntity developerEntity = new DeveloperEntity();
+        developerEntity.setId(1L);
+        developerEntity.setName("Developer");
+
+        DeveloperDto developerDto = developerMapper.from(developerEntity);
+
+        Assertions.assertEquals(developerEntity.getId(), developerDto.getId());
+        Assertions.assertEquals(developerEntity.getName(), developerDto.getName());
     }
 
     @Test
@@ -29,8 +31,10 @@ class DeveloperMapperTest {
         DeveloperDto developerDto = new DeveloperDto();
         developerDto.setId(1L);
         developerDto.setName("Developer");
-        Developer developer = developerMapper.toDeveloper(developerDto);
-        Assertions.assertEquals(developerDto.getId(), developer.getId());
-        Assertions.assertEquals(developerDto.getName(), developer.getName());
+
+        DeveloperEntity developerEntity = developerMapper.toDeveloper(developerDto);
+
+        Assertions.assertEquals(developerDto.getId(), developerEntity.getId());
+        Assertions.assertEquals(developerDto.getName(), developerEntity.getName());
     }
 }
