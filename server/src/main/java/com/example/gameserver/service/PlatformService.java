@@ -31,10 +31,7 @@ public class PlatformService {
     }
 
     public PlatformDto update(PlatformDto platformDto) {
-        if (!platformRepository.existsById(platformDto.getId())) {
-            throw new EntityNotFoundException(String.format("Platform not found with id: %d", platformDto.getId()));
-        }
-
+        ensurePlatformExists(platformDto.getId());
         return upsert(platformDto);
     }
 
@@ -47,8 +44,13 @@ public class PlatformService {
     }
 
     public void deletePlatform(Long id) {
-        platformRepository.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException(String.format("Platform not found with id: %d", id)));
+        ensurePlatformExists(id);
         platformRepository.deleteById(id);
+    }
+
+    private void ensurePlatformExists(Long id) {
+        if (!platformRepository.existsById(id)) {
+            throw new EntityNotFoundException(String.format("Platform not found with id: %d", id));
+        }
     }
 }

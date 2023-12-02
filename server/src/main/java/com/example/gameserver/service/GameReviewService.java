@@ -36,10 +36,7 @@ public class GameReviewService {
     }
 
     public GameReviewDto update(String username, GameReviewDto gameReviewDto) {
-        if (!gameReviewRepository.existsById(gameReviewDto.getId())) {
-            throw new EntityNotFoundException(String.format("GameReview not found with id: %d", gameReviewDto.getId()));
-        }
-
+        ensureGameReviewExists(gameReviewDto.getId());
         return upsert(username, gameReviewDto);
     }
 
@@ -62,9 +59,7 @@ public class GameReviewService {
     }
 
     public void deleteGameReview(Long id) {
-        gameReviewRepository.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException(
-                        String.format("GameReview not found with id: %d", id)));
+        ensureGameReviewExists(id);
         gameReviewRepository.deleteById(id);
     }
 
@@ -73,5 +68,11 @@ public class GameReviewService {
                 .orElseThrow(() -> new UsernameNotFoundException(
                         String.format("User not found with username: %s", username)));
         gameReviewDto.getUserDto().setId(user.getId());
+    }
+
+    private void ensureGameReviewExists(Long id) {
+        if (!gameReviewRepository.existsById(id)) {
+            throw new EntityNotFoundException(String.format("GameReview not found with id: %d", id));
+        }
     }
 }

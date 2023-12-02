@@ -31,10 +31,7 @@ public class CategoryService {
     }
 
     public CategoryDto update(CategoryDto categoryDto) {
-        if (!categoryRepository.existsById(categoryDto.getId())) {
-            throw new EntityNotFoundException(String.format("Category not found with id: %d", categoryDto.getId()));
-        }
-
+        ensureCategoryExists(categoryDto.getId());
         return upsert(categoryDto);
     }
 
@@ -47,8 +44,13 @@ public class CategoryService {
     }
 
     public void deleteCategory(Long id) {
-        categoryRepository.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException(String.format("Category not found with id: %d", id)));
+        ensureCategoryExists(id);
         categoryRepository.deleteById(id);
+    }
+
+    private void ensureCategoryExists(Long id) {
+        if (!categoryRepository.existsById(id)) {
+            throw new EntityNotFoundException(String.format("Category not found with id: %d", id));
+        }
     }
 }

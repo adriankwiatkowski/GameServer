@@ -31,10 +31,7 @@ public class GenreService {
     }
 
     public GenreDto update(GenreDto genreDto) {
-        if (!genreRepository.existsById(genreDto.getId())) {
-            throw new EntityNotFoundException(String.format("Genre not found with id: %d", genreDto.getId()));
-        }
-
+        ensureGenreExists(genreDto.getId());
         return upsert(genreDto);
     }
 
@@ -47,8 +44,13 @@ public class GenreService {
     }
 
     public void deleteGenre(Long id) {
-        genreRepository.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException(String.format("Genre not found with id: %d", id)));
+        ensureGenreExists(id);
         genreRepository.deleteById(id);
+    }
+
+    private void ensureGenreExists(Long id) {
+        if (!genreRepository.existsById(id)) {
+            throw new EntityNotFoundException(String.format("Genre not found with id: %d", id));
+        }
     }
 }
