@@ -14,8 +14,8 @@ import java.util.Set;
 @Setter
 @Builder
 @Entity
-@Table(name = "genre")
-public class Genre {
+@Table(name = "publisher")
+public class PublisherEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -28,8 +28,8 @@ public class Genre {
     private String name;
 
     @ManyToMany
-    @JoinTable(name = "game_genre",
-            joinColumns = @JoinColumn(name = "genre_id"),
+    @JoinTable(name = "game_publisher",
+            joinColumns = @JoinColumn(name = "publisher_id"),
             inverseJoinColumns = @JoinColumn(name = "game_id"))
-    private Set<Game> games = new LinkedHashSet<>();
+    private Set<GameEntity> games = new LinkedHashSet<>();
 }

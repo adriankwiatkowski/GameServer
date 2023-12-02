@@ -1,7 +1,7 @@
 package com.example.gameserver.service;
 
-import com.example.gameserver.domain.Role;
-import com.example.gameserver.domain.User;
+import com.example.gameserver.domain.RoleEntity;
+import com.example.gameserver.domain.UserEntity;
 import com.example.gameserver.dto.LoginDto;
 import com.example.gameserver.dto.RegisterDto;
 import com.example.gameserver.exception.UsernameUsedException;
@@ -32,11 +32,11 @@ public class MyUserDetailsServiceImpl implements MyUserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        User user = userRepository
+        UserEntity userEntity = userRepository
                 .findByUsername(username)
                 .orElseThrow(() -> new UsernameNotFoundException(String.format("User not found with username: %s", username)));
 
-        return new MyUserDetails(user);
+        return new MyUserDetails(userEntity);
     }
 
     @Override
@@ -62,17 +62,17 @@ public class MyUserDetailsServiceImpl implements MyUserDetailsService {
         register(registerDto, new HashSet<>(Arrays.asList(userRole, adminRole)));
     }
 
-    private void register(RegisterDto registerDto, Set<Role> roles) {
+    private void register(RegisterDto registerDto, Set<RoleEntity> roleEntities) {
         if (userRepository.findByUsername(registerDto.getUsername()).isPresent()) {
             throw new UsernameUsedException(String.format("User already exists with username: %s", registerDto.getUsername()));
         }
 
-        var user = new User();
+        var user = new UserEntity();
         user.setUsername(registerDto.getUsername());
         user.setPassword(passwordEncoder.encode(registerDto.getPassword()));
         user.setName(registerDto.getName());
         user.setSurname(registerDto.getSurname());
-        user.setRoles(roles);
+        user.setRoles(roleEntities);
 
         userRepository.saveAndFlush(user);
     }

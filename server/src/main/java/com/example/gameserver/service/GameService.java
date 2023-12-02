@@ -78,35 +78,35 @@ public class GameService {
         gameRepository.deleteById(id);
     }
 
-    private Set<Category> getCategoriesByIds(Set<CategoryDto> categoryDtos) {
+    private Set<CategoryEntity> getCategoriesByIds(Set<CategoryDto> categoryDtos) {
         var categoryIds = categoryDtos.stream()
                 .map(CategoryDto::getId)
                 .collect(Collectors.toSet());
         return new HashSet<>(categoryRepository.findAllById(categoryIds));
     }
 
-    private Set<Developer> getDevelopersByIds(Set<DeveloperDto> developerDtos) {
+    private Set<DeveloperEntity> getDevelopersByIds(Set<DeveloperDto> developerDtos) {
         var developerIds = developerDtos.stream()
                 .map(DeveloperDto::getId)
                 .collect(Collectors.toSet());
         return new HashSet<>(developerRepository.findAllById(developerIds));
     }
 
-    private Set<Genre> getGenresByIds(Set<GenreDto> genreDtos) {
+    private Set<GenreEntity> getGenresByIds(Set<GenreDto> genreDtos) {
         var genreIds = genreDtos.stream()
                 .map(GenreDto::getId)
                 .collect(Collectors.toSet());
         return new HashSet<>(genreRepository.findAllById(genreIds));
     }
 
-    private Set<Platform> getPlatformsByIds(Set<PlatformDto> platformDtos) {
+    private Set<PlatformEntity> getPlatformsByIds(Set<PlatformDto> platformDtos) {
         var platformIds = platformDtos.stream()
                 .map(PlatformDto::getId)
                 .collect(Collectors.toSet());
         return new HashSet<>(platformRepository.findAllById(platformIds));
     }
 
-    private Set<Publisher> getPublishersByIds(Set<PublisherDto> publisherDtos) {
+    private Set<PublisherEntity> getPublishersByIds(Set<PublisherDto> publisherDtos) {
         var publisherIds = publisherDtos.stream()
                 .map(PublisherDto::getId)
                 .collect(Collectors.toSet());

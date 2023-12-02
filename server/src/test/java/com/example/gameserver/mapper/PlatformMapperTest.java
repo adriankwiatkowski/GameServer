@@ -1,7 +1,7 @@
 package com.example.gameserver.mapper;
 
 import com.example.gameserver.GameServerApplication;
-import com.example.gameserver.domain.Platform;
+import com.example.gameserver.domain.PlatformEntity;
 import com.example.gameserver.dto.PlatformDto;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -16,14 +16,14 @@ class PlatformMapperTest {
 
     @Test
     public void givenPlatform_whenMapToPlatformDto_thenOk() {
-        Platform platform = new Platform();
-        platform.setId(1L);
-        platform.setName("Platforma");
+        PlatformEntity platformEntity = new PlatformEntity();
+        platformEntity.setId(1L);
+        platformEntity.setName("Platforma");
 
-        PlatformDto platformDto = platformMapper.from(platform);
+        PlatformDto platformDto = platformMapper.from(platformEntity);
 
-        Assertions.assertEquals(platform.getId(), platformDto.getId());
-        Assertions.assertEquals(platform.getName(), platformDto.getName());
+        Assertions.assertEquals(platformEntity.getId(), platformDto.getId());
+        Assertions.assertEquals(platformEntity.getName(), platformDto.getName());
     }
 
     @Test
@@ -32,9 +32,9 @@ class PlatformMapperTest {
         platformDto.setId(1L);
         platformDto.setName("Platforma");
 
-        Platform platform = platformMapper.toPlatform(platformDto);
+        PlatformEntity platformEntity = platformMapper.toPlatform(platformDto);
 
-        Assertions.assertEquals(platformDto.getId(), platform.getId());
-        Assertions.assertEquals(platformDto.getName(), platform.getName());
+        Assertions.assertEquals(platformDto.getId(), platformEntity.getId());
+        Assertions.assertEquals(platformDto.getName(), platformEntity.getName());
     }
 }

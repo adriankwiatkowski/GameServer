@@ -1,6 +1,6 @@
 package com.example.gameserver.service;
 
-import com.example.gameserver.domain.Role;
+import com.example.gameserver.domain.RoleEntity;
 import com.example.gameserver.dto.RoleDto;
 import com.example.gameserver.exception.RoleNameUsedException;
 import com.example.gameserver.mapper.RoleMapper;
@@ -18,8 +18,10 @@ public class RoleService {
     private final RoleRepository roleRepository;
     private final RoleMapper roleMapper;
 
-    public Role getRoleByName(String name) {
-        return roleRepository.findByName(name).orElseThrow(EntityNotFoundException::new);
+    public RoleEntity getRoleByName(String name) {
+        return roleRepository
+                .findByName(name)
+                .orElseThrow(() -> new EntityNotFoundException(String.format("Role not found with name: %s", name)));
     }
 
     public RoleDto insert(RoleDto roleDto) throws Exception {

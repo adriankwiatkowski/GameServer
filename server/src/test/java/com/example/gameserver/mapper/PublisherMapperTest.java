@@ -1,7 +1,7 @@
 package com.example.gameserver.mapper;
 
 import com.example.gameserver.GameServerApplication;
-import com.example.gameserver.domain.Publisher;
+import com.example.gameserver.domain.PublisherEntity;
 import com.example.gameserver.dto.PublisherDto;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -16,14 +16,14 @@ class PublisherMapperTest {
 
     @Test
     public void givenPublisher_whenMapToPublisherDto_thenOk() {
-        Publisher publisher = new Publisher();
-        publisher.setId(1L);
-        publisher.setName("Wydawca");
+        PublisherEntity publisherEntity = new PublisherEntity();
+        publisherEntity.setId(1L);
+        publisherEntity.setName("Wydawca");
 
-        PublisherDto publisherDto = publisherMapper.from(publisher);
+        PublisherDto publisherDto = publisherMapper.from(publisherEntity);
 
-        Assertions.assertEquals(publisher.getId(), publisherDto.getId());
-        Assertions.assertEquals(publisher.getName(), publisherDto.getName());
+        Assertions.assertEquals(publisherEntity.getId(), publisherDto.getId());
+        Assertions.assertEquals(publisherEntity.getName(), publisherDto.getName());
     }
 
     @Test
@@ -32,9 +32,9 @@ class PublisherMapperTest {
         publisherDto.setId(1L);
         publisherDto.setName("Wydawca");
 
-        Publisher publisher = publisherMapper.toPublisher(publisherDto);
+        PublisherEntity publisherEntity = publisherMapper.toPublisher(publisherDto);
 
-        Assertions.assertEquals(publisherDto.getId(), publisher.getId());
-        Assertions.assertEquals(publisherDto.getName(), publisher.getName());
+        Assertions.assertEquals(publisherDto.getId(), publisherEntity.getId());
+        Assertions.assertEquals(publisherDto.getName(), publisherEntity.getName());
     }
 }

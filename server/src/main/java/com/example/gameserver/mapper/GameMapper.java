@@ -1,6 +1,6 @@
 package com.example.gameserver.mapper;
 
-import com.example.gameserver.domain.Game;
+import com.example.gameserver.domain.GameEntity;
 import com.example.gameserver.dto.GameDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -17,38 +17,38 @@ public class GameMapper {
     private final PlatformMapper platformMapper;
     private final PublisherMapper publisherMapper;
 
-    public GameDto from(Game game) {
+    public GameDto from(GameEntity gameEntity) {
         return GameDto.builder()
-                .id(game.getId())
-                .name(game.getName())
-                .description(game.getDescription())
-                .releaseDate(game.getReleaseDate())
-                .positiveRatings(game.getPositiveRatings())
-                .negativeRatings(game.getNegativeRatings())
-                .averagePlaytime(game.getAveragePlaytime())
-                .medianPlaytime(game.getMedianPlaytime())
-                .owners(game.getOwners())
-                .price(game.getPrice())
-                .categories(game.getCategories().stream()
+                .id(gameEntity.getId())
+                .name(gameEntity.getName())
+                .description(gameEntity.getDescription())
+                .releaseDate(gameEntity.getReleaseDate())
+                .positiveRatings(gameEntity.getPositiveRatings())
+                .negativeRatings(gameEntity.getNegativeRatings())
+                .averagePlaytime(gameEntity.getAveragePlaytime())
+                .medianPlaytime(gameEntity.getMedianPlaytime())
+                .owners(gameEntity.getOwners())
+                .price(gameEntity.getPrice())
+                .categories(gameEntity.getCategories().stream()
                         .map(categoryMapper::from)
                         .collect(Collectors.toSet()))
-                .developers(game.getDevelopers().stream()
+                .developers(gameEntity.getDevelopers().stream()
                         .map(developerMapper::from)
                         .collect(Collectors.toSet()))
-                .genres(game.getGenres().stream()
+                .genres(gameEntity.getGenres().stream()
                         .map(genreMapper::from)
                         .collect(Collectors.toSet()))
-                .platforms(game.getPlatforms().stream()
+                .platforms(gameEntity.getPlatforms().stream()
                         .map(platformMapper::from)
                         .collect(Collectors.toSet()))
-                .publishers(game.getPublishers().stream()
+                .publishers(gameEntity.getPublishers().stream()
                         .map(publisherMapper::from)
                         .collect(Collectors.toSet()))
                 .build();
     }
 
-    public Game toGame(GameDto gameDto) {
-        return Game.builder()
+    public GameEntity toGame(GameDto gameDto) {
+        return GameEntity.builder()
                 .id(gameDto.getId())
                 .name(gameDto.getName())
                 .description(gameDto.getDescription())

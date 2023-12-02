@@ -15,7 +15,7 @@ import java.util.Set;
 @Builder
 @Entity
 @Table(name = "user")
-public class User {
+public class UserEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -44,12 +44,8 @@ public class User {
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id")
     )
-    private Set<Role> roles = new HashSet<>();
+    private Set<RoleEntity> roles = new HashSet<>();
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
-    private Set<GameReview> gameReviews;
-
-    public void addRole(Role role) {
-        this.roles.add(role);
-    }
+    private Set<GameReviewEntity> gameReviews;
 }

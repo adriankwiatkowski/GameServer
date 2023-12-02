@@ -1,6 +1,6 @@
 package com.example.gameserver.mapper;
 
-import com.example.gameserver.domain.User;
+import com.example.gameserver.domain.UserEntity;
 import com.example.gameserver.dto.UserDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -13,20 +13,20 @@ public class UserMapper {
 
     private final RoleMapper roleMapper;
 
-    public UserDto from(User user) {
+    public UserDto from(UserEntity userEntity) {
         return UserDto.builder()
-                .id(user.getId())
-                .username(user.getUsername())
-                .name(user.getName())
-                .surname(user.getSurname())
-                .roles(user.getRoles().stream()
+                .id(userEntity.getId())
+                .username(userEntity.getUsername())
+                .name(userEntity.getName())
+                .surname(userEntity.getSurname())
+                .roles(userEntity.getRoles().stream()
                         .map(roleMapper::from)
                         .collect(Collectors.toSet()))
                 .build();
     }
 
-    public User toUser(UserDto userDto) {
-        return User.builder()
+    public UserEntity toUser(UserDto userDto) {
+        return UserEntity.builder()
                 .id(userDto.getId())
                 .username(userDto.getUsername())
                 .name(userDto.getName())

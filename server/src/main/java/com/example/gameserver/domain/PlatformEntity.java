@@ -15,7 +15,7 @@ import java.util.Set;
 @Builder
 @Entity
 @Table(name = "platform")
-public class Platform {
+public class PlatformEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -31,5 +31,5 @@ public class Platform {
     @JoinTable(name = "game_platform",
             joinColumns = @JoinColumn(name = "platform_id"),
             inverseJoinColumns = @JoinColumn(name = "game_id"))
-    private Set<Game> games = new LinkedHashSet<>();
+    private Set<GameEntity> games = new LinkedHashSet<>();
 }

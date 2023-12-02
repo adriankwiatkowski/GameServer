@@ -1,21 +1,21 @@
 package com.example.gameserver.mapper;
 
-import com.example.gameserver.domain.Role;
+import com.example.gameserver.domain.RoleEntity;
 import com.example.gameserver.dto.RoleDto;
 import org.springframework.stereotype.Component;
 
 @Component
 public class RoleMapper {
 
-    public RoleDto from(Role role) {
+    public RoleDto from(RoleEntity roleEntity) {
         return RoleDto.builder()
-                .id(role.getId())
-                .name(role.getName())
+                .id(roleEntity.getId())
+                .name(roleEntity.getName())
                 .build();
     }
 
-    public Role toRole(RoleDto roleDto) {
-        return Role.builder()
+    public RoleEntity toRole(RoleDto roleDto) {
+        return RoleEntity.builder()
                 .id(roleDto.getId())
                 .name(roleDto.getName())
                 .build();
