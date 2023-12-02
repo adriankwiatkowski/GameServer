@@ -54,10 +54,7 @@ public class GameService {
     }
 
     public GameDto update(GameDto gameDto) {
-        if (!gameRepository.existsById(gameDto.getId())) {
-            throw new EntityNotFoundException(String.format("Game not found with id: %d", gameDto.getId()));
-        }
-
+        ensureGameExists(gameDto.getId());
         return upsert(gameDto);
     }
 
@@ -75,8 +72,7 @@ public class GameService {
     }
 
     public void deleteGame(Long id) {
-        gameRepository.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException(String.format("Game not found with id: %d", id)));
+        ensureGameExists(id);
         gameRepository.deleteById(id);
     }
 
@@ -113,5 +109,11 @@ public class GameService {
                 .map(PublisherDto::getId)
                 .collect(Collectors.toSet());
         return new HashSet<>(publisherRepository.findAllById(publisherIds));
+    }
+
+    private void ensureGameExists(Long id) {
+        if (!gameRepository.existsById(id)) {
+            throw new EntityNotFoundException(String.format("Game not found with id: %d", id));
+        }
     }
 }

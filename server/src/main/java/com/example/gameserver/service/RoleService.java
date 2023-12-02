@@ -34,10 +34,7 @@ public class RoleService {
     }
 
     public RoleDto update(RoleDto roleDto) {
-        if (!roleRepository.existsById(roleDto.getId())) {
-            throw new EntityNotFoundException(String.format("Role not found with id: %d", roleDto.getId()));
-        }
-
+        ensureRoleExists(roleDto.getId());
         return upsert(roleDto);
     }
 
@@ -47,5 +44,11 @@ public class RoleService {
         roleRepository.saveAndFlush(role);
 
         return roleMapper.toDto(role);
+    }
+
+    private void ensureRoleExists(Long id) {
+        if (!roleRepository.existsById(id)) {
+            throw new EntityNotFoundException(String.format("Role not found with id: %d", id));
+        }
     }
 }

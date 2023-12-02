@@ -31,10 +31,7 @@ public class PublisherService {
     }
 
     public PublisherDto update(PublisherDto publisherDto) {
-        if (!publisherRepository.existsById(publisherDto.getId())) {
-            throw new EntityNotFoundException(String.format("Publisher not found with id: %d", publisherDto.getId()));
-        }
-
+        ensurePublisherExists(publisherDto.getId());
         return upsert(publisherDto);
     }
 
@@ -47,8 +44,13 @@ public class PublisherService {
     }
 
     public void deletePublisher(Long id) {
-        publisherRepository.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException(String.format("Publisher not found with id: %d", id)));
+        ensurePublisherExists(id);
         publisherRepository.deleteById(id);
+    }
+
+    private void ensurePublisherExists(Long id) {
+        if (!publisherRepository.existsById(id)) {
+            throw new EntityNotFoundException(String.format("Publisher not found with id: %d", id));
+        }
     }
 }

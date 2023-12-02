@@ -31,10 +31,7 @@ public class DeveloperService {
     }
 
     public DeveloperDto update(DeveloperDto developerDto) {
-        if (!developerRepository.existsById(developerDto.getId())) {
-            throw new EntityNotFoundException(String.format("Developer not found with id: %d", developerDto.getId()));
-        }
-
+        ensureDeveloperExists(developerDto.getId());
         return upsert(developerDto);
     }
 
@@ -47,8 +44,13 @@ public class DeveloperService {
     }
 
     public void deleteDeveloper(Long id) {
-        developerRepository.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException(String.format("Developer not found with id: %d", id)));
+        ensureDeveloperExists(id);
         developerRepository.deleteById(id);
+    }
+
+    private void ensureDeveloperExists(Long id) {
+        if (!developerRepository.existsById(id)) {
+            throw new EntityNotFoundException(String.format("Developer not found with id: %d", id));
+        }
     }
 }
