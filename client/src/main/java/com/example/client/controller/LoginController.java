@@ -23,6 +23,8 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import static com.example.client.utils.ErrorHandler.ErrorHandler;
+
 public class LoginController implements Initializable, Controller {
     private ProfileModel profileModel;
     private ScreenController screenController;
@@ -33,8 +35,7 @@ public class LoginController implements Initializable, Controller {
     @FXML
     Button loginButton;
     @FXML
-    Text testText;
-
+    Text errorText;
     private Validator validator = new Validator();
 
     @Override
@@ -42,41 +43,38 @@ public class LoginController implements Initializable, Controller {
         validate();
     }
 
-    @FXML
-    public void login(ActionEvent event) throws IOException {
-        String username = usernameTextField.getText();
-        String password = passwordTextField.getText();
-
-        AuthService authService = ApiServiceGenerator.createService(AuthService.class);
-        LoginDto loginDto = new LoginDto(username, password);
-        Call<Token> callAsync = authService.loginUser(loginDto);
-        System.out.println(loginDto);
-        callAsync.enqueue(new Callback<Token>() {
-            @Override
-            public void onResponse(Call<Token> call, Response<Token> response) {
-                if (response.isSuccessful()) {
-                    Token token = response.body();
-                    profileModel.setCurrentToken(new TokenProperty(token));
-
-                    FXMLLoader lo = new FXMLLoader(getClass().getResource("/view/mainPanel.fxml"));
-                    try {
-                        screenController.addScreen("mainPanel", lo);
-                        screenController.activate("mainPanel");
-                    } catch (IOException e) {
-                        throw new RuntimeException(e);
-                    }
-                } else {
-                    System.out.println("test");
-                }
-            }
-
-            @Override
-            public void onFailure(Call<Token> call, Throwable throwable) {
-
-            }
-        });
+    public void initModel(ScreenController screenController, ProfileModel profileModel) {
+        if (this.profileModel != null) {
+            throw new IllegalStateException("Model can only be initialized once");
+        }
+        this.profileModel = profileModel;
+        this.screenController = screenController;
     }
 
+    @FXML
+    public void login(ActionEvent event) throws IOException {
+        if(validator.containsErrors()) {
+            errorText.setText("Check all fields");
+            return;
+        }
+        String username = usernameTextField.getText();
+        String password = passwordTextField.getText();
+        LoginDto loginDto = new LoginDto(username, password);
+
+        AuthService authService = ApiServiceGenerator.createService(AuthService.class);
+        Call<Token> callAsync = authService.loginUser(loginDto);
+        callAsync.enqueue(loginCallback());
+    }
+
+    @FXML
+    private void registerLink(ActionEvent event) {
+        FXMLLoader lo = new FXMLLoader(getClass().getResource("/view/register.fxml"));
+        try {
+            screenController.addScreen(lo);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
     private void validate() {
         validator.createCheck().dependsOn("username", usernameTextField.textProperty()).withMethod(c -> {
             CommonChecks.required(c, "username");
@@ -88,12 +86,29 @@ public class LoginController implements Initializable, Controller {
         ;
     }
 
+    private Callback<Token> loginCallback() {
+        return new Callback<Token>() {
+            @Override
+            public void onResponse(Call<Token> call, Response<Token> response) {
+                if (response.isSuccessful()) {
+                    Token token = response.body();
+                    profileModel.setCurrentToken(new TokenProperty(token));
 
-    public void initModel(ScreenController screenController, ProfileModel profileModel) {
-        if (this.profileModel != null) {
-            throw new IllegalStateException("Model can only be initialized once");
-        }
-        this.profileModel = profileModel;
-        this.screenController = screenController;
+                    FXMLLoader lo = new FXMLLoader(getClass().getResource("/view/mainPanel.fxml"));
+                    try {
+                        screenController.addScreen(lo);
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
+                } else {
+                    errorText.setText(ErrorHandler(response));
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Token> call, Throwable throwable) {
+                errorText.setText("Something went wrong ... Try again");
+            }
+        };
     }
 }
