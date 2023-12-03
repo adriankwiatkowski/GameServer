@@ -35,6 +35,6 @@
             <Font size="14.0" />
          </font>
       </Text>
-      <Button fx:id="backToMenu" layoutX="95.0" layoutY="453.0" mnemonicParsing="false" text="Menu" />
+      <Button layoutX="95.0" layoutY="453.0" mnemonicParsing="false" onAction="#backToMenu" text="Menu" />
    </children>
 </AnchorPane>
