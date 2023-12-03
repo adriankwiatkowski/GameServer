@@ -8,7 +8,7 @@ import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.POST;
 
-public interface AuthService{
+public interface AuthService {
     @POST("/api/auth/register")
     Call<ResponseBody> registerUser(@Body RegisterDto registerDto);
 

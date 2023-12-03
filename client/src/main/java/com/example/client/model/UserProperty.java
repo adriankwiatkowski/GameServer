@@ -1,13 +1,10 @@
 package com.example.client.model;
 
-import com.example.client.domain.Role;
 import com.example.client.domain.User;
-import javafx.beans.property.*;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableSet;
-
-import java.util.HashSet;
-import java.util.Set;
+import javafx.beans.property.LongProperty;
+import javafx.beans.property.SimpleLongProperty;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
 
 public class UserProperty {
 
@@ -67,27 +64,24 @@ public class UserProperty {
         this.surnameProperty().set(surname);
     }
 
-    private final SimpleSetProperty<Role> roles = new SimpleSetProperty<Role>();
-
-    public final SetProperty<Role> rolesProperty() {
-        return this.roles;
-    }
-
-    public final Set<Role> getRoles() {
-        return this.rolesProperty().get();
-    }
-
-    public final void setRoles(final Set<Role> roles) {
-        ObservableSet<Role> roleObservableSet = FXCollections.observableSet(roles);
-        this.rolesProperty().set(roleObservableSet);
-    }
-
+    //    private final SetProperty<Role> roles = new SimpleSetProperty<Role>();
+//
+//    public final SetProperty<Role> rolesProperty() {
+//        return this.roles;
+//    }
+//
+//    public final Set<Role> getRoles() {
+//        return this.rolesProperty().get();
+//    }
+//
+//    public final void setRoles(final Set<Role> roles) {
+//        this.rolesProperty().set((ObservableSet<Role>) roles);
+//    }
     public UserProperty() {
         setId(0l);
         setUsername("");
         setName("");
         setSurname("");
-        setRoles(new HashSet<>());
     }
 
     public UserProperty(User user) {
@@ -95,6 +89,5 @@ public class UserProperty {
         setUsername(user.getUsername());
         setName(user.getName());
         setSurname(user.getSurname());
-        setRoles(user.getRoles());
     }
 }
