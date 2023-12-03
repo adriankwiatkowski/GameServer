@@ -24,6 +24,7 @@ public class ManageGamesController implements Controller, Initializable {
     @FXML
     private VBox gameInfo;
     private List<GameProperty> gamePropertyList = new ArrayList<>();
+
     @Override
     public void initModel(ScreenController screenController, ProfileModel profileModel) {
         this.screenController = screenController;

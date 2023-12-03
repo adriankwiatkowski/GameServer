@@ -98,7 +98,6 @@
                                 <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
                             </VBox.margin>
                         </Button>
-                        <Button mnemonicParsing="false" text="Button" />
                     </children>
                 </VBox>
             </children>

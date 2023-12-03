@@ -35,5 +35,6 @@
             <Font size="14.0" />
          </font>
       </Text>
+      <Button layoutX="73.0" layoutY="461.0" mnemonicParsing="false" onAction="#backToMenu" text="Menu" />
    </children>
 </AnchorPane>

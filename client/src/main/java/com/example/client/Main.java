@@ -1,8 +1,6 @@
 package com.example.client;
 
 import com.example.client.controller.ScreenController;
-import com.example.client.domain.Token;
-import com.example.client.domain.User;
 import com.example.client.model.ProfileModel;
 import com.example.client.model.TokenProperty;
 import com.example.client.model.UserProperty;
@@ -24,7 +22,7 @@ public class Main extends Application {
         ProfileModel profileModel = new ProfileModel();
         profileModel.setCurrentToken(new TokenProperty());
         profileModel.setCurrentUser(new UserProperty());
-        //profileModel.setCurrentProfile(new Profile(1l, "Kamil","Bogdanowicz", "Dzik123", "123123123"));
+
         ScreenController screenController = ScreenController
                 .builder()
                 .profileModel(profileModel)
