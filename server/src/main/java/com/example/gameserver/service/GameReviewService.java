@@ -1,5 +1,6 @@
 package com.example.gameserver.service;
 
+import com.example.gameserver.domain.GameReviewEntity;
 import com.example.gameserver.dto.GameReviewDto;
 import com.example.gameserver.mapper.GameReviewMapper;
 import com.example.gameserver.repository.GameRepository;
@@ -41,17 +42,9 @@ public class GameReviewService {
     }
 
     private GameReviewDto upsert(String username, GameReviewDto gameReviewDto) {
-        sanitizeUserId(username, gameReviewDto);
-
         var gameReview = gameReviewMapper.toEntity(gameReviewDto);
-        gameReview.setUser(userRepository
-                .findById(gameReviewDto.getUserDto().getId())
-                .orElseThrow(() -> new EntityNotFoundException(
-                        String.format("User not found with id: %d", gameReviewDto.getUserDto().getId()))));
-        gameReview.setGame(gameRepository
-                .findById(gameReviewDto.getGameId())
-                .orElseThrow(() -> new EntityNotFoundException(
-                        String.format("Game not found with id: %d", gameReviewDto.getGameId()))));
+        sanitizeUser(gameReview, username);
+        sanitizeGame(gameReview, gameReviewDto.getGameId());
 
         gameReviewRepository.save(gameReview);
 
@@ -63,16 +56,25 @@ public class GameReviewService {
         gameReviewRepository.deleteById(id);
     }
 
-    private void sanitizeUserId(String username, GameReviewDto gameReviewDto) {
-        var user = userRepository.findByUsername(username)
-                .orElseThrow(() -> new UsernameNotFoundException(
-                        String.format("User not found with username: %s", username)));
-        gameReviewDto.getUserDto().setId(user.getId());
-    }
-
     private void ensureGameReviewExists(Long id) {
         if (!gameReviewRepository.existsById(id)) {
             throw new EntityNotFoundException(String.format("GameReview not found with id: %d", id));
         }
+    }
+
+    private void sanitizeUser(GameReviewEntity gameReviewEntity, String username) {
+        var user = userRepository
+                .findByUsername(username)
+                .orElseThrow(() -> new UsernameNotFoundException(
+                        String.format("User not found with username: %s", username)));
+        gameReviewEntity.setUser(user);
+    }
+
+    private void sanitizeGame(GameReviewEntity gameReviewEntity, Long gameId) {
+        var game = gameRepository
+                .findById(gameId)
+                .orElseThrow(() -> new EntityNotFoundException(
+                        String.format("Game not found with id: %d", gameId)));
+        gameReviewEntity.setGame(game);
     }
 }
