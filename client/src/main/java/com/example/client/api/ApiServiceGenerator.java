@@ -39,10 +39,6 @@ public class ApiServiceGenerator {
         if (token != null) {
             httpClient.interceptors().clear();
             httpClient.addInterceptor(chain -> {
-                System.out.println(chain.request());
-                return chain.proceed(chain.request());
-            });
-            httpClient.addInterceptor(chain -> {
                 Request original = chain.request();
                 Request request = original.newBuilder()
                         .addHeader("Authorization", "Bearer " + token)

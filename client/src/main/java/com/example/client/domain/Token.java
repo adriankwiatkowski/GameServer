@@ -6,7 +6,3 @@ import lombok.Data;
 public class Token {
     private String accessToken;
 }
-//    public Token(){
-//        this.accessToken = "";
-//    }
-//}

@@ -10,6 +10,7 @@ import javafx.collections.ObservableList;
 import javafx.collections.ObservableSet;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
@@ -20,6 +21,8 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import com.example.client.utils.FieldSetter;
+
+import java.io.IOException;
 import java.math.BigDecimal;
 import java.net.URL;
 import java.time.LocalDate;
@@ -87,7 +90,6 @@ public class UpdateGameController implements GameDataController, Initializable {
 
     @FXML
     void updateGame(ActionEvent event) {
-        System.out.println(game);
         GameService gameService = ApiServiceGenerator.createService(GameService.class, this.profileModel.getCurrentToken().getToken());
         Call<Game> callCreateGame = gameService.updateGame(game);
         callCreateGame.enqueue(updateGameCallback());
@@ -100,27 +102,22 @@ public class UpdateGameController implements GameDataController, Initializable {
         this.profileModel = profileModel;
         this.screenController = screenController;
 
-        // Platform
         PlatformService platformService = ApiServiceGenerator.createService(PlatformService.class);
         Call<List<Platform>> callPlatforms = platformService.getAllPlatforms();
         populateComboBox(callPlatforms, platformsField, createStringConverter(Platform::getName));
 
-// Developer
         DeveloperService developerService = ApiServiceGenerator.createService(DeveloperService.class);
         Call<List<Developer>> callDevelopers = developerService.getAllDevelopers();
         populateComboBox(callDevelopers, developersField, createStringConverter(Developer::getName));
 
-// Genre
         GenreService genreService = ApiServiceGenerator.createService(GenreService.class);
         Call<List<Genre>> callGenres = genreService.getAllGenres();
         populateComboBox(callGenres, genresField, createStringConverter(Genre::getName));
 
-// Publisher
         PublisherService publisherService = ApiServiceGenerator.createService(PublisherService.class);
         Call<List<Publisher>> callPublishers = publisherService.getAllPublishers();
         populateComboBox(callPublishers, publishersField, createStringConverter(Publisher::getName));
 
-// Categories
         CategoryService categoriesService = ApiServiceGenerator.createService(CategoryService.class);
         Call<List<Category>> callCategories = categoriesService.getAllCategories();
         populateComboBox(callCategories, categoriesField, createStringConverter(Category::getName));
@@ -169,9 +166,7 @@ public class UpdateGameController implements GameDataController, Initializable {
             }
 
             @Override
-            public void onFailure(Call<List<T>> call, Throwable throwable) {
-                // Handle failure if needed
-            }
+            public void onFailure(Call<List<T>> call, Throwable throwable) { }
         });
     }
 
@@ -179,7 +174,6 @@ public class UpdateGameController implements GameDataController, Initializable {
         return new StringConverter<T>() {
             @Override
             public String toString(T object) {
-                //System.out.println(object.toString());
                 return (object != null) ? toStringFunction.apply(object) : "";
             }
 
@@ -193,7 +187,7 @@ public class UpdateGameController implements GameDataController, Initializable {
     private <T> void addListenerToTextField(TextField textField, FieldSetter<T> setter) {
         textField.textProperty().addListener((observable, oldValue, newValue) -> {
             if (game != null) {
-                setter.set((T) newValue); // Update the Game object with new value
+                setter.set((T) newValue);
             }
         });
     }
@@ -201,7 +195,7 @@ public class UpdateGameController implements GameDataController, Initializable {
     private <T> void addListenerToComboBox(ComboBox<?> comboBox, FieldSetter<T> setter) {
         comboBox.valueProperty().addListener((observable, oldValue, newValue) -> {
             if (game != null) {
-                setter.set((T) newValue); // Update the Game object with new value
+                setter.set((T) newValue);
             }
         });
     }
@@ -225,11 +219,8 @@ public class UpdateGameController implements GameDataController, Initializable {
             public void onResponse(Call<Game> call, Response<Game> response) {
                 if (response.isSuccessful()) {
                     Game game = response.body();
-                    System.out.println(game);
                     errorText.setText("Game updated succesfully");
                 } else {
-                    System.out.println(response.body());
-                    System.out.println(response.raw());
                     errorText.setText(ErrorHandler(response));
                 }
             }
@@ -278,5 +269,15 @@ public class UpdateGameController implements GameDataController, Initializable {
         ObservableSet<Publisher> publishers = this.gameProperty.publishers.getValue();
         Publisher publishersFirst = publishers.stream().findFirst().orElseGet(Publisher::new);
         publishersField.setValue(publishersFirst);
+    }
+
+    @FXML
+    private void backToMenu() {
+        FXMLLoader lo = new FXMLLoader(getClass().getResource("/view/mainPanel.fxml"));
+        try {
+            screenController.addScreen(lo);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 }

@@ -62,17 +62,14 @@ public class MainPanelController implements Initializable, Controller {
             public void onResponse(Call<User> call, Response<User> response) {
                 if (response.isSuccessful()) {
                     User user = response.body();
-                    System.out.println(user);
                     profileModel.setCurrentUser(new UserProperty(user));
                     updateUIProfile();
-                } else {
-                    System.out.println("Error");
                 }
             }
 
             @Override
             public void onFailure(Call<User> call, Throwable throwable) {
-                System.out.println("test");
+
             }
         });
     }

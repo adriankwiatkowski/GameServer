@@ -14,7 +14,10 @@ public class TokenProperty {
     public TokenProperty() {
         setToken("");
     }
-    public TokenProperty(Token token) {setToken(token.getAccessToken());}
+
+    public TokenProperty(Token token) {
+        setToken(token.getAccessToken());
+    }
 
     public StringProperty tokenProperty() {
         return this.token;

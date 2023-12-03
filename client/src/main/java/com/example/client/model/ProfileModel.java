@@ -1,16 +1,11 @@
 package com.example.client.model;
 
-import com.example.client.domain.Token;
-import com.example.client.domain.User;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 
 public class ProfileModel {
-    //private final ObjectProperty<Profile> currentProfile = new SimpleObjectProperty<>(null);
-
     private final ObjectProperty<UserProperty> currentUser = new SimpleObjectProperty<>(null);
     private final ObjectProperty<TokenProperty> currentToken = new SimpleObjectProperty<>(null);
-
 
     public ObjectProperty<UserProperty> currentUserProperty() {
         return currentUser;

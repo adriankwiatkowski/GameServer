@@ -1,6 +1,5 @@
 package com.example.client.service;
 
-import com.example.client.domain.Developer;
 import com.example.client.domain.GameReview;
 import retrofit2.Call;
 import retrofit2.http.*;
