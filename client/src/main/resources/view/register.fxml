@@ -1,44 +1,48 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0"
-            prefWidth="850.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="com.example.client.controller.RegisterController">
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="850.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.client.controller.RegisterController">
     <left>
         <AnchorPane prefHeight="500.0" prefWidth="450.0" BorderPane.alignment="CENTER">
             <children>
-                <TextField layoutX="54.0" layoutY="123.0" prefHeight="50.0" prefWidth="150.0" promptText="First Name">
+                <TextField fx:id="firstNameField" layoutX="54.0" layoutY="123.0" prefHeight="50.0" prefWidth="150.0" promptText="First Name">
                     <font>
-                        <Font size="14.0"/>
+                        <Font size="14.0" />
                     </font>
                 </TextField>
                 <Text layoutX="153.0" layoutY="84.0" strokeType="OUTSIDE" strokeWidth="0.0" text="SIGN UP">
                     <font>
-                        <Font name="System Bold" size="36.0"/>
+                        <Font name="System Bold" size="36.0" />
                     </font>
                 </Text>
-                <TextField layoutX="255.0" layoutY="123.0" prefHeight="50.0" prefWidth="150.0" promptText="Last Name">
+                <TextField fx:id="lastNameField" layoutX="255.0" layoutY="123.0" prefHeight="50.0" prefWidth="150.0" promptText="Last Name">
                     <font>
-                        <Font size="14.0"/>
+                        <Font size="14.0" />
                     </font>
                 </TextField>
-                <PasswordField layoutX="54.0" layoutY="268.0" prefHeight="50.0" prefWidth="150.0"
-                               promptText="Password"/>
-                <PasswordField layoutX="255.0" layoutY="268.0" prefHeight="50.0" prefWidth="150.0"
-                               promptText="Confirm Password"/>
-                <TextField layoutX="54.0" layoutY="198.0" prefHeight="50.0" prefWidth="350.0" promptText="Username">
+                <PasswordField fx:id="passwordField" layoutX="54.0" layoutY="268.0" prefHeight="50.0" prefWidth="150.0" promptText="Password" />
+                <PasswordField fx:id="confPasswordField" layoutX="255.0" layoutY="268.0" prefHeight="50.0" prefWidth="150.0" promptText="Confirm Password" />
+                <TextField fx:id="userNameField" layoutX="54.0" layoutY="198.0" prefHeight="50.0" prefWidth="350.0" promptText="Username">
                     <font>
-                        <Font size="14.0"/>
+                        <Font size="14.0" />
                     </font>
                 </TextField>
-                <Button layoutX="79.0" layoutY="419.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="300.0"
-                        text="If you already have an account, just login."/>
-                <Button layoutX="236.0" layoutY="344.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="169.0"
-                        text="Register"/>
+                <Button layoutX="79.0" layoutY="419.0" mnemonicParsing="false" onAction="#loginLink" prefHeight="50.0" prefWidth="300.0" text="If you already have an account, just login." />
+                <Button layoutX="236.0" layoutY="354.0" mnemonicParsing="false" onAction="#register" prefHeight="50.0" prefWidth="169.0" text="Register" />
+            <Text fx:id="errorText" fill="#c60000" layoutX="55.0" layoutY="339.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="348.95703125">
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+            </Text>
             </children>
         </AnchorPane>
     </left>
@@ -47,7 +51,7 @@
             <children>
                 <ImageView fitHeight="500.0" fitWidth="400.0" pickOnBounds="true">
                     <image>
-                        <Image url="@../images/registerImgCropped.png"/>
+                        <Image url="@../images/registerImgCropped.png" />
                     </image>
                 </ImageView>
             </children>
