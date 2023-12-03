@@ -26,7 +26,6 @@ public class GameReviewMapper {
                 .id(gameReviewDto.getId())
                 .score(gameReviewDto.getScore())
                 .review(gameReviewDto.getReview())
-                .user(userMapper.toEntity(gameReviewDto.getUserDto()))
                 .build();
     }
 }
