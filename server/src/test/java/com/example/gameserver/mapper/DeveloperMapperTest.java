@@ -8,14 +8,14 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.NONE, classes = GameServerApplication.class)
+@SpringBootTest(classes = GameServerApplication.class)
 class DeveloperMapperTest {
 
     @Autowired
     private DeveloperMapper developerMapper;
 
     @Test
-    public void givenDeveloper_whenMapToDeveloperDto_thenOk() {
+    public void givenEntity_whenToDto_thenOk() {
         DeveloperEntity developerEntity = new DeveloperEntity();
         developerEntity.setId(1L);
         developerEntity.setName("Developer");
@@ -27,7 +27,7 @@ class DeveloperMapperTest {
     }
 
     @Test
-    public void givenDeveloperDto_whenMapToDeveloper_thenOk() {
+    public void givenDto_whenToEntity_thenOk() {
         DeveloperDto developerDto = new DeveloperDto();
         developerDto.setId(1L);
         developerDto.setName("Developer");

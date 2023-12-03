@@ -8,14 +8,14 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.NONE, classes = GameServerApplication.class)
+@SpringBootTest(classes = GameServerApplication.class)
 class GenreMapperTest {
 
     @Autowired
     private GenreMapper genreMapper;
 
     @Test
-    public void givenGenre_whenMapToGenreDto_thenOk() {
+    public void givenEntity_whenToDto_thenOk() {
         GenreEntity genreEntity = new GenreEntity();
         genreEntity.setId(1L);
         genreEntity.setName("Gatunek");
@@ -27,7 +27,7 @@ class GenreMapperTest {
     }
 
     @Test
-    public void givenGenreDto_whenMapToGenre_thenOk() {
+    public void givenDto_whenToEntity_thenOk() {
         GenreDto genreDto = new GenreDto();
         genreDto.setId(1L);
         genreDto.setName("Gatunek");

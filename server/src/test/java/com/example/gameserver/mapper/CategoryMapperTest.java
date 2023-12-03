@@ -8,14 +8,14 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.NONE, classes = GameServerApplication.class)
+@SpringBootTest(classes = GameServerApplication.class)
 class CategoryMapperTest {
 
     @Autowired
     private CategoryMapper categoryMapper;
 
     @Test
-    public void givenCategory_whenMapToCategoryDto_thenOk() {
+    public void givenEntity_whenToDto_thenOk() {
         CategoryEntity categoryEntity = new CategoryEntity();
         categoryEntity.setId(1L);
         categoryEntity.setName("Kategoria");
@@ -27,7 +27,7 @@ class CategoryMapperTest {
     }
 
     @Test
-    public void givenCategoryDto_whenMapToCategory_thenOk() {
+    public void givenDto_whenToEntity_thenOk() {
         CategoryDto categoryDto = new CategoryDto();
         categoryDto.setId(1L);
         categoryDto.setName("Kategoria");
