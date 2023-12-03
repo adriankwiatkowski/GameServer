@@ -8,14 +8,14 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.NONE, classes = GameServerApplication.class)
+@SpringBootTest(classes = GameServerApplication.class)
 class PublisherMapperTest {
 
     @Autowired
     private PublisherMapper publisherMapper;
 
     @Test
-    public void givenPublisher_whenMapToPublisherDto_thenOk() {
+    public void givenEntity_whenToDto_thenOk() {
         PublisherEntity publisherEntity = new PublisherEntity();
         publisherEntity.setId(1L);
         publisherEntity.setName("Wydawca");
@@ -27,7 +27,7 @@ class PublisherMapperTest {
     }
 
     @Test
-    public void givenPublisherDto_whenMapToPublisher_thenOk() {
+    public void givenDto_whenToEntity_thenOk() {
         PublisherDto publisherDto = new PublisherDto();
         publisherDto.setId(1L);
         publisherDto.setName("Wydawca");

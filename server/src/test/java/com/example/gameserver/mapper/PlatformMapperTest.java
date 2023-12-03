@@ -8,14 +8,14 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.NONE, classes = GameServerApplication.class)
+@SpringBootTest(classes = GameServerApplication.class)
 class PlatformMapperTest {
 
     @Autowired
     private PlatformMapper platformMapper;
 
     @Test
-    public void givenPlatform_whenMapToPlatformDto_thenOk() {
+    public void givenEntity_whenToDto_thenOk() {
         PlatformEntity platformEntity = new PlatformEntity();
         platformEntity.setId(1L);
         platformEntity.setName("Platforma");
@@ -27,7 +27,7 @@ class PlatformMapperTest {
     }
 
     @Test
-    public void givenPlatformDto_whenMapToPlatform_thenOk() {
+    public void givenDto_whenToEntity_thenOk() {
         PlatformDto platformDto = new PlatformDto();
         platformDto.setId(1L);
         platformDto.setName("Platforma");
