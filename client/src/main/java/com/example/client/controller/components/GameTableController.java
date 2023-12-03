@@ -141,17 +141,13 @@ public class GameTableController {
             @Override
             public void onResponse(Call<List<Game>> call, Response<List<Game>> response) {
                 if (response.isSuccessful()) {
-                    //System.out.println(response.body());
                     List<Game> gameList = response.body();
-                    System.out.println("GameList:");
                     if (gameList != null) {
                         for (Game game : gameList) {
                             gamePropertyList.add(new GameProperty(game));
                         }
                     }
-
                     Platform.runLater(() -> refreshPagination());
-
                 } else {
                     System.out.println("Error");
                 }
@@ -197,22 +193,18 @@ public class GameTableController {
             gameInfo.getChildren().add(new Text("Negative Ratings: " + newSelection.negativeRatings.get()));
             gameInfo.getChildren().add(new Text("AveragePlaytime: " + newSelection.averagePlaytime.get()));
             gameInfo.getChildren().add(new Text("Price: " + newSelection.price.get()));
-            gameInfo.getChildren().add(new Separator(Orientation.HORIZONTAL));
             gameInfo.getChildren().add(new Text("Developers: "));
             for (Developer developer : newSelection.developers.get()) {
                 gameInfo.getChildren().add(new Text(developer.getName()));
             }
-            gameInfo.getChildren().add(new Separator(Orientation.HORIZONTAL));
             gameInfo.getChildren().add(new Text("Categories: "));
             for (Category category : newSelection.categories.get()) {
                 gameInfo.getChildren().add(new Text(category.getName()));
             }
-            gameInfo.getChildren().add(new Separator(Orientation.HORIZONTAL));
             gameInfo.getChildren().add(new Text("Genres: "));
             for (Genre genre : newSelection.genres.get()) {
-                gameInfo.getChildren().add(new Text(genre.getName()));
+                gameInfo.getChildren().add(new Text(genre.getName().toString()));
             }
-            gameInfo.getChildren().add(new Separator(Orientation.HORIZONTAL));
             gameInfo.getChildren().add(new Text("Platforms: "));
             for (com.example.client.domain.Platform platform : newSelection.platforms.get()) {
                 gameInfo.getChildren().add(new Text(platform.getName()));
@@ -248,7 +240,7 @@ public class GameTableController {
     private void handleUpdateGame(ActionEvent actionEvent, GameProperty newSelection) {
         FXMLLoader lo = new FXMLLoader(getClass().getResource("/view/updateGame.fxml"));
         try {
-            this.screenController.addScreen(lo);
+            this.screenController.addScreenWitGameData(lo, newSelection);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

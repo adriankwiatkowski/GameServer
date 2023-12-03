@@ -1,5 +1,6 @@
 package com.example.client.controller;
 
+import com.example.client.model.GameProperty;
 import com.example.client.model.ProfileModel;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -28,5 +29,13 @@ public class ScreenController {
         this.stage.setScene(scene);
         this.stage.show();
         this.addScreen(this.defaultLoader);
+    }
+
+    public void addScreenWitGameData(FXMLLoader loader, GameProperty newSelection) throws IOException {
+        Pane root = loader.load();
+        GameDataController controller = loader.getController();
+        controller.initModel(this, profileModel);
+        controller.initGameData(newSelection);
+        this.scene.setRoot(root);
     }
 }

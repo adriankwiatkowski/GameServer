@@ -30,7 +30,6 @@ public class ProfileModel {
 
     public final void setCurrentToken(TokenProperty tokenProperty) {
         currentTokenProperty().set(tokenProperty);
-        //currentTokenProperty().get().setAccessToken(token.getAccessToken());
     }
 
     public final void setCurrentUser(UserProperty userProperty) {

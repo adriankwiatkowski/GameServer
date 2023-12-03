@@ -2,10 +2,12 @@ package com.example.client.controller;
 
 import com.example.client.api.ApiServiceGenerator;
 import com.example.client.domain.*;
+import com.example.client.model.GameProperty;
 import com.example.client.model.ProfileModel;
 import com.example.client.service.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.ObservableSet;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -20,15 +22,23 @@ import retrofit2.Response;
 import com.example.client.utils.FieldSetter;
 import java.math.BigDecimal;
 import java.net.URL;
+import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.function.Function;
 
 import static com.example.client.utils.ErrorHandler.ErrorHandler;
 
-public class UpdateGameController implements Controller, Initializable {
+public class UpdateGameController implements GameDataController, Initializable {
     private ProfileModel profileModel;
     private ScreenController screenController;
+
+    public void setGameProperty(GameProperty gameProperty) {
+        this.gameProperty = gameProperty;
+    }
+
+    private GameProperty gameProperty;
     private Game game;
     @FXML
     private TextField avgPlaytimeField;
@@ -229,5 +239,44 @@ public class UpdateGameController implements Controller, Initializable {
                 errorText.setText("Something went wrong ... Try again");
             }
         };
+    }
+
+    @Override
+    public void initGameData(GameProperty gameProperty) {
+        this.gameProperty = gameProperty;
+        updateUI();
+    }
+
+    public void updateUI() {
+        this.game.setId(this.gameProperty.id.getValue());
+        nameField.setText(this.gameProperty.name.getValue());
+        descriptionField.setText(this.gameProperty.description.getValue());
+        releaseDateField.setValue(LocalDate.parse(this.gameProperty.releaseDate.getValue()));
+        positiveRateField.setText(this.gameProperty.positiveRatings.getValue().toString());
+        negativeRateField.setText(this.gameProperty.negativeRatings.getValue().toString());
+        avgPlaytimeField.setText(this.gameProperty.averagePlaytime.getValue().toString());
+        medianPlaytimeField.setText(this.gameProperty.medianPlaytime.getValue().toString());
+        owners.setText(this.gameProperty.owners.getValue());
+        priceField.setText(this.gameProperty.price.getValue().toString());
+
+        ObservableSet<Category> categories = this.gameProperty.categories.getValue();
+        Category first = categories.stream().findFirst().orElseGet(Category::new);
+        categoriesField.setValue(first);
+
+        ObservableSet<Developer> developers = this.gameProperty.developers.getValue();
+        Developer developerFirst = developers.stream().findFirst().orElseGet(Developer::new);
+        developersField.setValue(developerFirst);
+
+        ObservableSet<Genre> genres = this.gameProperty.genres.getValue();
+        Genre genreFirst = genres.stream().findFirst().orElseGet(Genre::new);
+        genresField.setValue(genreFirst);
+
+        ObservableSet<Platform> platforms = this.gameProperty.platforms.getValue();
+        Platform platformsFirst = platforms.stream().findFirst().orElseGet(Platform::new);
+        platformsField.setValue(platformsFirst);
+
+        ObservableSet<Publisher> publishers = this.gameProperty.publishers.getValue();
+        Publisher publishersFirst = publishers.stream().findFirst().orElseGet(Publisher::new);
+        publishersField.setValue(publishersFirst);
     }
 }
