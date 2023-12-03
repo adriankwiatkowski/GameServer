@@ -27,9 +27,6 @@ public class GenreEntity {
     @Column(name = "name", nullable = false, unique = true)
     private String name;
 
-    @ManyToMany
-    @JoinTable(name = "game_genre",
-            joinColumns = @JoinColumn(name = "genre_id"),
-            inverseJoinColumns = @JoinColumn(name = "game_id"))
+    @ManyToMany(mappedBy = "genres", cascade = CascadeType.MERGE)
     private Set<GameEntity> games = new LinkedHashSet<>();
 }

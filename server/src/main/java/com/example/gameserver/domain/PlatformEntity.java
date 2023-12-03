@@ -27,9 +27,6 @@ public class PlatformEntity {
     @Column(name = "name", nullable = false, unique = true)
     private String name;
 
-    @ManyToMany
-    @JoinTable(name = "game_platform",
-            joinColumns = @JoinColumn(name = "platform_id"),
-            inverseJoinColumns = @JoinColumn(name = "game_id"))
+    @ManyToMany(mappedBy = "platforms", cascade = CascadeType.MERGE)
     private Set<GameEntity> games = new LinkedHashSet<>();
 }
