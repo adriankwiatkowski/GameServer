@@ -27,8 +27,8 @@ public class ManageGamesController implements Controller, Initializable {
     @Override
     public void initModel(ScreenController screenController, ProfileModel profileModel) {
         this.screenController = screenController;
-        this.gameTableController.updateProfileModel(profileModel);
         this.profileModel = profileModel;
+        this.gameTableController.updateData(profileModel, screenController);
     }
 
     @Override

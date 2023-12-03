@@ -1,10 +1,8 @@
 package com.example.client.controller.components;
 
 import com.example.client.api.ApiServiceGenerator;
-import com.example.client.domain.Category;
-import com.example.client.domain.Developer;
-import com.example.client.domain.Game;
-import com.example.client.domain.Genre;
+import com.example.client.controller.ScreenController;
+import com.example.client.domain.*;
 import com.example.client.model.GameProperty;
 import com.example.client.model.ProfileModel;
 import com.example.client.service.GameService;
@@ -13,6 +11,7 @@ import javafx.beans.property.*;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
+import javafx.fxml.FXMLLoader;
 import javafx.geometry.Orientation;
 import javafx.scene.Node;
 import javafx.scene.control.*;
@@ -24,19 +23,23 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import java.io.IOException;
 import java.lang.reflect.Field;
 import java.util.List;
+import java.util.Set;
 
 @Builder
 public class GameTableController {
+    private ScreenController screenController;
     private ProfileModel profileModel;
     private Pagination pagination;
     private int rowPerPage;
     private VBox gameInfo;
     private TableView<GameProperty> table;
 
-    public void updateProfileModel(ProfileModel profileModel) {
+    public void updateData(ProfileModel profileModel, ScreenController screenController) {
         this.profileModel = profileModel;
+        this.screenController = screenController;
         query();
     }
 
@@ -165,11 +168,20 @@ public class GameTableController {
         if (newSelection != null) {
             gameInfo.getChildren().clear();
 
-            HBox actionAdmin = new HBox();
-            Button removeGameButton = new Button("Delete");
-            removeGameButton.setOnAction(event -> handleRemoveGame(event, newSelection));
-            actionAdmin.getChildren().addAll(removeGameButton);
-            gameInfo.getChildren().add(actionAdmin);
+            Set<Role> setRoles = profileModel.getCurrentUser().getRoles();
+            if (setRoles.stream().anyMatch(role -> role.getName().equals("ADMIN"))) {
+                HBox actionAdmin = new HBox();
+
+                Button removeGameButton = new Button("Delete");
+                removeGameButton.setOnAction(event -> handleRemoveGame(event, newSelection));
+                actionAdmin.getChildren().addAll(removeGameButton);
+
+                Button updateGameButton = new Button("Update");
+                updateGameButton.setOnAction(event -> handleUpdateGame(event, newSelection));
+                actionAdmin.getChildren().addAll(updateGameButton);
+
+                gameInfo.getChildren().add(actionAdmin);
+            }
 
             gameInfo.getChildren().add(new Text("Name: " + newSelection.name.get()));
             Text tempText = new Text("Description: " + newSelection.description.get());
@@ -231,5 +243,14 @@ public class GameTableController {
         GameService gameService = ApiServiceGenerator.createService(GameService.class);
         Call<Void> callAsync = gameService.removeGame(newSelection.id.getValue());
         callAsync.enqueue(removeGameCallback());
+    }
+
+    private void handleUpdateGame(ActionEvent actionEvent, GameProperty newSelection) {
+        FXMLLoader lo = new FXMLLoader(getClass().getResource("/view/updateGame.fxml"));
+        try {
+            this.screenController.addScreen(lo);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 }

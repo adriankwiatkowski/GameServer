@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane fx:id="test" prefHeight="500.0" prefWidth="850.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.client.controller.UpdateGameController">
+   <children>
+      <TextField fx:id="nameField" layoutX="47.0" layoutY="64.0" promptText="Name" />
+      <Text layoutX="50.0" layoutY="37.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Update new game:">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Text>
+      <TextField fx:id="descriptionField" layoutX="47.0" layoutY="115.0" promptText="Description" />
+      <TextField fx:id="positiveRateField" layoutX="47.0" layoutY="170.0" promptText="positive ratings" />
+      <TextField fx:id="negativeRateField" layoutX="47.0" layoutY="225.0" promptText="negative ratings" />
+      <TextField fx:id="avgPlaytimeField" layoutX="47.0" layoutY="279.0" promptText="average playtime" />
+      <TextField fx:id="medianPlaytimeField" layoutX="47.0" layoutY="334.0" promptText="median playtime" />
+      <TextField fx:id="owners" layoutX="47.0" layoutY="389.0" promptText="owners" />
+      <TextField fx:id="priceField" layoutX="304.0" layoutY="64.0" promptText="price" />
+      <ComboBox fx:id="categoriesField" layoutX="304.0" layoutY="115.0" prefWidth="150.0" promptText="categories" />
+      <ComboBox fx:id="developersField" layoutX="304.0" layoutY="170.0" prefWidth="150.0" promptText="developers" />
+      <ComboBox fx:id="genresField" layoutX="304.0" layoutY="225.0" prefWidth="150.0" promptText="genres" />
+      <ComboBox fx:id="platformsField" layoutX="304.0" layoutY="279.0" prefWidth="150.0" promptText="platforms" />
+      <DatePicker fx:id="releaseDateField" layoutX="292.0" layoutY="389.0" promptText="release date" />
+      <ComboBox fx:id="publishersField" layoutX="304.0" layoutY="334.0" prefWidth="150.0" promptText="publishers" />
+      <Button layoutX="522.0" layoutY="64.0" mnemonicParsing="false" onAction="#updateGame" text="Update New Game" />
+      <Text fx:id="errorText" fill="#c91212" layoutX="522.0" layoutY="120.0" strokeType="OUTSIDE" strokeWidth="0.0">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Text>
+   </children>
+</AnchorPane>
