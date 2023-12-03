@@ -4,71 +4,101 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0"
-            prefWidth="850.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="com.example.client.controller.MainPanelController">
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="850.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.client.controller.MainPanelController">
     <left>
-        <AnchorPane prefHeight="500.0" prefWidth="300.0" BorderPane.alignment="CENTER">
+        <AnchorPane prefHeight="500.0" prefWidth="300.0" style="-fx-background-color: #ebffa1;" BorderPane.alignment="CENTER">
             <children>
-                <ImageView fitHeight="102.0" fitWidth="104.0" layoutX="99.0" layoutY="32.0" pickOnBounds="true"
-                           preserveRatio="true">
+                <Button layoutX="59.0" layoutY="405.0" mnemonicParsing="false" onAction="#logout" prefHeight="25.0" prefWidth="183.0" text="Logout" />
+                <ImageView fitHeight="102.0" fitWidth="104.0" layoutX="99.0" layoutY="32.0" pickOnBounds="true" preserveRatio="true">
                     <image>
-                        <Image url="@../images/person.png"/>
+                        <Image url="@../images/profilePic.png" />
                     </image>
                 </ImageView>
-                <Text fx:id="usernameText" layoutX="54.0" layoutY="186.0" strokeType="OUTSIDE" strokeWidth="0.0"
-                      text="Welcome," wrappingWidth="210.41015625">
+                <Text fx:id="usernameText" layoutX="24.0" layoutY="165.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Welcome," wrappingWidth="227.41015625">
                     <font>
-                        <Font name="Poppins ExtraLight" size="24.0"/>
+                        <Font name="Poppins ExtraLight" size="18.0" />
                     </font>
                 </Text>
-                <Text fx:id="nameText" layoutX="56.0" layoutY="256.0" strokeType="OUTSIDE" strokeWidth="0.0"
-                      text="First name: " wrappingWidth="188.593994140625">
-                    <font>
-                        <Font name="Poppins ExtraLight" size="18.0"/>
-                    </font>
-                </Text>
-                <Text fx:id="roleText" layoutX="56.0" layoutY="316.0" strokeType="OUTSIDE" strokeWidth="0.0"
-                      text="Role:" wrappingWidth="184.4379997253418">
-                    <font>
-                        <Font name="Poppins ExtraLight" size="12.0"/>
-                    </font>
-                </Text>
-                <Button layoutX="59.0" layoutY="405.0" mnemonicParsing="false" onAction="#logout" prefHeight="25.0"
-                        prefWidth="183.0" text="Logout"/>
-                <Text fx:id="surnameText" layoutX="58.0" layoutY="290.0" strokeType="OUTSIDE" strokeWidth="0.0"
-                      text="Last name" wrappingWidth="185.53800201416016">
-                    <font>
-                        <Font name="Poppins ExtraLight" size="18.0"/>
-                    </font>
-                </Text>
-                <Text fx:id="accessTokenText" layoutX="54.0" layoutY="330.0" strokeType="OUTSIDE" strokeWidth="0.0"
-                      text="AToken" wrappingWidth="223.4239959716797">
-                    <font>
-                        <Font name="Poppins ExtraLight" size="12.0"/>
-                    </font>
-                </Text>
+            <VBox layoutX="25.0" layoutY="188.0" prefHeight="200.0" prefWidth="251.0">
+               <children>
+                      <Text fx:id="nameText" strokeType="OUTSIDE" strokeWidth="0.0" text="First name: " wrappingWidth="188.593994140625">
+                          <font>
+                              <Font name="Poppins ExtraLight" size="14.0" />
+                          </font>
+                     <VBox.margin>
+                        <Insets top="10.0" />
+                     </VBox.margin>
+                      </Text>
+                      <Text fx:id="surnameText" strokeType="OUTSIDE" strokeWidth="0.0" text="Last name" wrappingWidth="185.53800201416016">
+                          <font>
+                              <Font name="Poppins ExtraLight" size="14.0" />
+                          </font>
+                     <VBox.margin>
+                        <Insets top="10.0" />
+                     </VBox.margin>
+                      </Text>
+                      <Text fx:id="accessTokenText" strokeType="OUTSIDE" strokeWidth="0.0" text="AToken" wrappingWidth="223.4239959716797">
+                          <font>
+                              <Font name="Poppins ExtraLight" size="14.0" />
+                          </font>
+                     <VBox.margin>
+                        <Insets top="10.0" />
+                     </VBox.margin>
+                      </Text>
+                      <Text fx:id="roleText" strokeType="OUTSIDE" strokeWidth="0.0" text="Role:" wrappingWidth="184.4379997253418">
+                          <font>
+                              <Font name="Poppins ExtraLight" size="14.0" />
+                          </font>
+                     <VBox.margin>
+                        <Insets top="10.0" />
+                     </VBox.margin>
+                      </Text>
+               </children>
+            </VBox>
             </children>
         </AnchorPane>
     </left>
     <right>
-        <AnchorPane prefHeight="500.0" prefWidth="582.0" BorderPane.alignment="CENTER">
+        <AnchorPane prefHeight="500.0" prefWidth="552.0" BorderPane.alignment="CENTER">
             <children>
-                <VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="500.0"
-                      prefWidth="582.0">
+                <VBox layoutX="29.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="500.0" prefWidth="553.0">
                     <children>
-                        <Button mnemonicParsing="false" onAction="#showGameList" prefWidth="300.0"
-                                text="Show Game List">
+                  <HBox fx:id="adminNavbar" prefHeight="100.0" prefWidth="200.0" style="-fx-background-color: #ebffa1;">
+                     <children>
+                        <Button mnemonicParsing="false" onAction="#createGameLink" text="Create new game">
+                           <HBox.margin>
+                              <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                           </HBox.margin>
+                           <padding>
+                              <Insets bottom="10.0" left="20.0" right="20.0" top="10.0" />
+                           </padding>
+                        </Button>
+                        <Button mnemonicParsing="false" onAction="#manageGameLink" text="Manage games">
+                           <HBox.margin>
+                              <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                           </HBox.margin>
+                           <padding>
+                              <Insets bottom="10.0" left="20.0" right="20.0" top="10.0" />
+                           </padding>
+                        </Button>
+                     </children>
+                  </HBox>
+                        <Button mnemonicParsing="false" onAction="#showGameList" prefWidth="300.0" text="Show Game List">
                             <padding>
-                                <Insets bottom="20.0" left="20.0" right="20.0" top="20.0"/>
+                                <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
                             </padding>
                             <VBox.margin>
-                                <Insets bottom="30.0" left="30.0" right="30.0" top="30.0"/>
+                                <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
                             </VBox.margin>
                         </Button>
-                        <Button mnemonicParsing="false" text="Button"/>
+                        <Button mnemonicParsing="false" text="Button" />
                     </children>
                 </VBox>
             </children>
