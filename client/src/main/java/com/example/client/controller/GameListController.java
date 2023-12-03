@@ -4,7 +4,6 @@ import com.example.client.controller.components.GameTableController;
 import com.example.client.model.GameProperty;
 import com.example.client.model.ProfileModel;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Pagination;
 import javafx.scene.layout.VBox;
@@ -38,22 +37,17 @@ public class GameListController implements Controller, Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        gameTableController = GameTableController.builder()
-                .profileModel(this.profileModel)
-                .rowPerPage(10)
-                .pagination(this.pagination)
-                .gamePropertyList(this.gamePropertyList)
-                .gameInfo(this.gameInfo)
-                .build();
+        gameInfo.getChildren().add(new Text("23"));
+
+        gameTableController = GameTableController.builder().profileModel(this.profileModel).rowPerPage(10).pagination(this.pagination).gamePropertyList(this.gamePropertyList).gameInfo(this.gameInfo).build();
         gameTableController.createTable();
         gameTableController.init();
     }
 
     @FXML
     private void backToMenu() {
-        FXMLLoader lo = new FXMLLoader(getClass().getResource("/view/mainPanel.fxml"));
         try {
-            this.screenController.addScreen(lo);
+            this.screenController.activate("mainPanel");
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

@@ -12,10 +12,10 @@ import javafx.application.Platform;
 import javafx.beans.property.*;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
-import javafx.event.ActionEvent;
-import javafx.geometry.Orientation;
 import javafx.scene.Node;
-import javafx.scene.control.*;
+import javafx.scene.control.Pagination;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
@@ -164,72 +164,34 @@ public class GameTableController {
     private void gameInfoListener(ObservableValue<? extends GameProperty> observable, GameProperty oldSelection, GameProperty newSelection) {
         if (newSelection != null) {
             gameInfo.getChildren().clear();
-
-            HBox actionAdmin = new HBox();
-            Button removeGameButton = new Button("Delete");
-            removeGameButton.setOnAction(event -> handleRemoveGame(event, newSelection));
-            actionAdmin.getChildren().addAll(removeGameButton);
-            gameInfo.getChildren().add(actionAdmin);
-
             gameInfo.getChildren().add(new Text("Name: " + newSelection.name.get()));
             Text tempText = new Text("Description: " + newSelection.description.get());
             StackPane stackPane = new StackPane();
             stackPane.setMaxWidth(200);// Set the maximum width for the StackPane
             tempText.wrappingWidthProperty().bind(stackPane.widthProperty()); // Enable text wrapping within the StackPane's width
             stackPane.getChildren().add(tempText);
-
             gameInfo.getChildren().add(stackPane);
             gameInfo.getChildren().add(new Text("Release Date: " + newSelection.releaseDate.get()));
-            gameInfo.getChildren().add(new Separator(Orientation.HORIZONTAL));
             gameInfo.getChildren().add(new Text("Positive Ratings: " + newSelection.positiveRatings.get()));
             gameInfo.getChildren().add(new Text("Negative Ratings: " + newSelection.negativeRatings.get()));
             gameInfo.getChildren().add(new Text("AveragePlaytime: " + newSelection.averagePlaytime.get()));
             gameInfo.getChildren().add(new Text("Price: " + newSelection.price.get()));
-            gameInfo.getChildren().add(new Separator(Orientation.HORIZONTAL));
             gameInfo.getChildren().add(new Text("Developers: "));
             for (Developer developer : newSelection.developers.get()) {
                 gameInfo.getChildren().add(new Text(developer.getName()));
             }
-            gameInfo.getChildren().add(new Separator(Orientation.HORIZONTAL));
             gameInfo.getChildren().add(new Text("Categories: "));
             for (Category category : newSelection.categories.get()) {
                 gameInfo.getChildren().add(new Text(category.getName()));
             }
-            gameInfo.getChildren().add(new Separator(Orientation.HORIZONTAL));
             gameInfo.getChildren().add(new Text("Genres: "));
             for (Genre genre : newSelection.genres.get()) {
-                gameInfo.getChildren().add(new Text(genre.getName()));
+                gameInfo.getChildren().add(new Text("Genre: " + genre.getName()));
             }
-            gameInfo.getChildren().add(new Separator(Orientation.HORIZONTAL));
             gameInfo.getChildren().add(new Text("Platforms: "));
             for (com.example.client.domain.Platform platform : newSelection.platforms.get()) {
-                gameInfo.getChildren().add(new Text(platform.getName()));
+                gameInfo.getChildren().add(new Text("Platform: " + platform.getName()));
             }
         }
-    }
-
-    private Callback<Void> removeGameCallback() {
-        return new Callback<Void>() {
-            @Override
-            public void onResponse(Call<Void> call, Response<Void> response) {
-                if (response.isSuccessful()) {
-                    System.out.println("removed");
-                } else {
-                    System.out.println("error while removing");
-                    //errorText.setText(ErrorHandler(response));
-                }
-            }
-
-            @Override
-            public void onFailure(Call<Void> call, Throwable throwable) {
-                //errorText.setText("Something went wrong ... Try again");
-            }
-        };
-    }
-
-    private void handleRemoveGame(ActionEvent actionEvent, GameProperty newSelection) {
-        GameService gameService = ApiServiceGenerator.createService(GameService.class);
-        Call<Void> callAsync = gameService.removeGame(newSelection.id.getValue());
-        callAsync.enqueue(removeGameCallback());
     }
 }
