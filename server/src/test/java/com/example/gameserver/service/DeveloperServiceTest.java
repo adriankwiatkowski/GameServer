@@ -42,8 +42,8 @@ class DeveloperServiceTest {
         //then
         assertEquals(expectedList.size(), actualList.size());
         for (int i = 0; i < expectedList.size(); i++) {
-            DeveloperDto expected = expectedList.get(0);
-            DeveloperDto actual = actualList.get(0);
+            DeveloperDto expected = expectedList.get(i);
+            DeveloperDto actual = actualList.get(i);
 
             assertNotNull(actual);
             assertEquals(expected.getName(), actual.getName());

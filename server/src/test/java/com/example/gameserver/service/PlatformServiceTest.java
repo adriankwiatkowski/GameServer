@@ -1,10 +1,10 @@
 package com.example.gameserver.service;
 
 import com.example.gameserver.GameServerApplication;
-import com.example.gameserver.domain.CategoryEntity;
-import com.example.gameserver.dto.CategoryDto;
-import com.example.gameserver.mapper.CategoryMapper;
-import com.example.gameserver.repository.CategoryRepository;
+import com.example.gameserver.domain.PlatformEntity;
+import com.example.gameserver.dto.PlatformDto;
+import com.example.gameserver.mapper.PlatformMapper;
+import com.example.gameserver.repository.PlatformRepository;
 import jakarta.persistence.EntityNotFoundException;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
@@ -20,31 +20,31 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
 @SpringBootTest(classes = GameServerApplication.class)
-class CategoryServiceTest {
+class PlatformServiceTest {
 
     @MockBean
-    private CategoryRepository repository;
+    private PlatformRepository repository;
 
     @Autowired
-    private CategoryService service;
+    private PlatformService service;
 
     @Autowired
-    private CategoryMapper mapper;
+    private PlatformMapper mapper;
 
     @Test
-    void givenCategories_whenGetAllCategories_thenOk() {
+    void givenPlatforms_whenGetAllPlatforms_thenOk() {
         //given
-        List<CategoryEntity> expectedList = getCategories();
+        List<PlatformEntity> expectedList = getPlatforms();
         when(repository.findAll()).thenReturn(expectedList);
 
         //when
-        List<CategoryDto> actualList = service.getAllCategories();
+        List<PlatformDto> actualList = service.getAllPlatforms();
 
         //then
         assertEquals(expectedList.size(), actualList.size());
         for (int i = 0; i < expectedList.size(); i++) {
-            CategoryEntity expected = expectedList.get(i);
-            CategoryDto actual = actualList.get(i);
+            PlatformEntity expected = expectedList.get(i);
+            PlatformDto actual = actualList.get(i);
 
             assertNotNull(actual);
             assertEquals(expected.getName(), actual.getName());
@@ -55,12 +55,12 @@ class CategoryServiceTest {
     @Test
     void givenDtoAndMockSave_whenInsert_thenIdIsNull() {
         //given
-        CategoryDto original = getCategoryDto("Category 1");
+        PlatformDto original = getPlatformDto("Platform 1");
         original.setId(1L);
-        when(repository.save(any(CategoryEntity.class))).thenReturn(mapper.toEntity(original));
+        when(repository.save(any(PlatformEntity.class))).thenReturn(mapper.toEntity(original));
 
         //when
-        CategoryDto actual = service.insert(original);
+        PlatformDto actual = service.insert(original);
 
         //then
         assertNull(actual.getId());
@@ -69,37 +69,37 @@ class CategoryServiceTest {
     @Test
     void givenDtoAndMockSave_whenInsert_thenNameIsSame() {
         //given
-        CategoryDto original = getCategoryDto("Category 1");
+        PlatformDto original = getPlatformDto("Platform 1");
         original.setId(1L);
-        when(repository.save(any(CategoryEntity.class))).thenReturn(mapper.toEntity(original));
+        when(repository.save(any(PlatformEntity.class))).thenReturn(mapper.toEntity(original));
 
         //when
-        CategoryDto actual = service.insert(original);
+        PlatformDto actual = service.insert(original);
 
         //then
-        assertEquals("Category 1", actual.getName());
+        assertEquals("Platform 1", actual.getName());
     }
 
     @Test
     void givenDtoAndMockSaveAndMockExistsById_whenUpdate_thenDataIsSame() {
         //given
-        CategoryDto original = getCategoryDto("Category 1");
+        PlatformDto original = getPlatformDto("Platform 1");
         original.setId(1L);
-        when(repository.save(any(CategoryEntity.class))).thenReturn(mapper.toEntity(original));
+        when(repository.save(any(PlatformEntity.class))).thenReturn(mapper.toEntity(original));
         when(repository.existsById(1L)).thenReturn(true);
 
         //when
-        CategoryDto actual = service.update(original);
+        PlatformDto actual = service.update(original);
 
         //then
         assertEquals(1L, actual.getId());
-        assertEquals("Category 1", actual.getName());
+        assertEquals("Platform 1", actual.getName());
     }
 
     @Test
     void givenNonExistentId_whenUpdate_thenThrowsEntityNotFoundException() {
         //given
-        CategoryDto original = getCategoryDto("Category 2");
+        PlatformDto original = getPlatformDto("Platform 2");
         original.setId(1L);
         when(repository.existsById(any())).thenReturn(false);
 
@@ -112,18 +112,18 @@ class CategoryServiceTest {
     void givenExistentId_whenDelete_thenOk() {
         //given
         Long id = 1L;
-        when(repository.findById(any())).thenReturn(Optional.of(getCategory("Category 3")));
+        when(repository.findById(any())).thenReturn(Optional.of(getPlatform("Platform 3")));
         when(repository.existsById(any())).thenReturn(true);
 
         //when
         //then
-        assertDoesNotThrow(() -> service.deleteCategory(id));
+        assertDoesNotThrow(() -> service.deletePlatform(id));
     }
 
     @Test
     void givenNonExistentId_whenDelete_thenThrowsEntityNotFoundException() {
         //given
-        CategoryDto original = getCategoryDto("Category 2");
+        PlatformDto original = getPlatformDto("Platform 2");
         original.setId(1L);
         when(repository.findById(any())).thenReturn(Optional.empty());
 
@@ -132,22 +132,22 @@ class CategoryServiceTest {
         assertThrows(EntityNotFoundException.class, () -> service.update(original));
     }
 
-    private List<CategoryEntity> getCategories() {
+    private List<PlatformEntity> getPlatforms() {
         return List.of(
-                getCategory("Category 1"),
-                getCategory("Category 2"),
-                getCategory("Category 3")
+                getPlatform("Platform 1"),
+                getPlatform("Platform 2"),
+                getPlatform("Platform 3")
         );
     }
 
-    private CategoryEntity getCategory(String name) {
-        return CategoryEntity.builder()
+    private PlatformEntity getPlatform(String name) {
+        return PlatformEntity.builder()
                 .name(name)
                 .build();
     }
 
-    private CategoryDto getCategoryDto(String name) {
-        return CategoryDto.builder()
+    private PlatformDto getPlatformDto(String name) {
+        return PlatformDto.builder()
                 .name(name)
                 .build();
     }
