@@ -7,7 +7,7 @@ GET http://localhost:8080/api/game/name/Half
 Authorization: Bearer {{jwt}}
 
 ### Get game by id
-GET http://localhost:8080/api/game/1
+GET http://localhost:8080/api/game/216
 Authorization: Bearer {{jwt}}
 
 ### Insert game - admin
@@ -18,26 +18,26 @@ Content-Type: application/json
 {
   "id": null,
   "name": "New Game",
-  "description": "Game description",
-  "releaseDate": "2023-10-10",
-  "positiveRatings": 1423,
-  "negativeRatings": 79,
-  "averagePlaytime": 832,
-  "medianPlaytime": 752,
-  "owners": "10000-30000",
-  "price": 50.99,
+  "description": "One of the most popular online action games of all time, Team Fortress Classic features over nine character classes -- from Medic to Spy to Demolition Man -- enlisted in a unique style of online team warfare. Each character class possesses unique weapons, items, and abilities, as teams compete online in a variety of game play modes.",
+  "releaseDate": "1999-04-01",
+  "positiveRatings": 3318,
+  "negativeRatings": 633,
+  "averagePlaytime": 277,
+  "medianPlaytime": 62,
+  "owners": "5000000-10000000",
+  "price": 3.99,
   "categories": [
     {
-      "id": 18,
-      "name": "Co-op"
+      "id": 2,
+      "name": "Online Multi-Player"
     },
     {
-      "id": 5,
-      "name": "Single-player"
+      "id": 4,
+      "name": "Valve Anti-Cheat enabled"
     },
     {
-      "id": 10,
-      "name": "Partial Controller Support"
+      "id": 3,
+      "name": "Local Multi-Player"
     },
     {
       "id": 1,
@@ -46,23 +46,11 @@ Content-Type: application/json
   ],
   "developers": [
     {
-      "id": 176,
-      "name": "Ubisoft Montréal"
-    },
-    {
-      "id": 815,
-      "name": "and Ubisoft Shanghai"
-    },
-    {
-      "id": 814,
-      "name": "Massive Entertainment"
+      "id": 1,
+      "name": "Valve"
     }
   ],
   "genres": [
-    {
-      "id": 4,
-      "name": "Adventure"
-    },
     {
       "id": 1,
       "name": "Action"
@@ -72,12 +60,20 @@ Content-Type: application/json
     {
       "id": 1,
       "name": "windows"
+    },
+    {
+      "id": 3,
+      "name": "linux"
+    },
+    {
+      "id": 2,
+      "name": "mac"
     }
   ],
   "publishers": [
     {
-      "id": 10,
-      "name": "Ubisoft"
+      "id": 1,
+      "name": "Valve"
     }
   ]
 }
@@ -89,27 +85,27 @@ Content-Type: application/json
 
 {
   "id": 1,
-  "name": "New Game",
-  "description": "Game description",
-  "releaseDate": "2023-10-10",
-  "positiveRatings": 1423,
-  "negativeRatings": 79,
-  "averagePlaytime": 832,
-  "medianPlaytime": 752,
-  "owners": "10000-30000",
-  "price": 50.99,
+  "name": "Updated Game",
+  "description": "One of the most popular online action games of all time, Team Fortress Classic features over nine character classes -- from Medic to Spy to Demolition Man -- enlisted in a unique style of online team warfare. Each character class possesses unique weapons, items, and abilities, as teams compete online in a variety of game play modes.",
+  "releaseDate": "1999-04-01",
+  "positiveRatings": 3318,
+  "negativeRatings": 633,
+  "averagePlaytime": 277,
+  "medianPlaytime": 62,
+  "owners": "5000000-10000000",
+  "price": 3.99,
   "categories": [
     {
-      "id": 18,
-      "name": "Co-op"
+      "id": 2,
+      "name": "Online Multi-Player"
     },
     {
-      "id": 5,
-      "name": "Single-player"
+      "id": 4,
+      "name": "Valve Anti-Cheat enabled"
     },
     {
-      "id": 10,
-      "name": "Partial Controller Support"
+      "id": 3,
+      "name": "Local Multi-Player"
     },
     {
       "id": 1,
@@ -118,23 +114,11 @@ Content-Type: application/json
   ],
   "developers": [
     {
-      "id": 176,
-      "name": "Ubisoft Montréal"
-    },
-    {
-      "id": 815,
-      "name": "and Ubisoft Shanghai"
-    },
-    {
-      "id": 814,
-      "name": "Massive Entertainment"
+      "id": 1,
+      "name": "Valve"
     }
   ],
   "genres": [
-    {
-      "id": 4,
-      "name": "Adventure"
-    },
     {
       "id": 1,
       "name": "Action"
@@ -144,12 +128,20 @@ Content-Type: application/json
     {
       "id": 1,
       "name": "windows"
+    },
+    {
+      "id": 3,
+      "name": "linux"
+    },
+    {
+      "id": 2,
+      "name": "mac"
     }
   ],
   "publishers": [
     {
-      "id": 10,
-      "name": "Ubisoft"
+      "id": 1,
+      "name": "Valve"
     }
   ]
 }

@@ -5,7 +5,7 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.*;
 
-import java.util.LinkedHashSet;
+import java.util.HashSet;
 import java.util.Set;
 
 @AllArgsConstructor
@@ -27,9 +27,6 @@ public class CategoryEntity {
     @Column(name = "name", nullable = false, unique = true)
     private String name;
 
-    @ManyToMany
-    @JoinTable(name = "game_category",
-            joinColumns = @JoinColumn(name = "category_id"),
-            inverseJoinColumns = @JoinColumn(name = "game_id"))
-    private Set<GameEntity> games = new LinkedHashSet<>();
+    @ManyToMany(mappedBy = "categories", cascade = CascadeType.MERGE)
+    private Set<GameEntity> games = new HashSet<>();
 }

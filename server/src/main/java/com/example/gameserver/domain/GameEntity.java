@@ -7,7 +7,7 @@ import lombok.*;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.util.LinkedHashSet;
+import java.util.HashSet;
 import java.util.Set;
 
 @AllArgsConstructor
@@ -63,21 +63,36 @@ public class GameEntity {
     @Column(name = "price", nullable = false, precision = 10, scale = 2)
     private BigDecimal price;
 
-    @ManyToMany(mappedBy = "games", fetch = FetchType.EAGER)
-    private Set<CategoryEntity> categories = new LinkedHashSet<>();
+    @ManyToMany(cascade = CascadeType.MERGE)
+    @JoinTable(name = "game_category",
+            joinColumns = @JoinColumn(name = "game_id"),
+            inverseJoinColumns = @JoinColumn(name = "category_id"))
+    private Set<CategoryEntity> categories = new HashSet<>();
 
-    @ManyToMany(mappedBy = "games", fetch = FetchType.EAGER)
-    private Set<DeveloperEntity> developers = new LinkedHashSet<>();
+    @ManyToMany(cascade = CascadeType.MERGE)
+    @JoinTable(name = "game_developer",
+            joinColumns = @JoinColumn(name = "game_id"),
+            inverseJoinColumns = @JoinColumn(name = "developer_id"))
+    private Set<DeveloperEntity> developers = new HashSet<>();
 
-    @ManyToMany(mappedBy = "games", fetch = FetchType.EAGER)
-    private Set<GenreEntity> genres = new LinkedHashSet<>();
+    @ManyToMany(cascade = CascadeType.MERGE)
+    @JoinTable(name = "game_genre",
+            joinColumns = @JoinColumn(name = "game_id"),
+            inverseJoinColumns = @JoinColumn(name = "genre_id"))
+    private Set<GenreEntity> genres = new HashSet<>();
 
-    @ManyToMany(mappedBy = "games", fetch = FetchType.EAGER)
-    private Set<PlatformEntity> platforms = new LinkedHashSet<>();
+    @ManyToMany
+    @JoinTable(name = "game_platform",
+            joinColumns = @JoinColumn(name = "game_id"),
+            inverseJoinColumns = @JoinColumn(name = "platform_id"))
+    private Set<PlatformEntity> platforms = new HashSet<>();
 
-    @ManyToMany(mappedBy = "games", fetch = FetchType.EAGER)
-    private Set<PublisherEntity> publishers = new LinkedHashSet<>();
+    @ManyToMany
+    @JoinTable(name = "game_publisher",
+            joinColumns = @JoinColumn(name = "game_id"),
+            inverseJoinColumns = @JoinColumn(name = "publisher_id"))
+    private Set<PublisherEntity> publishers = new HashSet<>();
 
-    @OneToMany(mappedBy = "game", cascade = CascadeType.ALL)
-    private Set<GameReviewEntity> gameReviews;
+    @OneToMany(mappedBy = "game", cascade = CascadeType.MERGE)
+    private Set<GameReviewEntity> gameReviews = new HashSet<>();
 }

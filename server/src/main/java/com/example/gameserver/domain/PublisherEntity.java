@@ -27,9 +27,6 @@ public class PublisherEntity {
     @Column(name = "name", nullable = false, unique = true)
     private String name;
 
-    @ManyToMany
-    @JoinTable(name = "game_publisher",
-            joinColumns = @JoinColumn(name = "publisher_id"),
-            inverseJoinColumns = @JoinColumn(name = "game_id"))
+    @ManyToMany(mappedBy = "publishers", cascade = CascadeType.MERGE)
     private Set<GameEntity> games = new LinkedHashSet<>();
 }
