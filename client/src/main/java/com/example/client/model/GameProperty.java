@@ -21,7 +21,7 @@ public class GameProperty {
     public final SimpleSetProperty<Developer> developers;
     public final SimpleSetProperty<Genre> genres;
     public final SimpleSetProperty<Platform> platforms;
-    private final SimpleSetProperty<Publisher> publishers;
+    public final SimpleSetProperty<Publisher> publishers;
 
     public GameProperty(Game game) {
         this.id = new SimpleObjectProperty<>(game.getId());
