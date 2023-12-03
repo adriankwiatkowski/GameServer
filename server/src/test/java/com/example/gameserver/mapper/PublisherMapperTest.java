@@ -16,24 +16,30 @@ class PublisherMapperTest {
 
     @Test
     public void givenEntity_whenToDto_thenOk() {
+        //given
         PublisherEntity publisherEntity = new PublisherEntity();
         publisherEntity.setId(1L);
         publisherEntity.setName("Wydawca");
 
+        //when
         PublisherDto publisherDto = publisherMapper.toDto(publisherEntity);
 
+        //then
         Assertions.assertEquals(publisherEntity.getId(), publisherDto.getId());
         Assertions.assertEquals(publisherEntity.getName(), publisherDto.getName());
     }
 
     @Test
     public void givenDto_whenToEntity_thenOk() {
+        //given
         PublisherDto publisherDto = new PublisherDto();
         publisherDto.setId(1L);
         publisherDto.setName("Wydawca");
 
+        //when
         PublisherEntity publisherEntity = publisherMapper.toEntity(publisherDto);
 
+        //then
         Assertions.assertEquals(publisherDto.getId(), publisherEntity.getId());
         Assertions.assertEquals(publisherDto.getName(), publisherEntity.getName());
     }
