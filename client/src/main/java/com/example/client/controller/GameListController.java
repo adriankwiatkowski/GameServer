@@ -32,8 +32,8 @@ public class GameListController implements Controller, Initializable {
             throw new IllegalStateException("Model can only be initialized once");
         }
         this.profileModel = profileModel;
-        this.gameTableController.updateProfileModel(profileModel);
         this.screenController = screenController;
+        this.gameTableController.updateData(profileModel, screenController);
     }
 
     @Override
@@ -41,6 +41,7 @@ public class GameListController implements Controller, Initializable {
         gameTableController = GameTableController.builder()
                 .profileModel(this.profileModel)
                 .rowPerPage(10)
+                .screenController(screenController)
                 .pagination(this.pagination)
                 .gamePropertyList(this.gamePropertyList)
                 .gameInfo(this.gameInfo)
