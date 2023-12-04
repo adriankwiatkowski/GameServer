@@ -11,6 +11,7 @@ import com.example.gameserver.util.Authority;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -24,7 +25,7 @@ import java.util.Set;
 @Service
 @Transactional
 @RequiredArgsConstructor
-public class MyUserDetailsServiceImpl implements MyUserDetailsService {
+public class AuthServiceImpl implements AuthService, UserDetailsService {
 
     private final PasswordEncoder passwordEncoder;
     private final UserRepository userRepository;

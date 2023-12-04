@@ -2,7 +2,7 @@ package com.example.gameserver;
 
 import com.example.gameserver.dto.RegisterDto;
 import com.example.gameserver.dto.RoleDto;
-import com.example.gameserver.service.MyUserDetailsService;
+import com.example.gameserver.service.AuthService;
 import com.example.gameserver.service.RoleService;
 import com.example.gameserver.util.Authority;
 import lombok.RequiredArgsConstructor;
@@ -15,7 +15,7 @@ import org.springframework.stereotype.Component;
 public class DatabaseInit implements ApplicationRunner {
 
     private final RoleService roleService;
-    private final MyUserDetailsService myUserDetailsService;
+    private final AuthService authService;
 
     @Override
     public void run(ApplicationArguments args) {
@@ -35,9 +35,9 @@ public class DatabaseInit implements ApplicationRunner {
     private void saveUser(RegisterDto registerDto, boolean admin) {
         try {
             if (admin) {
-                myUserDetailsService.registerAdmin(registerDto);
+                authService.registerAdmin(registerDto);
             } else {
-                myUserDetailsService.register(registerDto);
+                authService.register(registerDto);
             }
         } catch (Exception ignored) {
         }
