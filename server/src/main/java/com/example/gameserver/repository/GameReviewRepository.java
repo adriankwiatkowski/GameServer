@@ -10,4 +10,6 @@ import java.util.List;
 public interface GameReviewRepository extends JpaRepository<GameReviewEntity, Long> {
 
     List<GameReviewEntity> findAllByGameId(Long gameId);
+
+    boolean existsByUserIdAndGameId(Long userId, Long gameId);
 }
