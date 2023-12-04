@@ -44,4 +44,10 @@ public class RestExceptionHandler {
         LOG.debug(e.getMessage());
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Incorrect username or password");
     }
+
+    @ExceptionHandler(GameReviewDuplicateException.class)
+    public ResponseEntity<Object> handleException(GameReviewDuplicateException e) {
+        LOG.debug(e.getMessage());
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+    }
 }

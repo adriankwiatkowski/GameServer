@@ -2,6 +2,7 @@ package com.example.gameserver.service;
 
 import com.example.gameserver.domain.GameReviewEntity;
 import com.example.gameserver.dto.GameReviewDto;
+import com.example.gameserver.exception.GameReviewDuplicateException;
 import com.example.gameserver.mapper.GameReviewMapper;
 import com.example.gameserver.repository.GameRepository;
 import com.example.gameserver.repository.GameReviewRepository;
@@ -46,6 +47,8 @@ public class GameReviewService {
         sanitizeUser(gameReview, username);
         sanitizeGame(gameReview, gameReviewDto.getGameId());
 
+        ensureIsNotDuplicate(gameReview);
+
         gameReviewRepository.save(gameReview);
 
         return gameReviewMapper.toDto(gameReview);
@@ -59,6 +62,21 @@ public class GameReviewService {
     private void ensureGameReviewExists(Long id) {
         if (!gameReviewRepository.existsById(id)) {
             throw new EntityNotFoundException(String.format("GameReview not found with id: %d", id));
+        }
+    }
+
+    private void ensureIsNotDuplicate(GameReviewEntity gameReviewEntity) {
+        var isNewEntity = gameReviewEntity.getId() == null;
+        if (!isNewEntity) {
+            return;
+        }
+
+        var userId = gameReviewEntity.getUser().getId();
+        var gameId = gameReviewEntity.getGame().getId();
+
+        if (gameReviewRepository.existsByUserIdAndGameId(userId, gameId)) {
+            throw new GameReviewDuplicateException(
+                    String.format("GameReview already exists for user with id: %d and game with id %d", userId, gameId));
         }
     }
 
