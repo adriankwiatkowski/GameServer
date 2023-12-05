@@ -11,14 +11,15 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
 @ControllerAdvice
-public class RestExceptionHandler {
+public class ControllerExceptionHandler {
 
-    private static final Logger LOG = LoggerFactory.getLogger(RestExceptionHandler.class);
+    private static final Logger LOG = LoggerFactory.getLogger(ControllerExceptionHandler.class);
 
     @ExceptionHandler(EntityNotFoundException.class)
     public ResponseEntity<Object> handleException(EntityNotFoundException e) {
         LOG.debug(e.getMessage());
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Entity doesn't exist");
+        var message = e.getMessage().isBlank() ? "Entity doesn't exist" : e.getMessage();
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(message);
     }
 
     @ExceptionHandler(UsernameNotFoundException.class)
