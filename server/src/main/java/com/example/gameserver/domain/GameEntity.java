@@ -93,6 +93,6 @@ public class GameEntity {
             inverseJoinColumns = @JoinColumn(name = "publisher_id"))
     private Set<PublisherEntity> publishers = new HashSet<>();
 
-    @OneToMany(mappedBy = "game", cascade = CascadeType.MERGE)
+    @OneToMany(mappedBy = "game", cascade = CascadeType.ALL)
     private Set<GameReviewEntity> gameReviews = new HashSet<>();
 }

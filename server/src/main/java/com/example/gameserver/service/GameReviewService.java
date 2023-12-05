@@ -27,6 +27,8 @@ public class GameReviewService {
     private final GameReviewMapper gameReviewMapper;
 
     public List<GameReviewDto> getGameReviews(Long gameId) {
+        ensureGameExists(gameId);
+
         return gameReviewRepository.findAllByGameId(gameId).stream()
                 .map(gameReviewMapper::toDto)
                 .collect(Collectors.toList());
@@ -62,6 +64,12 @@ public class GameReviewService {
     private void ensureGameReviewExists(Long id) {
         if (!gameReviewRepository.existsById(id)) {
             throw new EntityNotFoundException(String.format("GameReview not found with id: %d", id));
+        }
+    }
+
+    private void ensureGameExists(Long id) {
+        if (!gameRepository.existsById(id)) {
+            throw new EntityNotFoundException(String.format("Game not found with id: %d", id));
         }
     }
 
