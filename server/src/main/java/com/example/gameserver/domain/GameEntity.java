@@ -81,13 +81,13 @@ public class GameEntity {
             inverseJoinColumns = @JoinColumn(name = "genre_id"))
     private Set<GenreEntity> genres = new HashSet<>();
 
-    @ManyToMany
+    @ManyToMany(cascade = CascadeType.MERGE)
     @JoinTable(name = "game_platform",
             joinColumns = @JoinColumn(name = "game_id"),
             inverseJoinColumns = @JoinColumn(name = "platform_id"))
     private Set<PlatformEntity> platforms = new HashSet<>();
 
-    @ManyToMany
+    @ManyToMany(cascade = CascadeType.MERGE)
     @JoinTable(name = "game_publisher",
             joinColumns = @JoinColumn(name = "game_id"),
             inverseJoinColumns = @JoinColumn(name = "publisher_id"))
