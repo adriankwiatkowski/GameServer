@@ -138,10 +138,10 @@ public class UpdateGameController implements GameDataController, Initializable {
         addListenerToTextField(owners, game::setOwners);
         priceField.textProperty().addListener((observable, oldValue, newValue) -> {
             if (!newValue.matches("\\d*")) {
-                newValue.replaceAll("[^\\d]", "");
+                newValue = newValue.replaceAll("[^\\d]", "");
                 priceField.setText(newValue);
             }
-            if (game != null) {
+            if (!newValue.isEmpty() && game != null) {
                 game.setPrice(new BigDecimal(newValue));
             }
         });
@@ -203,10 +203,10 @@ public class UpdateGameController implements GameDataController, Initializable {
     private void addListenerToNumberField(TextField textField, FieldSetter<Integer> setter) {
         textField.textProperty().addListener((observable, oldValue, newValue) -> {
             if (!newValue.matches("\\d*")) {
-                newValue.replaceAll("[^\\d]", "");
+                newValue = newValue.replaceAll("[^\\d]", "");
                 textField.setText(newValue);
             }
-            if (game != null) {
+            if (!newValue.isEmpty() && game != null) {
                 setter.set(Integer.parseInt(newValue)); // Update the Game object with new value
             }
         });
